@@ -1,0 +1,60 @@
+# This file is a "template" of what your parameters.yml file should look like
+# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
+# http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+parameters:
+    database_host:     '%env(DATABASE_HOST)%'
+    env(DATABASE_HOST): 127.0.0.1
+    database_port:     '%env(DATABASE_PORT)%'
+    env(DATABASE_PORT): 3306
+    database_name:     '%env(DATABASE_NAME)%'
+    env(DATABASE_NAME): symfony
+    database_user:     '%env(DATABASE_USER)%'
+    env(DATABASE_USER): symfony
+    database_password: '%env(DATABASE_PASSWORD)%'
+    env(DATABASE_PASSWORD): Fhw8j6HxxUXY
+    database_driver: '%env(DATABASE_DRIVER)%'
+    env(DATABASE_DRIVER): pdo_mysql
+    database_version: '%env(DATABASE_VERSION)%'
+    env(DATABASE_VERSION): 5.7
+
+    samlidp_hostname: '%env(SAMLIDP_HOSTNAME)%'
+    env(SAMLIDP_HOSTNAME): example.org
+
+    templatebundle_name: '%env(TEMPLATEBUNDLE_NAME)%'
+    env(TEMPLATEBUNDLE_NAME): AppBundle
+
+    mailer_transport:  smtp
+    mailer_host:       '%env(MAILER_HOST)%'
+    env(MAILER_HOST): 127.0.0.1
+    mailer_port:       '%env(MAILER_PORT)%'
+    env(MAILER_PORT): 25
+    mailer_user:       '%env(MAILER_USER)%'
+    env(MAILER_USER): user
+    mailer_password:   '%env(MAILER_PASSWORD)%'
+    env(MAILER_PASSWORD): password
+    mailer_encryption: '%env(MAILER_ENCRYPTION)%'
+    env(MAILER_ENCRYPTION): tls
+    mailer_sender:   '%env(MAILER_SENDER)%'
+    env(MAILER_SENDER): norepy@example.org
+
+
+    # A secret key that's used to generate certain security-related tokens
+    secret:            ThisTokenIsNotSoSecretChangeItttt
+
+    rollbar_access_token: '%env(ROLLBAR_ACCESS_TOKEN)%'
+    env(ROLLBAR_ACCESS_TOKEN): faketoken
+    rollbar_key:          none
+
+    s3client_key: '%env(S3_KEY)%'
+    env(S3_KEY): fakekey
+    s3client_secret: '%env(S3_SECRET)%'
+    env(S3_SECRET): fakesecret
+    s3client_region: '%env(S3_REGIO)%'
+    env(S3_REGIO): fakeregio
+    s3client_bucket: '%env(S3_BUCKET)%'
+    env(S3_BUCKET): fakebucket
+
+    slack_url: '%env(SLACK_URL)%'
+    env(SLACK_URL): fakeslackurl
+
+    loggly_access_token: "fake"

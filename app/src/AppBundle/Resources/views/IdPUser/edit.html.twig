@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain "idp_user" %}
+
+{% block body %}
+<div class="ibox">
+    <div class="ibox-title">
+        <h1>{{ "edit.title"|trans|raw }}</h1>
+    </div>
+    <div class="ibox-content">
+        {% if idPUser.enabled == false %}
+            <div class="alert alert-warning">
+                This User is inactivated.
+            </div>
+        {% endif %}
+        {{ form_start(edit_form) }}
+        {{ form_row(edit_form.username, { 'attr': {'readonly': 'true' }}) }}
+        {{ form_row(edit_form.email) }}
+        {{ form_row(edit_form.givenName) }}
+        {{ form_row(edit_form.surName) }}
+        {{ form_widget(edit_form) }}
+
+        <div class="hr-line-dashed"></div>
+
+        <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-2">
+                <a class="btn btn-white" href="{{ path('idpuser_index', {id: idPUser.IdP.id}) }}">{{ "back_to_list_button"|trans|raw }}</a>
+                <input type="submit" class="btn btn-primary" value="{{ "edit.save_changes_button"|trans|raw }}" />
+            </div>
+            {{ form_end(edit_form) }}
+            <a class="btn btn-danger pull-right m-l-xs" href="#" data-toggle="modal" data-target="#confirm-delete" data-href="{{ path('idpuser_delete', {id: idPUser.id}) }}"><i class="fa fa-delete"></i> {{ "edit.delete_button"|trans|raw }}</a>
+            {% if idPUser.enabled %}
+                <a class="btn btn-warning pull-right" href="{{ path('idpuser_inactivate', {id: idPUser.id}) }}">{{ "edit.inactivate"|trans|raw }}</a>
+            {% else %}
+                <a class="btn btn-warning" {% if idPUser.passwordRequestedAt %} role="button" data-toggle="modal" data-target="#confirm-initpasswordreset" data-href="{{ path('idpuser_initpasswordreset', {id: idPUser.id}) }}" {% else %} href="{{ path('idpuser_initpasswordreset', {id: idPUser.id}) }}" {% endif %} ><i class="fa fa-refresh"></i> {{ "edit.send_password_reset_button_and_recover"|trans|raw }}</a>
+            {% endif %}
+            
+        </div>
+        {% if idPUser.enabled %}
+        <div class="hr-line-dashed"></div>
+        <div class="col-sm-8 col-sm-offset-2">
+            <a class="btn btn-success" {% if idPUser.passwordRequestedAt %} data-toggle="modal" data-target="#confirm-initpasswordreset" data-href="{{ path('idpuser_initpasswordreset', {id: idPUser.id}) }}" {% else %} href="{{ path('idpuser_initpasswordreset', {id: idPUser.id}) }}" {% endif %}><i class="fa fa-refresh"></i> {{ "edit.send_password_reset_button"|trans|raw }}</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                {{ "edit.modal_delete_confirm_title"|trans|raw }}
+            </div>
+            <div class="modal-body">
+                {{ "edit.modal_delete_confirm_text"|trans|raw }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ "list.cancel"|trans|raw }}</button>
+                <a class="btn btn-danger btn-ok" id="confirm-delete-button">{{ "edit.delete_button"|trans|raw }}</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% if idPUser.passwordRequestedAt %}
+    <div class="modal fade" id="confirm-initpasswordreset" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {{ "edit.modal_initpasswordreset_title"|trans|raw }}
+                </div>
+                <div class="modal-body">
+                    {{ "edit.modal_initpasswordreset_text"|trans({"%date%": idPUser.passwordRequestedAt|date})|raw }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">{{ "list.cancel"|trans|raw }}</button>
+                    <a class="btn btn-danger btn-ok" id="confirm-initpasswordreset-button">{{ "edit.initpasswordreset_button"|trans|raw }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+    $('#confirm-delete').on('show.bs.modal', function(e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+    });
+    $('#confirm-initpasswordreset').on('show.bs.modal', function(e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+    });
+    </script>
+{% endblock %}
+

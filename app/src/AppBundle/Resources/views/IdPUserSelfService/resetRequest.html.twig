@@ -1,0 +1,31 @@
+{% extends "@FOSUser/layout.html.twig" %}
+{% block fos_user_content %}
+{% trans_default_domain 'FOSUserBundle' %}
+{% if token is defined %}
+    {{ "resetting.request.mail_sent"|trans|raw }}
+{% else %}
+<h1>{{ "resetting.request.title"|trans|raw }}</h1>
+<div class="pull-right">
+    {{ "resetting.request.for_idp"|trans({"%idp%": domain})|raw }}
+</div>
+<form action="{{ path('idpuser_resetting_request', {domain: domain}) }}" method="POST" class="fos_user_resetting_request">
+    <div class="form-group {% if invalid_idp is defined or invalid_username is defined %} has-error {% endif %}">
+
+        <label for="username">{{ 'resetting.request.username'|trans }}</label>
+        <input class="form-control" type="text" id="username" name="username" required="required" />
+        <p class="text-danger help-block">
+            {% if invalid_idp is defined %}
+                {{ 'resetting.request.invalid_idp'|trans({'%idp%': invalid_idp}) }}
+            {% endif %}
+            {% if invalid_username is defined %}
+                {{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}
+            {% endif %}
+        </p>
+    </div>
+    <div style="margin-top: 12px;">
+        <input class="btn-block btn btn-primary"  type="submit" value="{{ 'resetting.request.submit'|trans }}" />
+    </div>
+</form>
+{% endif %}
+
+{% endblock %}

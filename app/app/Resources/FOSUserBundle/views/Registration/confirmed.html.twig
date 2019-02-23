@@ -1,0 +1,12 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <p class="text-center">{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
+    <p class="clearfix text-center"><a role="button" class="btn btn-primary btn-lg" href="{{ path('app_idp_idpadd') }}"><i class="fa fa-key fa-lg m-r-sm"></i>Create your first Identity Provider</a></p>
+        </div>
+    {% if targetUrl %}
+    <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
+    {% endif %}
+{% endblock fos_user_content %}

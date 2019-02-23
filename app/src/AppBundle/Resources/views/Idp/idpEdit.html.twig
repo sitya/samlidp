@@ -1,0 +1,743 @@
+{% extends "::base.html.twig" %}
+{% trans_default_domain "idp" %}
+
+{% block title %}{{ "edit.title"|trans({"%idp%": idp.instituteName()})|raw }}{% endblock %}
+
+{% block body %}
+<div class="ibox">
+    {% set create = false %}
+    {% if idp.instituteName() is null %}
+        {% set create = true %}
+    {% endif %}
+
+    <div class="ibox-title">
+		<h1 class="col-md-10">{% if create %}{{ "edit.create_step_second"|trans|raw }}{% else %}{{ "edit.bigtitle"|trans|raw }}{% endif %}</h1>
+    </div>
+	<div class="ibox-content">
+        <div class="form-group">
+            <div class="col-md-4"><h2 class="pull-right">{{ "edit.main_settings"|trans|raw }}</h2></div>
+        </div>
+        {% if not create %}
+        <div class="row p-sm">
+    		<div class="text-info col-md-8 col-md-offset-4">
+                <i class="fa fa-info m-r-sm"></i>{{ "edit.note"|trans|raw }}
+                <div class="hr-line-dashed"></div>
+            </div>
+
+        </div>
+        {% endif %}
+        <div class="clearfix p-m"></div>
+        <div>
+
+            {{ form_start(form, {'attr': {'id': 'form', 'action': path('app_idp_idpedit', {'id': idp.id}) }}) }}
+            <div class="form-group"><label class="col-sm-4 control-label required" for="id_p_edit_instituteName"></label>
+                <div class="col-sm-8">https://{{ idp.hostname }}.{{ samlidp_hostname }} {% block IdpDomainCheck %}{% endblock IdpDomainCheck %}</div>
+            </div>
+            {{ form_row(form.instituteName) }}
+            {{ form_row(form.instituteUrl) }}          
+            {{ form_end(form) }}
+
+            <div class="row">                
+                <label class="col-sm-4 control-label text-right" >{{ "edit.logo"|trans|raw }}</label>
+                <div class="col-sm-4">
+                    <div id="logowrapper">
+                    {% if idp.logo %}
+                        <img src="{{ absolute_url('/images/idp_logo/') }}/{{ idp.logo }}" style="height: 140px;">
+                        <a href="" id="remove_logo" class="text-danger"><i class="fa fa-times"></i> {{ "edit.remove_logo"|trans|raw }}</a>
+                    {% endif %}
+                        <span id="logoerror" class="help-block m-b-none text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+
+                    <form action="{{ oneup_uploader_endpoint('idplogos') }}" class="dropzone" id="dropzone">
+                        <input type="hidden" name="idpId" value="{{ idp.id }}">
+                    </form>
+                </div>
+            </div>
+            <div style="margin-top: 12px;">               
+                <form action="" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <div class="col-sm-8 col-sm-offset-4">            
+                            <button id="submitter" data-target="#form" class="btn btn-primary">{% if idp.instituteName() is not null %}{{ "edit.save"|trans|raw }}{% else %}{{ "edit.finish"|trans|raw }}{% endif %}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        {% if not create %}
+        <div class="clearfix"></div>
+        <div class="col-md-8 col-md-offset-4 pull-right hr-line-dashed"></div>        
+        
+        <div class="clearfix"></div>
+
+        <div class="form-group">
+            <div class="col-md-4"><h2 class="pull-right">{{ "edit.domains_and_scopes"|trans|raw }}</h2></div>
+        </div>        
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-8 col-md-offset-4">
+                <p>{{ "edit.domains_text"|trans({"%idp%": '@' ~ idp.hostname ~ '.' ~ samlidp_hostname })|raw }}</p>
+                <div id="domaindiv">                
+                    <div class="text-center p-md text-center">
+                        <strong id="hash">{{ idp.getDNSCheckerHash() }}</strong>
+                        <button class="btn btn-white  m-l-sm" id="verify-button" data-clipboard-target="#hash"><i class="fa fa-copy"></i></button>
+                    </div>
+                    
+                    <form name="verify-domain-form" class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">{{ "edit.domain_name"|trans|raw }}</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <input type="text" id="domain-to-verify" name="" class="form-control" value="" title="">
+                                    <span class="input-group-btn">
+                                        <button type="button" id="verify-domain" class="btn btn-primary">{{ "edit.verify_domain"|trans|raw }} <span id="verify-domain-status"></span></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    {% if idp.getDomains|length %}
+                    <div class="hr-line-dashed"></div>
+                    <h3>{{ "edit.verified_domains"|trans|raw }}</h3>
+
+                    <form name="scopes-form" class="form-horizontal scopes" role="form" data-nullscopedusers="{{ idp.IdPUsersWithoutScope|length }}">
+                        {% for domain in idp.getDomains %}
+                            <div class="domainDiv" id="{{ domain.domain }}" data-domainid="{{ domain.id }}">
+                                <div class="scopeCollection">
+                                    {% for scope in domain.getScopes %}
+                                        {% if scope == domain.idp.defaultScope %}
+                                            {% set isdefaultscope = true %}
+                                            {% set isdefaultscopelabel = 'label-primary' %}
+                                            {% set disabled = 'disabled=disabled' %}
+                                        {% else %}
+                                            {% set isdefaultscope = false %}
+                                            {% set isdefaultscopelabel = 'label-default' %}
+                                            {% set disabled = '' %}
+                                        {% endif %}
+                                        <div class="form-group">
+                                            <div class="col-sm-8 col-sm-offset-4">
+                                                <div class="input-group" data-scopeid="{{ scope.id }}" data-scopevalue="{{ scope.value }}" data-scopedusers="{{ scope.IdPUserCount }}" data-isdefaultscope="{{ isdefaultscope }}">
+                                                    <input type="text" name="" {% if scope.value == '@' %}disabled="diasbled"{% endif %} class="form-control scope text-right" value="{{ scope.value }}" title="">
+                                                    <span class="input-group-addon">.{{domain}}</span>
+                                                    <span class="input-group-addon">
+                                                        {% if isdefaultscope %}
+                                                            <span class="label {{ isdefaultscopelabel }} setDefaultScope" {{ disabled }} >{{ "edit.default_scope"|trans|raw }}</span>
+                                                        {% else %}
+                                                            <a href="" class="label {{ isdefaultscopelabel }} setDefaultScope" {{ disabled }} >{{ "edit.set_as_default_scope"|trans|raw }}</a>
+                                                        {% endif %}
+                                                        
+                                                        <span class="badge" title="{{ "edit.users_with_scope"|trans|raw }}">
+                                                        </span>
+                                                    </span>
+                                                    <span class="input-group-addon actionSpan" style="min-width: 60px;">
+                                                        {% if scope.value == '@' %}
+                                                            <a href="" class="deleteDomain" title="{{ "edit.delete_domain"|trans|raw }}"><i class="fa fa-trash text-danger"></i></a>
+                                                        {% else %}
+                                                            <a href="" class="deleteScope" title="{{ "edit.delete_scope"|trans|raw }}"><i class="fa fa-trash text-danger"></i></a>
+                                                        {% endif %}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="form-group">    
+                                    <div class="col-sm-8 col-sm-offset-4">
+                                        <a class="btn btn-success btn-xs pull-right buttonAddScope" data-domain="{{ domain }}"><i class="fa fa-plus"></i> {{ "edit.add_scope"|trans|raw }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        
+                    </form>
+                    {% endif %}
+                </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-8 col-md-offset-4 pull-right hr-line-dashed"></div>        
+                
+                <div class="clearfix"></div>
+
+                <div class="form-group">
+                    <div class="col-md-4"><h2 class="pull-right">{{ "edit.users"|trans|raw }}</h2></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8 col-md-offset-4">
+                        {% if idp.IdPUserCount == 0 %}
+                        <p>{{ "edit.add_users_text"|trans|raw }}</p>
+                        <a href="{{ path('idpuser_index', {id: idp.id}) }}" type="button" class="btn btn-primary"><i class="fa fa-users fa-lg m-r-sm"></i>{{ "edit.add_users_link"|trans|raw }}</a>
+                        {% else %}
+                            <p>{{ "edit.edit_users_text"|trans({"%count%": idp.IdPUserCount })|raw }}</p>
+                            <a href="{{ path('idpuser_index', {id: idp.id}) }}" type="button" class="btn btn-primary"><i class="fa fa-users fa-lg m-r-sm"></i>{{ "edit.edit_users_link"|trans|raw }}</a>
+                        {% endif %}
+                    </div>        
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-8 col-md-offset-4 pull-right hr-line-dashed"></div>        
+                
+                <div class="clearfix"></div>
+
+                <div class="form-group">
+                    <div class="col-md-4"><h2 class="pull-right">{{ "edit.federation"|trans|raw }}</h2><div class="clearfix"></div><p class="pull-right"><a href="{{ path('app_default_docs')}}" target="_blank">{{ "edit.federation_more_docs"|trans|raw }}</a></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8 col-md-offset-4">
+                        <h3>{{ "edit.metadata_title"|trans|raw }}</h3>
+                        <p>{{ "edit.metadata_text"|trans|raw }}</p>
+                        <div class="text-center p-md text-center">
+                            <strong id="metadataurl">https://{{ idp.hostname }}.{{ samlidp_hostname }}/saml2/idp/metadata.php</strong>
+                            <button class="btn btn-default m-l-sm" id="metadata-button" data-clipboard-target="#metadataurl"><i class="fa fa-copy"></i></button>
+                            <a class="btn btn-default btn-s text-left" target="_blank" href="https://{{ idp.hostname }}.{{ samlidp_hostname }}/saml2/idp/metadata.php"><i class="fa fa-eye"></i></a>
+                        </div>
+                        <h3>Test Identity Provider</h3>
+                        <p>{{ "edit.sp_text_anyway"|trans|raw }} <a href="https://attributes.{{ samlidp_hostname }}" target="_blank">attributes.{{ samlidp_hostname }}</a></p>
+                        <h3>{{ "edit.known_federation_title"|trans|raw }}</h3>
+                        <p>{{ "edit.known_federation_text"|trans|raw }}</p>
+                        <table class="table"><tbody>
+                        {% for fed in federations %}
+                            <tr><td><b>{{ fed.name }}</b></td><td>
+                                <div class="switch pull-right"><div class="onoffswitch">
+                                    <input type="checkbox" {% if idp in fed.idps %}checked{% endif %} class="onoffswitch-checkbox fedlistswitch" id="{{ fed.slug }}">
+                                    <label class="onoffswitch-label" for="{{ fed.slug }}"><span class="onoffswitch-inner"></span><span class="onoffswitch-switch"></span></label>
+                                </div></div>
+                            </td></tr>
+                        {% endfor %}
+                        </tbody>
+                        </table>
+                        <h3>{{ "edit.sp_title"|trans|raw }}</h3>
+                        <p>{{ "edit.sp_text"|trans|raw }}</p>
+                        <form name="sp-add-form" class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Metadata URL</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="spentityid" name="" class="form-control input-sm" title="Metadata URL for Service Provider" placeholder="Metadata URL for Service Provider">
+                                </div>
+                            </div>
+                            - OR -
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Metadata XML</label>
+                                <div class="col-sm-10">
+                                    <textarea type="text" id="spmetadataxml" name="" class="form-control" title="Metadata XML for Service Provider" placeholder="Insert metadata XML for Service Provider"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button type="button" id="spaddbutton" class="btn btn-primary">{{ "edit.add_sp_add_button"|trans|raw }}<span id="spadd-status"></span></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        {% if idp.entities|length > 0%}
+                        <p class="m-t-lg"><b>{{ "edit.list_sp_title"|trans|raw }}</b></p>
+                        <table class="table"><tbody>
+                            {% for entity in idp.entities %}
+                                <tr><td>{{ entity.entityid }}</td><td>
+                                    <div class="pull-right">
+                                        <a href="#" data-toggle="modal" data-target="#confirm-delete" data-spid="{{ entity.id }}" class="btn btn-danger btn-xs" title="{{ "edit.list_sp_remove_button"|trans|raw }}"><i class="fa fa-times"></i></a>
+                                    </div>
+                                </td></tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endif %}
+                    </div>        
+                    {% if not create %}
+                    <div class="clearfix"></div>
+                    <div class="col-md-8 col-md-offset-4 pull-right hr-line-dashed"></div>        
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-8">
+                            <a href="#" data-toggle="modal" data-target="#confirm-idp-delete" class="btn btn-danger" title="{{ "edit.idp_remove_button"|trans|raw }}">{{ "edit.idp_remove_button"|trans|raw }}</a>
+                        </div>
+                    </div>
+        {% endif %}
+                </div>                         
+        {% endif %}
+        </div>
+    </div>
+</div>
+<div class="prototypes" style="display: none">
+    <div id="scopePrototype" class="prototype">
+        <div class="form-group">
+            <div class="col-sm-8 col-sm-offset-4">
+                <div class="input-group" data-scopeid="" data-scopevalue="">
+                    <input type="text" dir="rtl" name="" class="form-control scope" value="" title="">
+                    <div class="input-group-addon">.__domain__</div>
+                    <span class="input-group-addon">
+                        <span class="label label-default">{{ "edit.default_scope"|trans|raw }}</span>
+                    </span>
+                    <span class="input-group-addon actionSpan" style="min-width: 60px;">
+                        <a href="" class="deleteScope" title="Delete scope"><i class="fa fa-trash text-danger"></i></a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="actionPrototype">
+        <a href="" class="saveScope" title="Save"><i class="fa fa-check text-success"></i></a>
+        <a href="" class="cancelScope" title="Cancel"><i class="fa fa-times text-danger"></i></a>
+    </div>
+
+    <div id="actionPrototypeDelete">
+        <a href="" class="deleteScope" title="Delete scope"><i class="fa fa-trash text-danger"></i></a>
+    </div>
+</div>
+<div class="modal fade" id="confirm-idp-delete" tabindex="-1" role="dialog" aria-labelledby="confirm-idp-delete" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                {{ "edit.idp_modal_delete_title"|trans|raw }}
+            </div>
+            <div class="modal-body">
+                {{ "edit.idp_modal_delete_content"|trans|raw }}
+
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-1 pull-left">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ "list.cancel"|trans|raw }}</button>
+                </div>
+                <div class="col-md-4 pull-right">
+                {{ form_start(delete_form, {'attr': {'id': 'delete_form' }}) }}
+                {{ form_rest(delete_form) }}
+                {{ form_end(delete_form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="sp-settings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <b>About the added Service Provider</b>
+            </div>
+            <div class="modal-body" id="sp-settings-body"></div>
+            <div class="modal-footer" id="sp-settings-footer">
+                <button type="button" class="btn btn-primary" id="spmodalok">OK, I got it</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="confirm-delete" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                {{ "edit.sp_modal_delete_title"|trans|raw }}
+                <input type="hidden" id="spidtodelete" value="0" />
+            </div>
+            <div class="modal-body">
+                {{ "edit.sp_modal_delete_content"|trans|raw }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ "list.cancel"|trans|raw }}</button>
+                <button class="btn btn-danger btn-ok" id="confirm-delete-button">{{ "edit.delete_button"|trans|raw }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts
+        '@dropzone_js'
+        '@clipboard_js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+
+        $(document).on('click', '#remove_logo', function(event){
+            event.preventDefault();
+            $.ajax({
+                url: '{{ path('app_idp_removelogo') }}',
+                type: 'POST',
+                data: {idpid: {{ idp.id }} },
+            })
+            .done(function(data) {
+                if (data.success) {
+                    $('#logowrapper').empty();
+                } else {
+                    $('#logoerror').txt(data.message);
+                }
+            })
+            .fail(function() {
+                $('#logoerror').txt(data.message);
+            });
+        });
+
+        Dropzone.options.dropzone = {
+          init: function () {
+              var logowrapper = $('#logowrapper');
+              this.on("addedfile", function (file) {
+                  logowrapper.html('<i class="fa fa-spin fa-spinner fa-4x"></i>');
+              });
+              this.on("complete", function (file) {
+                  var dzimage = $('.dz-image');
+                  var image = dzimage.html();
+                  logowrapper.html(image);
+                  logowrapper.append('<a href="" id="remove_logo" class="text-danger"><i class="fa fa-times"></i> {{ "edit.remove_logo"|trans|raw }}</a>');
+                  dzimage.remove();
+              });
+          }
+        };
+
+
+        $(document).on('click', '#submitter', function(event){
+            event.preventDefault();
+            $($(this).data('target')).submit();            
+        });
+        
+        $(document).on('click', '#verify-domain', function(event) {
+            event.preventDefault();
+            $('#verify-domain-status').html('<i class="fa fa-refresh fa-spin"></i>');
+            var domain = $('#domain-to-verify').val();
+            $.ajax({
+                url: '{{ path('app_idp_checkdomainowner') }}',
+                type: 'POST',
+                data: {domain: domain, idpid: {{ idp.id }} },
+            })
+            .done(function(data) {
+                if (data.success) {
+                    console.log('success');
+                    window.location.replace('{{ path('app_idp_idpedit', {id: idp.id }) }}');
+                } else {
+                    $('#verify-domain-status').html('');
+                    toastr.error(data.message);                    
+                }
+            })
+            .fail(function() {
+                console.log("error");
+                $('#verify-domain-status').html('<i class="fa fa-times"></i>');
+            });    
+        });
+
+        $(document).on('click', '.buttonAddScope', function(event) {
+            event.preventDefault();
+            var domain = $(this).data('domain');
+            var collectioncontainer = $(this).closest('.domainDiv').find('.scopeCollection');
+            var prototype = $('#scopePrototype');
+            var addScopePrototype = prototype.html().replace(/__domain__/, domain);
+            collectioncontainer.append(addScopePrototype);
+            collectioncontainer.find('input').focus();
+        });
+
+        $(document).on('keyup', 'input.scope', function(event) {
+            event.preventDefault();
+            $(this).parent().find('.actionSpan').html($('#actionPrototype').html())
+            $(this).closest('.form-group').addClass('has-success');
+            var keyCode = event.which || event.keyCode;
+            if (keyCode == 13) { // enterre is submitoljék
+                $(this).closest('.input-group').find('.saveScope').click();
+            }
+        });
+
+        $(document).on('click', '.cancelScope', function(event) {
+            event.preventDefault();
+            var inputGroup = $(this).closest('.input-group')
+            if (inputGroup.data('scopeid') == "") { // új sornál töröljük az egész sort
+                inputGroup.parent().parent().remove();
+                return;
+            }
+            var origValue = inputGroup.data('scopevalue');
+            inputGroup.find('input').val(origValue);
+            $(this).parent().html($('#actionPrototypeDelete').html());
+            inputGroup.closest('.form-group').removeClass('has-success');
+        });
+
+        $(document).on('click', '.saveScope', function(event) {
+            event.preventDefault();
+            var domainid = $(this).closest('.domainDiv').data('domainid');
+            var inputGroup = $(this).closest('.input-group')
+            var origValue = inputGroup.data('scopevalue');
+            var scopeValue = inputGroup.find('input').val(); 
+            var scopeid = inputGroup.data('scopeid');
+            
+            if (scopeid) { // scope EDIT
+                $.ajax({
+                    url: "{{ path('app_idp_scopeupdate') }}",
+                    type: 'POST',
+                    data: {
+                        scopeid: scopeid,
+                        scopeValue: scopeValue
+                    },
+                })
+                .done(function(data) {
+                    if (data.success) {
+                        inputGroup.data('scopevalue', scopeValue);
+                        inputGroup.data('scopeid', data.id);
+                        inputGroup.closest('.form-group').removeClass('has-success');
+                        inputGroup.find('.actionSpan').html($('#actionPrototypeDelete').html());
+                        toastr.success('Scope saved.');
+                    } else {
+                        toastr.error(data.message);                    
+                    }
+
+                })
+                .fail(function() {
+                    console.log("error");
+                    console.log(data);
+                });    
+            } else {  // scope ADD
+                $.ajax({
+                    url: '{{ path('app_idp_scopeadd') }}',
+                    type: 'POST',
+                    data: {
+                        domainid: domainid,
+                        scopeValue: scopeValue
+                    },
+                })
+                .done(function(data) {
+                    if (data.success) {
+                        inputGroup.data('scopevalue', scopeValue);
+                        inputGroup.data('scopeid', data.id);
+                        inputGroup.closest('.form-group').removeClass('has-success');
+                        inputGroup.find('.actionSpan').html($('#actionPrototypeDelete').html());
+                        inputGroup.find('span.label').parent().html('<a href="" class="label label-default setDefaultScope">default scope</a>')
+                        toastr.success('Scope added.');
+                    } else {
+                        toastr.error(data.message);                    
+                    }
+                })
+                .fail(function() {
+                    console.log("error");
+                    console.log(data);
+                });
+            }
+        });
+
+        $(document).on('click', '.deleteScope', function(event) {
+            event.preventDefault();
+            var inputGroup = $(this).closest('.input-group')
+            if (inputGroup.data('scopeid') == "") { // új sornál töröljük az egész sort
+                inputGroup.parent().parent().remove();
+                return;
+            }
+            var scopeid = inputGroup.data('scopeid');
+
+            $.ajax({
+                url: "{{ path('app_idp_scopedelete') }}",
+                type: 'POST',
+                data: {scopeid: scopeid},
+            })
+            .done(function(data) {
+                if (data.success) {
+                    inputGroup.closest('.form-group').remove();
+                    toastr.success('Scope deleted.');
+                } else {
+                    toastr.error(data.message);                    
+                }
+            })
+            .fail(function() {
+                console.log("error");
+            });
+            
+        });
+
+        $(document).on('click', '.setDefaultScope', function(event) {
+            event.preventDefault();
+            var inputGroup = $(this).closest('.input-group')
+            var scopeid = inputGroup.data('scopeid');
+            var newDefaultAnchor = $(this);
+            
+            $.ajax({
+                url: "{{ path('app_idp_setdefaultscope') }}",
+                type: 'POST',
+                data: {scopeid: scopeid},
+            })
+            .done(function(data) {
+                if (data.success) {
+                    $('.setDefaultScope').removeClass('label-primary').addClass('label-default').html('<a href="" class="label label-default setDefaultScope">set as default scope</a>');
+                    $('.setDefaultScope').closest('.input-group').data('isdefaultscope', 0);;
+                    newDefaultAnchor.removeClass('label-default').addClass('label-primary').html('<span  class="label label-primary setDefaultScope">default scope</span>');
+                    newDefaultAnchor.closest('.input-group').data('isdefaultscope', 1);
+                    toastr.success('Default scope updated.');
+                    refreshScopedUserBadge();
+                } else {
+                    toastr.error(data.message);                    
+                }
+            })
+            .fail(function() {
+                console.log("error");
+            });
+        });
+
+        $(document).on('click', '.deleteDomain', function(event) {
+            event.preventDefault();
+            var inputGroup = $(this).closest('.input-group')
+            var domainid = inputGroup.closest('.domainDiv').data('domainid');
+
+            $.ajax({
+                url: "{{ path('app_idp_domaindelete') }}",
+                type: 'POST',
+                data: {domainid: domainid},
+            })
+            .done(function(data) {
+                if (data.success) {
+                    inputGroup.closest('.domainDiv').remove();
+                    toastr.success('Domain deleted.');
+                } else {
+                    toastr.error(data.message);                    
+                }
+            })
+            .fail(function() {
+                console.log("error");
+            });
+        });
+
+        $(document).ready(function() {
+           refreshScopedUserBadge();
+        });
+
+        function refreshScopedUserBadge() {
+            $('form.scopes').find('.badge').each(function(index, el) {
+                setScopedUsersBadge($(el));
+            });
+        }
+
+        function setScopedUsersBadge(badge) {
+            scopedusers = badge.closest('.input-group').data('scopedusers');
+            nullscopedusers = badge.closest('form').data('nullscopedusers');
+            isdefaultscope = badge.closest('.input-group').data('isdefaultscope');
+            if (isdefaultscope) {
+                scopedusers = scopedusers + nullscopedusers;
+            }
+            badge.html(scopedusers);
+        }
+
+        new Clipboard('#verify-button, #metadata-button');
+
+        $(document).on('click', '#spaddbutton', function(event) {
+            event.preventDefault();
+            $('#spadd-status').html('<i class="fa fa-refresh fa-spin m-l-sm"></i>');
+            var spmetadataurl = $('#spentityid').val();
+            var spmetadataxml = $('#spmetadataxml').val();
+            $.ajax({
+                url: '{{ path('app_idp_spadd') }}',
+                type: 'POST',
+                data: {spmetadataurl: spmetadataurl, spmetadataxml: spmetadataxml, idpid: {{ idp.id }} },
+            })
+            .done(function(data) {
+                if (data.success == true) {
+                    $('#spadd-status').html('');
+                    if (data.attributes != null){
+                        $('#sp-settings-body').html('<p>Service Provider defined its requested attributes in the metadata, you cannot modify them. These are the followings:</p><ul>');
+                        $.each(data.attributes, function(index, value){
+                           $('#sp-settings-body').append('<li>' + value + '</li>');
+                        });
+                           $('#sp-settings-body').append('</ul>');
+
+                    } else {
+                        var attributes = ['sn','givenName','displayName','mail','eduPersonPrincipalName','eduPersonTargetedID','eduPersonScopedAffiliation','schacHomeOrganizationType'];
+                        $('#sp-settings-body').html('<p>Service Provider did not defined neither its requested attributes nor its entity category in the metadata, so you can tick its requirements below:</p><input type="hidden" id="spid" value="'+data.spid+'"><ul>');
+                        $.each(attributes, function(index, value){
+                           $('#sp-settings-body').append('<li class="col-md-12">'+value+'<div class="switch pull-right"><div class="onoffswitch"><input type="checkbox" class="onoffswitch-checkbox spmodalswitch" id="'+value+'" value="'+value+'" name="spmodalswitch[]"><label class="onoffswitch-label" for="'+value+'"><span class="onoffswitch-inner"></span><span class="onoffswitch-switch"></span></label></div></div></li>');
+                        });
+                           $('#sp-settings-body').append('<div class="clearfix"></div></ul>');
+
+                    }
+                    console.log(data.message);
+                    toastr.success(data.message);
+                    $('#sp-settings').modal('toggle');
+                    //window.location.replace('{{ path('app_idp_idpedit', {id: idp.id }) }}');
+                } else {
+                    $('#spadd-status').html('');
+                    if (data.success == 'warning'){
+                        toastr.warning(data.message);                    
+                    } else {
+                        toastr.error(data.message);
+                    }
+                }
+            })
+            .fail(function() {
+                console.log("error");
+                $('#spadd-status').html('<i class="fa fa-times"></i>');
+            });    
+        });
+
+        $(document).on('click', '#spmodalok', function(event) {
+
+            event.preventDefault();
+            if ($('input[name="spmodalswitch[]"]:checked').length>0){
+                $.ajax({
+                    url: '{{ path('app_idp_spchangeattributes') }}',
+                    type: 'POST',
+                    data: {spid: $('#spid').val(), attributes: $('input[name="spmodalswitch[]"]:checked').serializeArray(), idpid: {{ idp.id }} },
+                })
+                .done(function(data) {
+                    if (data.success) {
+                        toastr.success(data.message);
+                        $('#sp-settings').modal('toggle');
+                        window.location.replace('{{ path('app_idp_idpedit', {id: idp.id }) }}');
+                    } else {
+                        toastr.error(data.message);           
+                    }
+                })
+                .fail(function() {
+                    console.log(data.message);
+                });            
+            } 
+            $('#sp-settings').modal('toggle');
+            window.location.replace('{{ path('app_idp_idpedit', {id: idp.id }) }}');
+
+         });
+
+        $(document).on('change', '.fedlistswitch', function(event) {
+            event.preventDefault();
+            var fedslug = this.id;
+            $.ajax({
+                url: '{{ path('app_idp_changefederation') }}',
+                type: 'POST',
+                data: {fedslug: fedslug, idpid: {{ idp.id }} },
+            })
+            .done(function(data) {
+                if (data.success) {
+                    console.log('success');
+                } else {
+                    toastr.error(data.message);                    
+                }
+            })
+            .fail(function() {
+                console.log("error");
+            }); 
+         });
+
+        $('#confirm-delete').on('show.bs.modal', function(e) {
+            $("#spidtodelete").val( $(e.relatedTarget).data('spid'));
+        });
+
+        $(document).on('click', '#confirm-delete-button', function(event) {
+
+            event.preventDefault();
+            if ($('#spidtodelete').val()!="0"){
+                $.ajax({
+                    url: '{{ path('app_idp_spdelete') }}',
+                    type: 'POST',
+                    data: {spid: $('#spidtodelete').val(), idpid: {{ idp.id }} },
+                })
+                .done(function(data) {
+                    if (data.success) {
+                        toastr.success(data.message);
+                        $('#confirm-delete').modal('toggle');
+                        window.location.replace('{{ path('app_idp_idpedit', {id: idp.id }) }}');
+                    } else {
+                        toastr.error(data.message);           
+                    }
+                })
+                .fail(function() {
+                    console.log(data.message);
+                });            
+            }
+            //$('#sp-settings').modal('toggle');
+         });
+
+    </script>
+{% endblock %}

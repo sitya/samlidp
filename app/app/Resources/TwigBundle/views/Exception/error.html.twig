@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block firstbody %}
+
+<div class="wrapper outer-home firstbody">
+    <div class="container">
+      <div class="col-md-10 col-md-offset-1" style="padding:100px 0;">
+        <div style="background: rgba(226, 226, 226, 0.7 );;padding: 30px;border-radius: 10px;">
+		    <h1><i class="fa fa-frown-o" aria-hidden="true"></i> <br />Oh, sorry.</h1>
+		    <p class="text-center">
+		        The requested page does not exist or you are not authorized to see it.
+		    </p>
+        	<p class="clearfix text-center p-h-md"><a role="button" class="btn btn-primary btn-lg" href="{% if is_granted('IS_AUTHENTICATED_FULLY') %}{{ path('app_idp_idplist') }}{% else %}{{ path('app_default_index') }}{% endif %}">Get me back to the starting point</a></p>
+        </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            $('.navbar-default').removeClass('navbar-scroll');
+        });
+    </script>
+{% endblock %}
+

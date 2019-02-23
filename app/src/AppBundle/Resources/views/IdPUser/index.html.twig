@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain "idp_user" %}
+
+{% block body %}
+    <div class="ibox">
+        <div class="ibox-title">
+            <h1>{{ "index.idp_user_list_title"|trans({"%idp%": IdP})|raw }}
+            <span class="pull-right">
+                {% if idPUsers|length == 0 %}
+                <a href="{{ path('idpuser_downloadcsvtemplate', {id: IdP.id}) }}" class="btn btn-default"data-toggle="tooltip" data-placement="top" title="Download CSV template for bulk usermanagement."><i class="fa fa-download"></i> {{ "index.download_template_button"|trans|raw }}</a>
+                {% else  %}
+                <a href="{{ path('idpuser_downloadcsvtemplate', {id: IdP.id}) }}" class="btn btn-default"data-toggle="tooltip" data-placement="top" title="Download all active users in CSV, edit, then upload the file."><i class="fa fa-download"></i> {{ "index.download_button"|trans|raw }}</a>
+                {% endif %}
+                <a href="{{ path('idpuser_massimport', {id: IdP.id}) }}" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Upload CSV file containing your added, modified or inactivated users."><i class="fa fa-upload"></i> {{ "index.import_button"|trans|raw }}</a>
+                <a href="{{ path('idpuser_new', {id: IdP.id}) }}" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Add a new user right here."><i class="fa fa-plus"></i> {{ "index.new_user_button"|trans|raw }}</a>
+            </span>
+            </h1>
+        </div>
+        <div class="ibox-content">           
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{ "index.header_username"|trans|raw }}</th>
+                        <th>{{ "index.header_email"|trans|raw }}</th>
+                        <th>{{ "index.header_displayname"|trans|raw }}</th>
+                        <th>{{ "index.header_surname"|trans|raw }}</th>
+                        <th>{{ "index.header_givenname"|trans|raw }}</th>
+                        <th>{{ "index.header_affiliation"|trans|raw }}</th>
+                        <th>{{ "index.header_scope"|trans|raw }}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for idPUser in idPUsers %}
+                    <tr {% if idPUser.enabled == false %}style="background-color:#e2e2e2"  title="inactivated user"{% endif %}>
+                        <td>{% if idPUser.enabled == false %}<i class="fa fa-ban text-danger" title="inactivated user">&nbsp;</i>{% endif %}{{ idPUser.username }}</td>
+                        <td>{{ idPUser.email }}</td>
+                        <td>{{ idPUser.displayName }}</td>
+                        <td>{{ idPUser.surName }}</td>
+                        <td>{{ idPUser.givenName }}</td>
+                        <td>{{ idPUser.affiliation }}</td>
+                        <td>
+                            {% if idPUser.scope %}
+                                {{ idPUser.scope }}
+                            {% else %}
+                                {{ IdP.defaultScope }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path('idpuser_edit', { 'id': idPUser.id }) }}" title="edit"><i class="fa fa-edit"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>        
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {% javascripts
+        '@datatables_js'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        var table = $('table').DataTable({
+            pageLength: 100,
+            responsive: true,
+            dom: '<"html5buttons"B>lTfgitp',
+        });
+        
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        })       
+         
+    </script>
+{% endblock %}
+{% block stylesheets %}
+    {% stylesheets
+        '@datatables_css'
+    %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}

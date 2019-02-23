@@ -1,0 +1,15 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<h1>Edit your profile</h1>
+{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit p-h-md' } }) }}
+    {{ form_row(form.username) }}
+    {{ form_row(form.email) }}
+    <div class="hr-line-dashed"></div>
+    {{ form_row(form.givenName) }}
+    {{ form_row(form.sn) }}
+    <div class="hr-line-dashed"></div>
+    {{ form_row(form.current_password) }}
+    <div class="col-md-8 col-md-offset-4">
+        <input type="submit" class="btn btn-primary btn-lg" value="{{ 'profile.edit.submit'|trans }}" />
+    </div>
+    <div class="clrearfix p-h-lg"></div>
+{{ form_end(form) }}

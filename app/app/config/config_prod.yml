@@ -1,0 +1,20 @@
+imports:
+    - { resource: config.yml }
+
+monolog:
+    handlers:
+        main:
+            type:  loggly
+            level: error
+            token: '%loggly_access_token%'
+            tag: samli-prod
+        nested:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            level: debug
+        console:
+            type:  console
+
+staffim_rollbar:
+    access_token: '%env(ROLLBAR_ACCESS_TOKEN)%'
+    error_level: -1

@@ -1,0 +1,8 @@
+{% trans_default_domain "idp" %}
+
+<div class="panel-body row">
+	<div class="col-md-4"><a class="btn btn-default btn-s btn-block text-left" href="{{ path('app_idp_idpedit', {id: idp.id })}}" role="button"><i class="fa fa-edit"></i>&nbsp;&nbsp;{{ "list_element_footer.edit_idp"|trans|raw }}</a></div>
+	<div class="col-md-4"><a class="btn btn-default btn-s btn-block text-left" href="{{ path('idpuser_index', {id: idp.id}) }}" role="button"><i class="fa fa-users"></i>&nbsp;&nbsp;{{ "list_element_footer.edit_users"|trans|raw }}</a></div>
+	
+	<div class="col-md-4"><a class="btn btn-default btn-s btn-block text-left" target="_blank" href="https://{{ idp.hostname }}.{{ samlidp_hostname }}/saml2/idp/metadata.php"><i class="fa fa-code"></i>&nbsp;&nbsp;{{ "list_element_footer.metadata"|trans|raw }}</a></div>
+</div>

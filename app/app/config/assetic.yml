@@ -1,0 +1,50 @@
+---
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        scssphp: ~
+        cssrewrite: ~
+    assets:
+        jquery_js:
+            inputs:
+                - "%kernel.root_dir%/../vendor/components/jquery/jquery.js"
+        bootstrap_css:
+            inputs:
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/dist/css/bootstrap.css"
+            filters: [cssrewrite]
+        bootstrap_css_map:
+            inputs:
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/dist/css/bootstrap.css.map"
+            output: "assetic/bootstrap.css.map"
+        bootstrap_js:
+            inputs:
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/dist/js/bootstrap.js"
+        dropzone_js:
+            inputs:
+                - "%kernel.root_dir%/../vendor/enyo/dropzone/dist/dropzone.js"
+        datatables_css:
+            inputs:
+                - "%kernel.root_dir%/../vendor/datatables/datatables/media/css/dataTables.bootstrap.css"
+                - "%kernel.root_dir%/../vendor/drmonty/datatables-plugins/integration/font-awesome/dataTables.fontAwesome.css"         
+            filters: [cssrewrite]
+        datatables_js:
+            inputs:
+                - "%kernel.root_dir%/../vendor/datatables/datatables/media/js/jquery.dataTables.js"
+                - "%kernel.root_dir%/../vendor/datatables/datatables/media/js/dataTables.bootstrap.js"
+        toastr_js:
+            inputs:
+                - "%kernel.root_dir%/../web/bundles/app/js/toastr.min.js"
+        toastr_css:
+            inputs:
+                - "%kernel.root_dir%/../web/bundles/app/css/toastr.min.css"
+            filters: [cssrewrite]
+        clipboard_js:
+            inputs:
+                - "@AppBundle/Resources/public/js/clipboard.min.js"
+        pwstrength_js:
+                    inputs:
+                        - "@AppBundle/Resources/public/js/pwstrength-bootstrap.js"
+        typeahead_js:
+                    inputs:
+                        - "@AppBundle/Resources/public/js/bootstrap3-typeahead.min.js"

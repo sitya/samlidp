@@ -1,0 +1,129 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+    - { resource: assetic.yml }
+    - { resource: fonts.yml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: en
+
+framework:
+    translator:      { fallbacks: ["%locale%"] }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id:  session.handler.native_file
+        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+    fragments:       ~
+    http_method_override: true
+    assets: ~
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form_themes:
+        - bootstrap_3_horizontal_layout.html.twig
+        - AppBundle:Form:help_layout.html.twig
+    globals:
+      tfa_provider: "@appbundle.twofactor.google.provider"
+      samlidp_hostname: "%samlidp_hostname%"
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   "%env(DATABASE_DRIVER)%"
+        server_version: "%env(DATABASE_VERSION)%"
+        host:     '%env(DATABASE_HOST)%'
+        port:     '%env(DATABASE_PORT)%'
+        dbname:   '%env(DATABASE_NAME)%'
+        user:     '%env(DATABASE_USER)%'
+        password: '%env(DATABASE_PASSWORD)%'
+        charset:  UTF8
+        mapping_types:
+            enum: string
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    port:      "%mailer_port%"
+    encryption: "%mailer_encryption%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: AppBundle\Entity\User
+    registration:
+        form:
+            type: AppBundle\Form\RegistrationType
+    profile:
+        form:
+            type: AppBundle\Form\ProfileFormType
+    from_email:
+        address:        "%mailer_sender%"
+        sender_name:    "%samlidp_hostname%"
+
+easy_admin:
+    entities:
+        - AppBundle\Entity\User
+        - AppBundle\Entity\IdP
+        - AppBundle\Entity\OrganizationElement
+        - AppBundle\Entity\IdPUser
+        - AppBundle\Entity\IdPAudit
+        - AppBundle\Entity\Domain
+        - AppBundle\Entity\Scope
+        - AppBundle\Entity\Federation
+        - AppBundle\Entity\Entity
+
+oneup_uploader:
+    mappings:
+        idplogos:
+            frontend: dropzone # or any uploader you use in the frontend
+            storage:
+                type: flysystem
+                filesystem: oneup_flysystem.logos_filesystem
+        massimport:
+            frontend: dropzone
+            storage:
+                directory: "%kernel.root_dir%/../web/uploads/tmp/"
+oneup_flysystem:
+    adapters:
+        appbundle.flysystem_adapter:
+            local:
+                directory: "%kernel.root_dir%/../web/images/idp_logo/"
+                lazy: ~ # boolean (default "false")
+                writeFlags: ~
+                linkHandling: ~
+                permissions: ~
+#        appbundle.flysystem_adapter:
+#            awss3v3:
+#                client: appbundle.s3_client
+#                bucket: '%s3client_bucket%'
+#                prefix: ~
+    filesystems:
+        logos:
+            adapter: appbundle.flysystem_adapter
+            mount: prefix

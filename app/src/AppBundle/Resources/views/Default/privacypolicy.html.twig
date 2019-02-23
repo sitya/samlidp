@@ -1,0 +1,51 @@
+{% extends "::base.html.twig" %}
+{% trans_default_domain "default" %}
+{% block title %}SAML Identity Provider as a Service - Privacy Policy{% endblock %}
+{% block metadesc %}Privacy Policy. We take data protection very seriously, so please review our privacy statement below.{% endblock %}
+{% block body %}
+<section class="docs" id="starting">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="navy-line"></div>
+                <h1>Privacy Policy</h1>
+            </div>
+        </div>
+        <div class="row">           
+            <div class="col-md-8 col-md-offset-2">
+                <p>We take data protection very seriously, so please review our privacy statement below.</p>
+                <ol>
+                    <li><b>We use the data you provide about your users exclusively for providing them access to federated systems.</b> We never give out any user information except for selected data of properly registered SAML Service Providers, and only in case of the transaction is initiated and confirmed by the user.</li>
+                    <li>All released data is encrypted by the public key of the Service Provider targeted by the user, thus only decipherable by the targeted service, not in transit.</li>
+                    <li>We never send any e-mails to users except for sending out password reset tokens.</li>
+                    <li>Nobody can read users' passwords, they are stored securely. Only the person having control over a user's mailbox can reset the password to a new value.</li>
+                    <li>All user data is stored and handled securely, following to the latest security best practices.</li>
+                    <li>We are not to any extent responsible for:
+                        <ol type="a">
+                            <li>how a Service Provider implements data protection;</li>
+                            <li>the accuracy of the personal data that is submitted by Identity Provider Administrators;</li>
+                            <li>whether Identity Provider Administrators have legal rights to submit data to this service;</li>
+                            <li>any kind of user activity in {{ samlidp_hostname }} system or other relying systems.</li>
+                        </ol>
+                    </li>
+                    <li>Any personal data is irrevocably deleted if we receive credible information that:
+                        <ol type="a">
+                            <li>the data submitted to this service is not accurate, misleading, threatening or it was previously collected or submitted illegally;</li>
+                            <li>the data subject (user) did not agree in submitting their data;</li>
+                            <li>the data subject (user) requests the removal of the data;</li>
+                        </ol>
+                    </li>
+                    <li>We remove all data associated with your Identity Provider (including users' personal data) if you unsubscribe from this service, or the Identity Provider is abandoned. The Identity Provider is considered abandoned if any of the following conditions apply:
+                        <ol>
+                            <li>no successful user logins are performed for 365 consecutive days, or</li>
+                            <li>you do not settle our invoice for more than 60 calendar days after  the first notice.</li>
+                        </ol>
+                    </li>
+                </ol>
+                <p>This service is operated by {% block institute_name %}XXX{% endblock institute_name %}, registered in {% block institute_country %}Country{% endblock institute_country %}. For any questions about data protection, do not hesitate to contact us at {% block institute_ppemail %}privacy@example.org{% endblock institute_ppemail %}.</p>
+            </div>
+        </div>    
+    </div>
+</section>
+{% endblock %}
+

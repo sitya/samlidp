@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain "idp_user" %}
+
+{% block body %}
+<div class="ibox">
+    <div class="ibox-title">
+        <h1>{{ "massimport.title"|trans|raw }}</h1>
+    </div>
+    <div class="ibox-content">
+        <p><b>{{ "massimport.description_title"|trans|raw }}</b></p>
+        <p>{{ "massimport.description_text"|trans|raw }}</p>
+
+        <div class="form-group">
+            <form action="{{ oneup_uploader_endpoint('massimport') }}" class="dropzone" id="dropzone">
+                <input type="hidden" name="idpId" value="{{ idp.id }}">
+            </form>
+        </div>
+        <label class="error"></label>
+
+        <div class="alert alert-success" style="display: none">
+            <span id="success_count"></span> {{ "massimport.processed"|trans|raw }} <a class="pull-right" href="{{ path('idpuser_index', {id: idp.id}) }}">{{ "back_to_list_button"|trans|raw }}</a>
+        </div>
+
+        <div class="alert alert-danger" style="display: none">
+            {{ "massimport.error_count"|trans|raw }} <span id="error_count"></span>
+            <div>{{ "massimport.not_processed"|trans|raw }}</div>
+            <a class="pull-right" href="{{ path('idpuser_index', {id: idp.id}) }}">{{ "back_to_list_button"|trans|raw }}</a>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <td># line</td>
+                        <td>message</td>
+                    </tr>
+                </thead>
+                <tbody id="errorrows">
+                    
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-2">
+                <a class="btn btn-white" href="{{ path('idpuser_index', {id: idp.id}) }}">{{ "back_to_list_button"|trans|raw }}</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+    {% javascripts
+        '@dropzone_js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+    Dropzone.options.dropzone = {
+          init: function () {
+            this.on("success", function (file) {
+              
+              $('#error_count').empty();
+              $('#errorrows').empty();
+              $('#success_count').empty();
+              $('.alert').hide();
+
+              var result = JSON.parse(JSON.parse(file.xhr.response).result); 
+
+              if (result.result.error_count > 0) {
+                $('#success_count').text(result.result.success_count);
+                $('#error_count').text(result.result.error_count);
+                $.each(result.exceptions, function(index, val) {
+                    $('#errorrows').append('<tr><td>' + val[0] + '</td><td>' + val[1] + '</td></tr>');
+                });
+                $('.alert-danger').show();
+              }
+
+              if (result.result.success_count > 0) {
+                $('#success_count').text(result.result.success_count);
+                $('.alert-success').show();
+              }
+            });
+            this.on("error", function (file, errorObject) {
+                $('.alert').hide();
+                $('.error').text(errorObject.error.exception[0].message);
+            });
+          }
+        };
+    </script>
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends "::base.html.twig" %}
+
+{% block firstbody %}
+<div class="wrapper outer-home firstbody" style="height:100vh">
+    <div class="container">
+      <div class="col-md-8 col-md-offset-2" style="padding:100px 0;">
+        <div style="background: rgba(226, 226, 226, 0.7 );;padding: 30px;border-radius: 10px;">
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+        </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block bodywrapper %}{% endblock %}
+
+{% block javascripts %}
+    {% javascripts
+    '@pwstrength_js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+    $(document).ready(function() {
+
+        $('.navbar-default').addClass('navbar-scroll');
+        
+        $('form').on('click', '.reset2fa', function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: '{{ path("app_twofactor_reset2fa") }}',
+            })
+            .done(function(data) {
+            	location.reload();
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                console.log("complete");
+            });
+        });
+
+        $('form').on('click', '.disable2fa', function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: '{{ path("app_twofactor_disable2fa") }}',
+            })
+            .done(function(data) {
+                console.log(data);
+                location.reload();
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                console.log("complete");
+            });
+        });
+
+        $('.modal').on('click', '.verify2fa', function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: '{{ path("app_twofactor_verify2fa") }}',
+                type: 'POST',
+                data: {data: $('#2facode').val()}
+            })
+            .done(function(data) {
+                console.log(data);
+                $('#verify2faresponse').text(data.response);
+                if (data.response == true) {
+                    $('#verify2faresponse').html('<i class="fa fa-check text-success fa-2x"></i>')
+                } else {
+                    $('#verify2faresponse').html('<i class="fa fa-times text-danger fa-2x"></i>')
+                }
+                $('#verify2faexpected').text(data.expected);
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                console.log("complete");
+            });
+        });
+
+        $('form').on('click', '.toggleqrcode', function(event) {
+            event.preventDefault();
+            console.log('clikk');
+            $("#qrcode").toggle("slow");
+            $(".buttonsdiv").toggle("slow");
+        });
+        $( document ).ready(function() {
+            $('.navbar-default').removeClass('navbar-scroll');
+        });
+
+        // password strength
+        var options = {};
+            options.ui = { showVerdictsInsideProgressBar: true };
+            options.common = {
+            onKeyUp: function (evt, data) {
+                if(data.score > 25) { // strong
+                    $('#change_password_submit').removeAttr('disabled');
+                    $('#form_submit').removeAttr('disabled');
+                    $('#register_submit').removeAttr('disabled');
+                } else {
+                    $('#change_password_submit').attr('disabled', 'disabled');
+                    $('#form_submit').attr('disabled', 'disabled');
+                    $('#register_submit').attr('disabled', 'disabled');
+                }
+            }
+        };
+        $('#fos_user_change_password_form_plainPassword_first').pwstrength(options);
+        $('#fos_user_change_password_form_plainPassword_first').css('margin-bottom', '12px');
+
+        $('#form_password_first').pwstrength(options);
+        $('#form_password_first').css('margin-bottom', '12px');
+
+        $('#fos_user_registration_form_plainPassword_first').pwstrength(options);
+        $('#fos_user_registration_form_plainPassword_first').css('margin-bottom', '12px');
+
+    });
+    </script>
+{% endblock %}

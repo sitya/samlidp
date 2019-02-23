@@ -1,0 +1,90 @@
+{% extends "::base.html.twig" %}
+{% trans_default_domain "idp" %}
+
+{% block title %}{{ "add.title"|trans|raw }}{% endblock %}
+
+{% block body %}
+<div class="ibox">
+    <div class="ibox-title">
+        <h1>{{ "add.first_step_title"|trans|raw }}</h1>
+    </div>
+    <div class="ibox-content">
+        <div>
+            {{ form_start(form, {'attr': {'id': 'form', 'action': path('app_idp_idpadd') }}) }}
+            <div class="form-group" id="hostname-group">
+                {{ form_label(form.hostname) }}
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <span class="input-group-addon">https://</span>
+                        {{ form_widget(form.hostname) }}
+                        <span class="input-group-addon">.{{ samlidp_hostname }}</span>
+                    </div>
+                <span id="helpBlock" class="help-block"></span>
+                <div class="has-error">{{ form_errors(form.hostname) }}</div>
+                </div>
+            </div>
+           
+            <div class="form-group">
+                <div class="col-sm-4">
+                </div>
+                <div class="col-sm-8">
+                    <p class="p-w-xs text-info"><i class="fa fa-info m-r-sm"></i>{{ "add.cannot_modify"|trans|raw }}</p>
+                        
+                </div>
+            </div>  
+                       <div class="form-group">
+                <div class="col-sm-4">
+                </div>
+                <div class="col-sm-8">
+                    <input type="submit" class="btn btn-primary" id="addsubmitbutton" value="{{ "add.next_step"|trans|raw }}" />
+                </div>
+            </div>            
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+{% block javascripts %}
+        {% javascripts %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        <script type="text/javascript">
+            $(':input[type="submit"]').prop('disabled', true);
+            $("#id_p_wizard_hostname").keyup(function() {
+                $('#hostname-group').removeClass('has-warning has-success has-error');
+                if(!($("#id_p_wizard_hostname").val().match(/^[0-9a-zA-Z]+$/))){
+                    $('#hostname-group').addClass('has-error');
+                    $('#helpBlock').html("{{ "add.only_letters_and_numbers"|trans|raw }}");
+                    $(':input[type="submit"]').prop('disabled', true);
+                } else if ($("#id_p_wizard_hostname").val().length<=3){
+                    $('#hostname-group').addClass('has-warning');
+                    $('#helpBlock').html("{{ "add.too_sort"|trans|raw }}");
+                    $(':input[type="submit"]').prop('disabled', true);
+                } else {
+                    $.ajax({
+                        url: "{{ path('app_idp_checkifidpexists') }}",
+                        type: 'POST',
+                        data: {hostname: $("#id_p_wizard_hostname").val()},
+                    })
+                    .done(function(data) {
+                        if (data.success) {
+                            $('#hostname-group').addClass('has-success');
+                            $('#helpBlock').html("{{ "add.its_ok"|trans|raw }}");
+                            $(':input[type="submit"]').prop('disabled', false);
+                        } else {
+                            $('#hostname-group').addClass('has-error');
+                            $('#helpBlock').html("{{ "add.already_taken"|trans|raw }}");
+                            $(':input[type="submit"]').prop('disabled', true);
+                        }
+                    })
+                }
+            });
+        </script>
+{% endblock %}
+
+{% block document_ready %}
+
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<h1>Sign up</h1>
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register p-h-md'}}) }}
+    {{ form_row(form.givenName) }}
+    {{ form_row(form.sn) }}
+    {{ form_row(form.username) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.plainPassword) }}
+    <div class="col-md-8 col-md-offset-4">
+        <p><small>By signing up, you agree to <b><a href="{{ path('app_default_privacypolicy') }}" target="_blank">Privacy Policy</a></b></small></p>
+        <input type="submit" class="btn btn-primary btn-lg" id="register_submit" value="{{ 'registration.submit'|trans }}" />
+    </div>
+
+    <div class="clrearfix p-h-lg"></div>
+{{ form_end(form) }}

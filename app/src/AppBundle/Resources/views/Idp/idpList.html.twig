@@ -1,0 +1,84 @@
+{% extends "::base.html.twig" %}
+{% trans_default_domain "idp" %}
+
+{% block title %}List your Identity Providers{% endblock %}
+
+{% block body %}
+
+<div class="ibox">
+    <div class="ibox-title">
+        <h1>{{ "list.title"|trans|raw }}
+        <span class="pull-right">
+            <a href="{{ path('app_idp_idpadd') }}" type="button" class="btn btn-primary pull-right "><i class="fa fa-key fa-lg"></i>&nbsp;&nbsp;{{ "list.add_button"|trans|raw }}</a>
+        </span>
+        </h1>
+    </div>
+<div class="ibox-content">
+	<div class="row m-b-lg">
+		{% for idp in idps %}
+			{% if idp.getInstituteName()|length == 0 %}
+				<div class="col-md-12" id="waiting-alert">
+					<div class="alert alert-warning alert-dismissable">
+						<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    	<i class="fa fa-warning m-r-md"></i>Your Identity Provider, <b>{{ idp.getHostname() }}.{{ samlidp_hostname }}</b> is not fully registered. Before using you have to set it up. <a class="btn btn-warning btn-xs m-l-md" href="{{ path('app_idp_idpedit', {id: idp.id })}}" role="button">Ok, I'll do it now.</a>
+                    </div>
+				</div>
+			{% endif %}
+		{% endfor %}
+		</div>
+		{% for idp in idps %}
+			{% if idp.getInstituteName()|length > 0 %}
+				
+				<div class="panel panel-default">
+					<div class="panel-heading font-bold">
+						{{ idp.getInstituteName() }}
+					</div>
+					
+					{{ include('AppBundle:Idp:idpListElementFooter.html.twig') }}
+				</div>
+			</div>
+	{% endif %}
+{% endfor %}
+</div>
+</div>
+
+<div class="modal fade" id="modal-id">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">{{ "list.confirm"|trans|raw }}</h4>
+			</div>
+			<div class="modal-body">
+				<p>
+				<span id="modal-period-started"></span><br>
+				<span id="modal-price-base"></span><br>
+				<span id="modal-active-users"></span><br>
+				</p>
+				<h1 id="modal-price" style="padding-bottom: 0;margin-bottom:0;"></h1><br>{{ "list.bitpay"|trans|raw }}
+				<div id="modal-form">
+					<form id="payment_method_form" method="post">
+						<input type="hidden" name="jms_choose_payment_method[method]" id="payment_method_selector" />
+						<input type="hidden" id="jms_choose_payment_method__token" name="jms_choose_payment_method[_token]" value="" />
+						<hr>
+						<div class="panel panel-info">
+                            <div class="panel-heading">
+                                <i class="fa fa-info-circle"></i> {{ "list.about_invoice_title"|trans|raw }}
+                            </div>
+                            <div class="panel-body">
+                                <p>{{ "list.about_invoice_text"|trans|raw }}</p>
+                            </div>
+                        </div>
+					</form>	
+				</div>
+			</div>
+			<div class="modal-footer">
+					<button type="button" id="paypal_express_checkout" class="btn btn-primary payment_method"><i class="fa fa-cc-paypal fa-lg"></i>&nbsp;<i class="fa fa-cc-visa fa-lg"></i>&nbsp;<i class="fa fa-cc-mastercard fa-lg"></i>&nbsp;&nbsp;{{ "list.checkout_paypal"|trans|raw }}</button>
+					<button type="button" id="bitpay_invoice_checkout" class="btn btn-primary payment_method"><i class="fa fa-bitcoin fa-lg"></i>&nbsp;&nbsp;{{ "list.checkout_bitpay"|trans|raw }}</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">{{ "list.cancel"|trans|raw }}</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

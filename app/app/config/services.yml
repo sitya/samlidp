@@ -1,0 +1,70 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+    appbundle.sspgetter:
+        class: AppBundle\Utils\SSPGetter
+        arguments: ['@doctrine.orm.entity_manager','%database_host%','%database_name%','%database_user%','%database_password%', '%database_driver%', '%database_port%', '%samlidp_hostname%']
+
+    appbundle.twofactor.google:
+        class: Google\Authenticator\GoogleAuthenticator
+    appbundle.twofactor.google.provider:
+        class: AppBundle\Security\TwoFactor\Google\Helper
+        arguments:
+            - '%samlidp_hostname%'
+            - '@appbundle.twofactor.google'
+    appbundle.twofactor.google.interactive_login_listener:
+        class: AppBundle\Security\TwoFactor\Google\InteractiveLoginListener
+        arguments: ['@appbundle.twofactor.google.provider']
+        tags:
+          - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
+    appbundle.twofactor.google.request_listener:
+        class: AppBundle\Security\TwoFactor\Google\RequestListener
+        arguments:
+          - '@appbundle.twofactor.google.provider'
+          - '@security.token_storage'
+          - '@templating'
+          - '@router'
+        tags:
+          - { name: kernel.event_listener, event: kernel.request, method: onCoreRequest, priority: -1 }
+
+    # appbundle.idpuser_authenticator:
+    #    class: AppBundle\Security\IdPUserAuthenticator
+
+    appbundle.form.profile:
+        class: AppBundle\Form\ProfileFormType
+        tags:
+            - { name: form.type, alias: app_user_profile }
+
+    appbudle.form.registration:
+        class: AppBundle\Form\RegistrationFormType
+        tags:
+            - { name: form.type, alias: app_user_registration }
+
+
+    # profile edit redirection customisation
+    appbundle.password_resetting:
+        class: AppBundle\EventListener\ProfileEditListener
+        arguments: ['@router']
+        tags:
+            - { name: kernel.event_subscriber }
+
+    # logo and csv uploader
+    appbundle.upload_listener:
+        class: AppBundle\EventListener\UploadListener
+        arguments: ["@doctrine.orm.entity_manager", "@serializer", "@validator", "@router", "@twig", "@mailer", "@doctrine", "%samlidp_hostname%"]
+        tags:
+            - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
+
+    # aws s3 client for idp logo storage
+    appbundle.s3_client:
+        class: Aws\S3\S3Client
+        arguments:
+            -
+                version: '2006-03-01' # or 'latest'
+                region: '%s3client_region%' # 'eu-central-1' for example
+                credentials:
+                    key: "%s3client_key%"
+                    secret: "%s3client_secret%"

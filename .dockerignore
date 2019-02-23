@@ -1,0 +1,9 @@
+app/var
+app/vendor
+app/web/assetic/
+app/web/css/
+app/web/fonts/
+app/web/js/
+app/web/images/
+app/web/bundles/
+app/app/config/parameters.yml

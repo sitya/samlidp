@@ -1,0 +1,138 @@
+{% extends "::base.html.twig" %}
+{% trans_default_domain "default" %}
+{% block title %}Documentation{% endblock %}
+{% block metadesc %}Topics: SAML stuff, User management, Identity Federations{% endblock %}
+{% block bodydataext %}data-spy="scroll" data-target="#sidebar" data-offset="50"{% endblock %}
+
+{% block firstbody %}
+<div class="wrapper outer-home firstbody">
+    <div class="container">
+      <div class="col-md-10 col-md-offset-1" style="padding:100px 0;">
+        <div style="background: rgba(226, 226, 226, 0.7 );;padding: 30px;border-radius: 10px;">
+        <h1>{{ "doc.bigtitle"|trans|raw }}</h1>
+        <p class="text-center">{{ "doc.subtitle"|trans|raw }}</p>
+        <p class="clearfix text-center"><a role="button" class="btn btn-primary btn-lg" href="{% if is_granted('IS_AUTHENTICATED_FULLY') %}{{ path('app_idp_idplist') }}{% else %}{{ path('fos_user_registration_register') }}{% endif %}">{{ "doc.gettingstarted"|trans|raw }}</a></p>
+        </div>
+        </div>
+
+    </div>
+</div>
+
+
+<section class="docs" id="starting">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="navy-line"></div>
+                <h1>{{ "doc.docs"|trans|raw }}</h1>
+            </div>
+        </div>
+        <div class="row">
+              <div class="col-md-3" id="leftCol">
+                <ul class="nav-list" id="sidebar" data-spy="affix" data-offset-top="425">
+                  <li><a href="#section-samlstuff" class="page-scroll">{{ "doc.saml_stuffs"|trans|raw }}</a></li>
+                  <li><a href="#section-usermanagement" class="page-scroll">{{ "doc.user_managemet"|trans|raw }}</a></li>
+                  <li><a href="#section-idfeds" class="page-scroll">{{ "doc.identity_federations"|trans|raw }}</a></li>
+                </ul>
+              </div>            
+            <div class="col-md-9">
+            <h2 id="section-samlstuff">{{ "doc.saml_stuffs"|trans|raw }}</h2>
+            <h3>{{ "doc.supported_attributes"|trans|raw }}</h3>{{ "doc.supported_attributes_description"|trans|raw }}
+            <br ><br >
+            <ul>
+                <li>sn (<small><code>urn:oid:2.5.4.4</code></small>)
+                    <p>{{ "doc.supported_attributes_sn"|trans|raw }}</p>
+                </li>
+                <li>givenName (<small><code>urn:oid:2.5.4.42</code></small>)
+                    <p>{{ "doc.supported_attributes_givenname"|trans|raw }}</p>
+                </li>
+                <li>displayName (<small><code>urn:oid:2.16.840.1.113730.3.1.241</code></small>)
+                    <p>{{ "doc.supported_attributes_displayname"|trans|raw }}</p>
+                </li>
+                <li>mail (<small><code>urn:oid:0.9.2342.19200300.100.1.3</code></small>)
+                    <p>{{ "doc.supported_attributes_mail"|trans|raw }}</p>
+                </li>
+                <li>eduPersonPrincipalName (<small><code>urn:oid:1.3.6.1.4.1.5923.1.1.1.6</code></small>)
+                    <p>{{ "doc.supported_attributes_eppn"|trans|raw }}</p>
+                </li>
+                <li>eduPersonTargetedID (<small><code>urn:oid:1.3.6.1.4.1.5923.1.1.1.10</code></small>)
+                    <p>{{ "doc.supported_attributes_eptid"|trans|raw }}</p>
+                </li>
+                <li>eduPersonScopedAffiliation (<small><code>urn:oid:1.3.6.1.4.1.5923.1.1.1.9</code></small>)
+                    <p>
+                        {{ "doc.supported_attributes_epsa"|trans|raw }}<ul>
+                        <li>member</li>
+                        <li>student</li>
+                        <li>employee</li>
+                        <li>faculty</li>
+                        <li>staff</li>
+                        <li>alum</li>
+                        <li>affiliate</li>
+                        <li>library-walk-in </li>
+                        </ul>
+                        <p>{{ "doc.supported_attributes_epsa_description"|trans|raw }}</p>
+                    </p>
+                </li>
+                <li>schacHomeorganizationType (<small><code>urn:oid:1.3.6.1.4.1.5923.1.1.1.9</code></small>)
+                    <p>{{ "doc.supported_attributes_schachot"|trans|raw }}</p><ul>
+                        <li>school</li>
+                        <li>university</li>
+                        <li>other</li>
+                        <li>business</li>
+                    </ul>
+                </li>
+            </ul>
+            <h3>{{ "doc.test_attribute_releasing"|trans|raw }}</h3>
+            <p>Use <a href="https://attributes.{{ samlidp_hostname }}" target="_blank">attributes.{{ samlidp_hostname }}</a> for testing which attributes are released about a user. This is a real Service Provider, it knows all {{ samlidp_hostname }} Identity Providers.</p>
+            <h3>{{ "doc.ec"|trans|raw }}</h3>
+            <p>{{ "doc.all_identity_provider_support"|trans|raw }}
+                <ul>
+                    <li>eduPersonPrincipalName</li>
+                    <li>displayName</li>
+                    <li>mail</li>
+                    <li>eduPersonScopedAffiliation</li>
+                </ul>
+            <h3>{{ "doc.scopes_title"|trans|raw }}</h3>
+            <p>{{ "doc.scopes_description"|trans|raw }}</p>
+            <h3>Custom Service Providers</h3>
+            <p>You can add any Service Provider exclusively for your Identity Provider, without participating any federation. It is a good option for testing purposes, or if a Service Provider is not part of the federation as your Identity Provider is.</p>
+            <hr>
+            <h2 id="section-usermanagement">{{ "doc.user_managemet"|trans|raw }}</h2>
+            <p><b>{{ "doc.usermanagement_registering_title"|trans|raw }}</b></p>
+            <p>{{ "doc.usermanagement_registering_content"|trans|raw }}</p>
+            <p><b>{{ "doc.usermanagement_passwords_title"|trans|raw }}</b></p>
+            <p>{{ "doc.usermanagement_passwords_content"|trans|raw }}</p>
+            <p><b>{{ "doc.usermanagement_enabling_title"|trans|raw }}</b></p>
+            <p>{{ "doc.usermanagement_enabling_content"|trans|raw }}</p>
+            <p><b>{{ "doc.usermanagement_deleting_title"|trans|raw }}</b></p>
+            <p>{{ "doc.usermanagement_deleting_content"|trans|raw }}</p>
+            <hr>
+            <h2 id="section-idfeds">{{ "doc.identity_federations"|trans|raw }}</h2>
+            <p>{{ "doc.identity_federation_description"|trans|raw }}</p>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>{{ "doc.identity_federation_header_federation"|trans|raw }}</th>
+                    <th>{{ "doc.identity_federation_header_contact_url"|trans|raw }}</th>
+                    <th>{{ "doc.identity_federation_header_contact_email"|trans|raw }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for fed in feds %}
+                <tr>
+                    <td>{{ fed.name }}</td>
+                    <td>{{ fed.federationUrl }}</td>
+                    <td>{{ fed.contactEmail }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>    
+    </div>
+</section>
+{% endblock %}
+
+{% block bodywrapper %}
+
+{% endblock %}

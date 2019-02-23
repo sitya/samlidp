@@ -1,0 +1,411 @@
+---
+assetic:
+    assets:
+        fontawesome_css:
+            inputs:
+                - "%kernel.root_dir%/../vendor/fortawesome/font-awesome/css/font-awesome.css"
+            filters: [cssrewrite]
+        fontawesome_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.ttf"
+            output: "fonts/fontawesome-webfont.ttf"
+        fontawesome_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.eot"
+            output: "fonts/fontawesome-webfont.eot"
+        fontawesome_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.svg"
+            output: "fonts/fontawesome-webfont.svg"
+        fontawesome_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.woff"
+            output: "fonts/fontawesome-webfont.woff"
+        fontawesome_woff2:
+            inputs:
+                - "%kernel.root_dir%/../vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.woff2"
+            output: "fonts/fontawesome-webfont.woff2"
+
+
+        opensans_css:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/open-sans.css"
+            filters: [cssrewrite]
+        opensans_bold_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-bold.eot"
+            output: "fonts/opensans-bold.eot"
+        opensans_bold_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-bold.svg"
+            output: "fonts/opensans-bold.svg"
+        opensans_bold_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-bold.ttf"
+            output: "fonts/opensans-bold.ttf"
+        opensans_bold_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-bold.woff"
+            output: "fonts/opensans-bold.woff"
+
+        opensans_bolditalic_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-bolditalic.eot"
+            output: "fonts/opensans-bolditalic.eot"
+        opensans_bolditalic_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-bolditalic.svg"
+            output: "fonts/opensans-bolditalic.svg"
+        opensans_bolditalic_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-bolditalic.ttf"
+            output: "fonts/opensans-bolditalic.ttf"
+        opensans_bolditalic_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-bolditalic.woff"
+            output: "fonts/opensans-bolditalic.woff"
+
+        opensans_extrabold_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-extrabold.eot"
+            output: "fonts/opensans-extrabold.eot"
+        opensans_extrabold_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-extrabold.svg"
+            output: "fonts/opensans-extrabold.svg"
+        opensans_extrabold_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-extrabold.ttf"
+            output: "fonts/opensans-extrabold.ttf"
+        opensans_extrabold_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-extrabold.woff"
+            output: "fonts/opensans-extrabold.woff"
+
+        opensans_extrabolditalic_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-extrabolditalic.eot"
+            output: "fonts/opensans-extrabolditalic.eot"
+        opensans_extrabolditalic_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-extrabolditalic.svg"
+            output: "fonts/opensans-extrabolditalic.svg"
+        opensans_extrabolditalic_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-extrabolditalic.ttf"
+            output: "fonts/opensans-extrabolditalic.ttf"
+        opensans_extrabolditalic_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-extrabolditalic.woff"
+            output: "fonts/opensans-extrabolditalic.woff"
+
+        opensans_italic_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-italic.eot"
+            output: "fonts/opensans-italic.eot"
+        opensans_italic_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-italic.svg"
+            output: "fonts/opensans-italic.svg"
+        opensans_italic_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-italic.ttf"
+            output: "fonts/opensans-italic.ttf"
+        opensans_italic_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-italic.woff"
+            output: "fonts/opensans-italic.woff"
+
+        opensans_light_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-light.eot"
+            output: "fonts/opensans-light.eot"
+        opensans_light_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-light.svg"
+            output: "fonts/opensans-light.svg"
+        opensans_light_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-light.ttf"
+            output: "fonts/opensans-light.ttf"
+        opensans_light_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-light.woff"
+            output: "fonts/opensans-light.woff"
+
+        opensans_lightitalic_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-lightitalic.eot"
+            output: "fonts/opensans-lightitalic.eot"
+        opensans_lightitalic_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-lightitalic.svg"
+            output: "fonts/opensans-lightitalic.svg"
+        opensans_lightitalic_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-lightitalic.ttf"
+            output: "fonts/opensans-lightitalic.ttf"
+        opensans_lightitalic_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-lightitalic.woff"
+            output: "fonts/opensans-lightitalic.woff"
+
+        opensans_regular_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-regular.eot"
+            output: "fonts/opensans-regular.eot"
+        opensans_regular_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-regular.svg"
+            output: "fonts/opensans-regular.svg"
+        opensans_regular_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-regular.ttf"
+            output: "fonts/opensans-regular.ttf"
+        opensans_regular_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-regular.woff"
+            output: "fonts/opensans-regular.woff"
+
+        opensans_semibold_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-semibold.eot"
+            output: "fonts/opensans-semibold.eot"
+        opensans_semibold_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-semibold.svg"
+            output: "fonts/opensans-semibold.svg"
+        opensans_semibold_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-semibold.ttf"
+            output: "fonts/opensans-semibold.ttf"
+        opensans_semibold_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-semibold.woff"
+            output: "fonts/opensans-semibold.woff"
+
+        opensans_semibolditalic_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-semibolditalic.eot"
+            output: "fonts/opensans-semibolditalic.eot"
+        opensans_semibolditalic_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-semibolditalic.svg"
+            output: "fonts/opensans-semibolditalic.svg"
+        opensans_semibolditalic_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-semibolditalic.ttf"
+            output: "fonts/opensans-semibolditalic.ttf"
+        opensans_semibolditalic_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/open-sans/fonts/opensans-semibolditalic.woff"
+            output: "fonts/opensans-semibolditalic.woff"
+
+
+        roboto_css:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/roboto.css"
+            filters: [cssrewrite]
+        roboto_bold_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-bold.eot"
+            output: "fonts/roboto-bold.eot"
+        roboto_bold_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-bold.svg"
+            output: "fonts/roboto-bold.svg"
+        roboto_bold_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-bold.ttf"
+            output: "fonts/roboto-bold.ttf"
+        roboto_bold_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-bold.woff"
+            output: "fonts/roboto-bold.woff"
+
+        roboto_bolditalic_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-bolditalic.eot"
+            output: "fonts/roboto-bolditalic.eot"
+        roboto_bolditalic_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-bolditalic.svg"
+            output: "fonts/roboto-bolditalic.svg"
+        roboto_bolditalic_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-bolditalic.ttf"
+            output: "fonts/roboto-bolditalic.ttf"
+        roboto_bolditalic_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-bolditalic.woff"
+            output: "fonts/roboto-bolditalic.woff"
+
+        roboto_black_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-black.eot"
+            output: "fonts/roboto-black.eot"
+        roboto_black_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-black.svg"
+            output: "fonts/roboto-black.svg"
+        roboto_black_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-black.ttf"
+            output: "fonts/roboto-black.ttf"
+        roboto_black_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-black.woff"
+            output: "fonts/roboto-black.woff"
+
+        roboto_blackitalic_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-blackitalic.eot"
+            output: "fonts/roboto-blackitalic.eot"
+        roboto_blackitalic_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-blackitalic.svg"
+            output: "fonts/roboto-blackitalic.svg"
+        roboto_blackitalic_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-blackitalic.ttf"
+            output: "fonts/roboto-blackitalic.ttf"
+        roboto_blackitalic_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-blackitalic.woff"
+            output: "fonts/roboto-blackitalic.woff"
+
+        roboto_italic_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-italic.eot"
+            output: "fonts/roboto-italic.eot"
+        roboto_italic_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-italic.svg"
+            output: "fonts/roboto-italic.svg"
+        roboto_italic_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-italic.ttf"
+            output: "fonts/roboto-italic.ttf"
+        roboto_italic_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-italic.woff"
+            output: "fonts/roboto-italic.woff"
+
+        roboto_light_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-light.eot"
+            output: "fonts/roboto-light.eot"
+        roboto_light_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-light.svg"
+            output: "fonts/roboto-light.svg"
+        roboto_light_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-light.ttf"
+            output: "fonts/roboto-light.ttf"
+        roboto_light_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-light.woff"
+            output: "fonts/roboto-light.woff"
+
+        roboto_lightitalic_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-lightitalic.eot"
+            output: "fonts/roboto-lightitalic.eot"
+        roboto_lightitalic_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-lightitalic.svg"
+            output: "fonts/roboto-lightitalic.svg"
+        roboto_lightitalic_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-lightitalic.ttf"
+            output: "fonts/roboto-lightitalic.ttf"
+        roboto_lightitalic_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-lightitalic.woff"
+            output: "fonts/roboto-lightitalic.woff"
+
+        roboto_regular_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-regular.eot"
+            output: "fonts/roboto-regular.eot"
+        roboto_regular_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-regular.svg"
+            output: "fonts/roboto-regular.svg"
+        roboto_regular_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-regular.ttf"
+            output: "fonts/roboto-regular.ttf"
+        roboto_regular_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-regular.woff"
+            output: "fonts/roboto-regular.woff"
+
+        roboto_medium_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-medium.eot"
+            output: "fonts/roboto-medium.eot"
+        roboto_medium_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-medium.svg"
+            output: "fonts/roboto-medium.svg"
+        roboto_medium_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-medium.ttf"
+            output: "fonts/roboto-medium.ttf"
+        roboto_medium_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-medium.woff"
+            output: "fonts/roboto-medium.woff"
+
+        roboto_mediumitalic_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-mediumitalic.eot"
+            output: "fonts/roboto-mediumitalic.eot"
+        roboto_mediumitalic_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-mediumitalic.svg"
+            output: "fonts/roboto-mediumitalic.svg"
+        roboto_mediumitalic_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-mediumitalic.ttf"
+            output: "fonts/roboto-mediumitalic.ttf"
+        roboto_mediumitalic_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-mediumitalic.woff"
+            output: "fonts/roboto-mediumitalic.woff"
+
+        roboto_thin_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-thin.eot"
+            output: "fonts/roboto-thin.eot"
+        roboto_thin_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-thin.svg"
+            output: "fonts/roboto-thin.svg"
+        roboto_thin_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-thin.ttf"
+            output: "fonts/roboto-thin.ttf"
+        roboto_thin_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-thin.woff"
+            output: "fonts/roboto-thin.woff"
+
+        roboto_thinitalic_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-thinitalic.eot"
+            output: "fonts/roboto-thinitalic.eot"
+        roboto_thinitalic_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-thinitalic.svg"
+            output: "fonts/roboto-thinitalic.svg"
+        roboto_thinitalic_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-thinitalic.ttf"
+            output: "fonts/roboto-thinitalic.ttf"
+        roboto_thinitalic_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/webfontkit/roboto/fonts/roboto-thinitalic.woff"
+            output: "fonts/roboto-thinitalic.woff"
