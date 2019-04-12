@@ -782,9 +782,50 @@ class IdpController extends AppController
 
                                 return new JsonResponse(array('success' => true, 'message' => 'Attributes saved.'));
                             }
-
-                            return new JsonResponse(array('success' => false, 'message' => 'There is no connection between your IdP and the given SP identifier.'));
                         }
+                    } else {
+                        return new JsonResponse(array('success' => false, 'message' => 'Unauthorized'), 403);
+                    }
+                } else {
+                    return new JsonResponse(array('success' => false, 'message' => 'IdP did not match.'));
+                }
+            } else {
+                return new JsonResponse(array('success' => false, 'message' => 'Wrong parameters.'));
+            }
+        }
+
+        return new Response('This is not ajax!', 400);
+    }
+
+    /**
+     * @Route("/spedit")
+     * @Method("POST")
+     */
+    public function spEdit(Request $request)
+    {
+        if ($request->isXMLHttpRequest()) {
+            $idpid = $request->request->get('idpid');
+            $spid = $request->request->get('spid');
+            if (is_numeric($idpid) && is_numeric($spid)) {
+                $em = $this->getDoctrine()->getManager();
+
+                $idp = $em->getRepository('AppBundle:IdP')->find($idpid);
+                if ($idp) {
+                    if ($this->validateOwnership($idp)) {
+                        $sp = $em->getRepository('AppBundle:Entity')->find($spid);
+
+                        if (!$sp) {
+                            return new JsonResponse(array('success' => false, 'message' => 'Invalid SP identifier'));
+                        }
+
+                        foreach ($idp->getEntities() as $entity) {
+                            if ($entity->getId() == $sp->getId()) {
+                                $spData = unserialize(stream_get_contents($sp->getEntitydata()));
+                                return new JsonResponse(array('success' => true, 'modificable' => $sp->getModificable(), 'attributes' => json_encode(isset($spData['attributes']) ? $this->attributeMapOid2Name($spData['attributes']) : array())));
+                            }
+                        }
+
+                        return new JsonResponse(array('success' => false, 'message' => 'There is no connection between your IdP and the given SP identifier.'));
                     } else {
                         return new JsonResponse(array('success' => false, 'message' => 'Unauthorized'), 403);
                     }
@@ -945,13 +986,15 @@ class IdpController extends AppController
         unset($m['expire']);
         unset($m['metadata-set']);
         $spentityid = $m['entityid'];
+        $modificable = (isset($m['attributes'])) ? false : true;
         $spentities = $em->getRepository('AppBundle:Entity')->findByEntityid($spentityid);
         if (!$spentities) {
             $sp = new Entity();
             $sp->setSha1sum(sha1($spXml))
                 ->setEntityid($m['entityid'])
                 ->setEntitydata(serialize($m))
-                ->setLastModified(new \DateTime());
+                ->setLastModified(new \DateTime())
+                ->setModificable($modificable);
             $em->persist($sp);
             $em->flush($sp);
             $idp->addEntity($sp);
@@ -983,7 +1026,8 @@ class IdpController extends AppController
                 $newsp->setSha1sum(sha1($spXml))
                     ->setEntityid($m['entityid'])
                     ->setEntitydata(serialize($m))
-                    ->setLastModified(new \DateTime());
+                    ->setLastModified(new \DateTime())
+                    ->setModificable($modificable);
                 $em->persist($newsp);
                 $em->flush($newsp);
 

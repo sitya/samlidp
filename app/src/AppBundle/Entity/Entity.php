@@ -51,7 +51,14 @@ class Entity
      *
      * @ORM\Column(name="last_modified", type="datetime", nullable=true)
      */
-    private $lastModified;    
+    private $lastModified;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="modificable", type="boolean", options={"default":"false"})
+     */
+    protected $modificable = false;
 
     /**
      * @var \AppBundle\Federation
@@ -241,5 +248,29 @@ class Entity
     public function getLastModified()
     {
         return $this->lastModified;
+    }
+
+    /**
+     * Set modificable.
+     *
+     * @param bool $modificable
+     *
+     * @return Entity
+     */
+    public function setModificable($modificable)
+    {
+        $this->modificable = $modificable;
+
+        return $this;
+    }
+
+    /**
+     * Get enabled.
+     *
+     * @return bool
+     */
+    public function getModificable()
+    {
+        return $this->modificable;
     }
 }

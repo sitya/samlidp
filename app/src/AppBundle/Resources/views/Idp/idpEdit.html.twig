@@ -34,10 +34,10 @@
                 <div class="col-sm-8">https://{{ idp.hostname }}.{{ samlidp_hostname }} {% block IdpDomainCheck %}{% endblock IdpDomainCheck %}</div>
             </div>
             {{ form_row(form.instituteName) }}
-            {{ form_row(form.instituteUrl) }}          
+            {{ form_row(form.instituteUrl) }}
             {{ form_end(form) }}
 
-            <div class="row">                
+            <div class="row">
                 <label class="col-sm-4 control-label text-right" >{{ "edit.logo"|trans|raw }}</label>
                 <div class="col-sm-4">
                     <div id="logowrapper">
@@ -55,10 +55,10 @@
                     </form>
                 </div>
             </div>
-            <div style="margin-top: 12px;">               
+            <div style="margin-top: 12px;">
                 <form action="" class="form-horizontal" role="form">
                     <div class="form-group">
-                        <div class="col-sm-8 col-sm-offset-4">            
+                        <div class="col-sm-8 col-sm-offset-4">
                             <button id="submitter" data-target="#form" class="btn btn-primary">{% if idp.instituteName() is not null %}{{ "edit.save"|trans|raw }}{% else %}{{ "edit.finish"|trans|raw }}{% endif %}</button>
                         </div>
                     </div>
@@ -68,23 +68,23 @@
         </div>
         {% if not create %}
         <div class="clearfix"></div>
-        <div class="col-md-8 col-md-offset-4 pull-right hr-line-dashed"></div>        
-        
+        <div class="col-md-8 col-md-offset-4 pull-right hr-line-dashed"></div>
+
         <div class="clearfix"></div>
 
         <div class="form-group">
             <div class="col-md-4"><h2 class="pull-right">{{ "edit.domains_and_scopes"|trans|raw }}</h2></div>
-        </div>        
+        </div>
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-8 col-md-offset-4">
                 <p>{{ "edit.domains_text"|trans({"%idp%": '@' ~ idp.hostname ~ '.' ~ samlidp_hostname })|raw }}</p>
-                <div id="domaindiv">                
+                <div id="domaindiv">
                     <div class="text-center p-md text-center">
                         <strong id="hash">{{ idp.getDNSCheckerHash() }}</strong>
                         <button class="btn btn-white  m-l-sm" id="verify-button" data-clipboard-target="#hash"><i class="fa fa-copy"></i></button>
                     </div>
-                    
+
                     <form name="verify-domain-form" class="form-horizontal" role="form">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">{{ "edit.domain_name"|trans|raw }}</label>
@@ -127,7 +127,7 @@
                                                         {% else %}
                                                             <a href="" class="label {{ isdefaultscopelabel }} setDefaultScope" {{ disabled }} >{{ "edit.set_as_default_scope"|trans|raw }}</a>
                                                         {% endif %}
-                                                        
+
                                                         <span class="badge" title="{{ "edit.users_with_scope"|trans|raw }}">
                                                         </span>
                                                     </span>
@@ -143,21 +143,21 @@
                                         </div>
                                     {% endfor %}
                                 </div>
-                                <div class="form-group">    
+                                <div class="form-group">
                                     <div class="col-sm-8 col-sm-offset-4">
                                         <a class="btn btn-success btn-xs pull-right buttonAddScope" data-domain="{{ domain }}"><i class="fa fa-plus"></i> {{ "edit.add_scope"|trans|raw }}</a>
                                     </div>
                                 </div>
                             </div>
                         {% endfor %}
-                        
+
                     </form>
                     {% endif %}
                 </div>
                 </div>
                 <div class="clearfix"></div>
-                <div class="col-md-8 col-md-offset-4 pull-right hr-line-dashed"></div>        
-                
+                <div class="col-md-8 col-md-offset-4 pull-right hr-line-dashed"></div>
+
                 <div class="clearfix"></div>
 
                 <div class="form-group">
@@ -173,11 +173,11 @@
                             <p>{{ "edit.edit_users_text"|trans({"%count%": idp.IdPUserCount })|raw }}</p>
                             <a href="{{ path('idpuser_index', {id: idp.id}) }}" type="button" class="btn btn-primary"><i class="fa fa-users fa-lg m-r-sm"></i>{{ "edit.edit_users_link"|trans|raw }}</a>
                         {% endif %}
-                    </div>        
+                    </div>
                 </div>
                 <div class="clearfix"></div>
-                <div class="col-md-8 col-md-offset-4 pull-right hr-line-dashed"></div>        
-                
+                <div class="col-md-8 col-md-offset-4 pull-right hr-line-dashed"></div>
+
                 <div class="clearfix"></div>
 
                 <div class="form-group">
@@ -242,15 +242,18 @@
                                     <div class="pull-right">
                                         <a href="#" data-toggle="modal" data-target="#confirm-delete" data-spid="{{ entity.id }}" class="btn btn-danger btn-xs" title="{{ "edit.list_sp_remove_button"|trans|raw }}"><i class="fa fa-times"></i></a>
                                     </div>
+                                    <div class="pull-right">
+                                        <a href="#" data-toggle="modal" data-target="#sp-edit" data-spid="{{ entity.id }}" class="btn btn-info btn-xs" title="edit SP attributes"><i class="fa fa-pencil"></i></a>
+                                    </div>
                                 </td></tr>
                             {% endfor %}
                             </tbody>
                         </table>
                         {% endif %}
-                    </div>        
+                    </div>
                     {% if not create %}
                     <div class="clearfix"></div>
-                    <div class="col-md-8 col-md-offset-4 pull-right hr-line-dashed"></div>        
+                    <div class="col-md-8 col-md-offset-4 pull-right hr-line-dashed"></div>
                     <div class="clearfix"></div>
                     <div class="row">
                         <div class="col-md-4"></div>
@@ -259,7 +262,7 @@
                         </div>
                     </div>
         {% endif %}
-                </div>                         
+                </div>
         {% endif %}
         </div>
     </div>
@@ -314,11 +317,25 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="sp-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <b>Attributes to be released to the SP</b>
+                <input type="hidden" id="spidtoedit" value="0" />
+            </div>
+            <div class="modal-body" id="sp-edit-body"></div>
+            <div class="modal-footer" id="sp-edit-footer">
+                <button type="button" class="btn btn-primary" id="sp-edit-modal-ok">OK, I got it</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="sp-settings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <b>About the added Service Provider</b>
+                <b>Attributes to be released to the SP</b>
             </div>
             <div class="modal-body" id="sp-settings-body"></div>
             <div class="modal-footer" id="sp-settings-footer">
@@ -393,9 +410,9 @@
 
         $(document).on('click', '#submitter', function(event){
             event.preventDefault();
-            $($(this).data('target')).submit();            
+            $($(this).data('target')).submit();
         });
-        
+
         $(document).on('click', '#verify-domain', function(event) {
             event.preventDefault();
             $('#verify-domain-status').html('<i class="fa fa-refresh fa-spin"></i>');
@@ -411,13 +428,13 @@
                     window.location.replace('{{ path('app_idp_idpedit', {id: idp.id }) }}');
                 } else {
                     $('#verify-domain-status').html('');
-                    toastr.error(data.message);                    
+                    toastr.error(data.message);
                 }
             })
             .fail(function() {
                 console.log("error");
                 $('#verify-domain-status').html('<i class="fa fa-times"></i>');
-            });    
+            });
         });
 
         $(document).on('click', '.buttonAddScope', function(event) {
@@ -458,9 +475,9 @@
             var domainid = $(this).closest('.domainDiv').data('domainid');
             var inputGroup = $(this).closest('.input-group')
             var origValue = inputGroup.data('scopevalue');
-            var scopeValue = inputGroup.find('input').val(); 
+            var scopeValue = inputGroup.find('input').val();
             var scopeid = inputGroup.data('scopeid');
-            
+
             if (scopeid) { // scope EDIT
                 $.ajax({
                     url: "{{ path('app_idp_scopeupdate') }}",
@@ -478,14 +495,14 @@
                         inputGroup.find('.actionSpan').html($('#actionPrototypeDelete').html());
                         toastr.success('Scope saved.');
                     } else {
-                        toastr.error(data.message);                    
+                        toastr.error(data.message);
                     }
 
                 })
                 .fail(function() {
                     console.log("error");
                     console.log(data);
-                });    
+                });
             } else {  // scope ADD
                 $.ajax({
                     url: '{{ path('app_idp_scopeadd') }}',
@@ -504,7 +521,7 @@
                         inputGroup.find('span.label').parent().html('<a href="" class="label label-default setDefaultScope">default scope</a>')
                         toastr.success('Scope added.');
                     } else {
-                        toastr.error(data.message);                    
+                        toastr.error(data.message);
                     }
                 })
                 .fail(function() {
@@ -533,13 +550,13 @@
                     inputGroup.closest('.form-group').remove();
                     toastr.success('Scope deleted.');
                 } else {
-                    toastr.error(data.message);                    
+                    toastr.error(data.message);
                 }
             })
             .fail(function() {
                 console.log("error");
             });
-            
+
         });
 
         $(document).on('click', '.setDefaultScope', function(event) {
@@ -547,7 +564,7 @@
             var inputGroup = $(this).closest('.input-group')
             var scopeid = inputGroup.data('scopeid');
             var newDefaultAnchor = $(this);
-            
+
             $.ajax({
                 url: "{{ path('app_idp_setdefaultscope') }}",
                 type: 'POST',
@@ -562,7 +579,7 @@
                     toastr.success('Default scope updated.');
                     refreshScopedUserBadge();
                 } else {
-                    toastr.error(data.message);                    
+                    toastr.error(data.message);
                 }
             })
             .fail(function() {
@@ -585,7 +602,7 @@
                     inputGroup.closest('.domainDiv').remove();
                     toastr.success('Domain deleted.');
                 } else {
-                    toastr.error(data.message);                    
+                    toastr.error(data.message);
                 }
             })
             .fail(function() {
@@ -651,7 +668,7 @@
                 } else {
                     $('#spadd-status').html('');
                     if (data.success == 'warning'){
-                        toastr.warning(data.message);                    
+                        toastr.warning(data.message);
                     } else {
                         toastr.error(data.message);
                     }
@@ -660,7 +677,63 @@
             .fail(function() {
                 console.log("error");
                 $('#spadd-status').html('<i class="fa fa-times"></i>');
-            });    
+            });
+        });
+
+        $('#sp-edit').on('show.bs.modal', function(event) {
+            $("#spidtoedit").val( $(event.relatedTarget).data('spid'));
+            $.ajax({
+                url: '{{ path('app_idp_spedit') }}',
+                type: 'POST',
+                data: {spid: $("#spidtoedit").val(), idpid: {{ idp.id }} },
+            })
+            .done(function(data) {
+                console.log(data);
+                var origAttributes = $.parseJSON(data.attributes);
+                if (data.modificable == false){
+                        $('#sp-edit-body').html('<p>Service Provider defined its requested attributes in the metadata, you cannot modify them. These are the followings:</p><ul>');
+                        $.each(origAttributes, function(index, value){
+                           $('#sp-edit-body').append('<li>' + value + '</li>');
+                        });
+                           $('#sp-edit-body').append('</ul><p><br>If the original metadata has been changed, you can paste the again (or its url) and it will be parsed again.</p>');
+                } else {
+                    var attributes = ['sn','givenName','displayName','mail','eduPersonPrincipalName','eduPersonTargetedID','eduPersonScopedAffiliation','schacHomeOrganizationType'];
+                    $('#sp-edit-body').html('<p>You can modify the attributes to be released the Service Provider<ul>');
+                    $.each(attributes, function(index, value){
+                        var checked = ($.inArray(value, origAttributes)!==-1) ? 'checked' : '';
+                        //console.log(value + '  --> ' + checked);
+                        $('#sp-edit-body').append('<li class="col-md-12">'+value+'<div class="switch pull-right"><div class="onoffswitch"><input type="checkbox" class="onoffswitch-checkbox sp-edit-switch" id="'+value+'" value="'+value+'" name="spmodalswitch[]" '+checked+'><label class="onoffswitch-label" for="'+value+'"><span class="onoffswitch-inner"></span><span class="onoffswitch-switch"></span></label></div></div></li>');
+                        $('#' + value).attr('checked');
+                    });
+                }
+                $('#sp-edit-body').append('<div class="clearfix"></div></ul>');
+            })
+            .fail(function() {
+                console.log("error");
+            });
+        });
+
+        $(document).on('click', '#sp-edit-modal-ok', function(event) {
+            if ($('input[name="spmodalswitch[]"]:checked').length>0){
+                $.ajax({
+                    url: '{{ path('app_idp_spchangeattributes') }}',
+                    type: 'POST',
+                    data: {spid: $("#spidtoedit").val(), attributes: $('input[name="spmodalswitch[]"]:checked').serializeArray(), idpid: {{ idp.id }} },
+                })
+                .done(function(data) {
+                    if (data.success) {
+                        toastr.success(data.message);
+                        $('#sp-edit').modal('toggle');
+                        window.location.replace('{{ path('app_idp_idpedit', {id: idp.id }) }}');
+                    } else {
+                        toastr.error(data.message);
+                    }
+                })
+                .fail(function() {
+                    console.log(data.message);
+                });
+            }
+            $('#sp-edit').modal('toggle');
         });
 
         $(document).on('click', '#spmodalok', function(event) {
@@ -678,16 +751,15 @@
                         $('#sp-settings').modal('toggle');
                         window.location.replace('{{ path('app_idp_idpedit', {id: idp.id }) }}');
                     } else {
-                        toastr.error(data.message);           
+                        toastr.error(data.message);
                     }
+                    console.log(data);
                 })
                 .fail(function() {
-                    console.log(data.message);
-                });            
-            } 
-            $('#sp-settings').modal('toggle');
+                    console.log(data);
+                });
+            }
             window.location.replace('{{ path('app_idp_idpedit', {id: idp.id }) }}');
-
          });
 
         $(document).on('change', '.fedlistswitch', function(event) {
@@ -702,12 +774,12 @@
                 if (data.success) {
                     console.log('success');
                 } else {
-                    toastr.error(data.message);                    
+                    toastr.error(data.message);
                 }
             })
             .fail(function() {
                 console.log("error");
-            }); 
+            });
          });
 
         $('#confirm-delete').on('show.bs.modal', function(e) {
@@ -729,12 +801,12 @@
                         $('#confirm-delete').modal('toggle');
                         window.location.replace('{{ path('app_idp_idpedit', {id: idp.id }) }}');
                     } else {
-                        toastr.error(data.message);           
+                        toastr.error(data.message);
                     }
                 })
                 .fail(function() {
                     console.log(data.message);
-                });            
+                });
             }
             //$('#sp-settings').modal('toggle');
          });
