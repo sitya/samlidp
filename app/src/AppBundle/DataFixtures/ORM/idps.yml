@@ -1,0 +1,45 @@
+AppBundle\Entity\IdP:
+  behatidp_{1..12}:
+    status: active
+    hostname: behatidp_<current()>
+    registrationInstant: <dateTimeThisYear($max = 'now')>
+    users:
+      - '@user'
+  idp_{1..12}:
+    status: active
+    hostname: <word()><current()>
+    registrationInstant: <dateTimeThisYear($max = 'now')>
+    users:
+      - '@user'
+
+AppBundle\Entity\OrganizationElement:
+  name_organization_element_{1..12}:
+    type: Name
+    lang: <languageCode()>
+    value: <word()>
+    idp: '@idp_<current()>'
+  name_behat_organization_element_{1..12}:
+    type: Name
+    lang: <languageCode()>
+    value: behat_<word()>_<current()>
+    idp: '@behatidp_<current()>'
+  displayName_organization_element_{1..12}:
+    type: displayName
+    lang: <languageCode()>
+    value: <word()>
+    idp: '@idp*'
+  description_organization_element_{1..12}:
+    type: Description
+    lang: <languageCode()>
+    value: <word()>
+    idp: '@idp*'
+  informationUrl_organization_element_{1..12}:
+    type: InformationURL
+    lang: <languageCode()>
+    value: <url()>
+    idp: '@idp*'
+  privacyStatementUrl_organization_element_{1..12}:
+    type: PrivacyStatementURL
+    lang: <languageCode()>
+    value: <url()>
+    idp: '@idp*'

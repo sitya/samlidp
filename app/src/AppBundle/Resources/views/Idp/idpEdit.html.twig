@@ -102,7 +102,7 @@
                     <div class="hr-line-dashed"></div>
                     <h3>{{ "edit.verified_domains"|trans|raw }}</h3>
 
-                    <form name="scopes-form" class="form-horizontal scopes" role="form" data-nullscopedusers="{{ idp.IdPUsersWithoutScope|length }}">
+                    <form name="scopes-form" class="form-horizontal scopes" role="form">
                         {% for domain in idp.getDomains %}
                             <div class="domainDiv" id="{{ domain.domain }}" data-domainid="{{ domain.id }}">
                                 <div class="scopeCollection">

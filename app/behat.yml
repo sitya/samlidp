@@ -1,0 +1,50 @@
+# selenium test:
+# app/console s:r 0.0.0.0:8000
+# docker run --rm --name=grid -p 4444:24444 -p 5900:25900 --shm-size=1g --add-host="app:HOST_IP" elgalu/selenium
+default:
+    extensions:
+        Behat\Symfony2Extension: ~
+        Behat\MinkExtension:
+            base_url: http://app:8000/
+            sessions:
+                my_session:
+                    symfony2: ~
+                selenium2:
+                    selenium2:
+                        browser: chrome
+                        wd_host: http://grid:4444/wd/hub
+            show_cmd: '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome %s'
+        Knp\FriendlyContexts\Extension:
+            smartTag: smartStep
+            entities:
+                namespaces:
+                    - AppBundle
+            alice:
+                fixtures:
+                    DomainScopes: src/AppBundle/DataFixtures/ORM/domains_scopes.yml
+                    Users: src/AppBundle/DataFixtures/ORM/users.yml
+                    IdPs: src/AppBundle/DataFixtures/ORM/idps.yml
+                    Users: src/AppBundle/DataFixtures/ORM/users.yml
+                    InternalUsers: src/AppBundle/DataFixtures/ORM/idp_internal_users.yml
+                    IdPAudit: src/AppBundle/DataFixtures/ORM/idp_audit.yml
+
+                dependencies:
+                    IdPs: [ Users ]
+                    InternalUsers: [ IdPs ]
+                    DomainScopes: [ IdPs ]
+
+        Alex\MailCatcher\Behat\MailCatcherExtension\Extension:
+            url: http://smtp:80
+            purge_before_scenario: true
+    suites:
+        my_suite:
+            type: symfony_bundle
+            bundle: AppBundle
+            mink_session: selenium2
+            contexts:
+                - Behat\MinkExtension\Context\MinkContext
+                - AppBundle\Features\Context\FeatureContext
+                - Knp\FriendlyContexts\Context\TableContext
+                - Knp\FriendlyContexts\Context\EntityContext
+                - Knp\FriendlyContexts\Context\AliceContext
+                - Alex\MailCatcher\Behat\MailCatcherContext
