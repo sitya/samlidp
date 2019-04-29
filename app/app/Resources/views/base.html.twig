@@ -60,6 +60,9 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-pencil"></i> Edit profile</a></li>
                                     <li><a href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> Change password</a></li>
+                                    {% if is_granted('ROLE_SUPER_ADMIN')  %}
+                                        <li><a href="{{ path('federation_index') }}"><i class="fa fa-rebel"></i> Federations</a></li>
+                                    {% endif %}
                                 </ul>
                             </li>
                             <li>

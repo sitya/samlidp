@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Federation</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ federation.id }}</td>
+            </tr>
+            <tr>
+                <th>Metadataurl</th>
+                <td>{{ federation.metadataUrl }}</td>
+            </tr>
+            <tr>
+                <th>Lastchecked</th>
+                <td>{% if federation.lastChecked %}{{ federation.lastChecked|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ federation.name }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ federation.slug }}</td>
+            </tr>
+            <tr>
+                <th>Federationurl</th>
+                <td>{{ federation.federationUrl }}</td>
+            </tr>
+            <tr>
+                <th>Contactname</th>
+                <td>{{ federation.contactName }}</td>
+            </tr>
+            <tr>
+                <th>Contactemail</th>
+                <td>{{ federation.contactEmail }}</td>
+            </tr>
+            <tr>
+                <th>Sps</th>
+                <td>{{ federation.sps }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('federation_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('federation_edit', { 'id': federation.id }) }}">Edit</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <h1>Federations list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Metadataurl</th>
+                <th>Lastchecked</th>
+                <th>Name</th>
+                <th>Slug</th>
+                <th>Federationurl</th>
+                <th>Contactname</th>
+                <th>Contactemail</th>
+                <th>Sps</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for federation in federations %}
+            <tr>
+                <td><a href="{{ path('federation_show', { 'id': federation.id }) }}">{{ federation.id }}</a></td>
+                <td>{{ federation.metadataUrl }}</td>
+                <td>{% if federation.lastChecked %}{{ federation.lastChecked|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ federation.name }}</td>
+                <td>{{ federation.slug }}</td>
+                <td>{{ federation.federationUrl }}</td>
+                <td>{{ federation.contactName }}</td>
+                <td>{{ federation.contactEmail }}</td>
+                <td>{{ federation.sps }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('federation_show', { 'id': federation.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('federation_edit', { 'id': federation.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('federation_new') }}">Create a new federation</a>
+        </li>
+    </ul>
+{% endblock %}

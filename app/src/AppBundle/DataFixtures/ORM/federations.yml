@@ -1,0 +1,11 @@
+---
+AppBundle\Entity\Federation:
+  eduid:
+    metadataUrl: https://metadata.eduid.hu/current/href.xml
+    #lastChecked: new DateTime()
+    name: eduID
+    slug: eduid
+    federationUrl: https://www.eduid.hu
+    contactName: info@eduid.hu
+    contactEmail: info@eduid.hu
+
