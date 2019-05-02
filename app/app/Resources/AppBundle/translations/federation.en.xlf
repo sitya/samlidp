@@ -49,6 +49,14 @@
         <source>index.federation_list_edit</source>
         <target>Edit</target>
       </trans-unit>
+      <trans-unit id="12" resname="index.federation_list_backtothelist">
+        <source>index.federation_list_backtothelist</source>
+        <target>Back to the federation's list</target>
+      </trans-unit>
+      <trans-unit id="13" resname="index.federation_list_federation">
+        <source>index.federation_list_federation</source>
+        <target>Federation</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

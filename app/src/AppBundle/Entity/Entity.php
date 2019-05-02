@@ -56,7 +56,7 @@ class Entity
     /**
      * @var bool
      *
-     * @ORM\Column(name="modificable", type="boolean", options={"default":false})
+     * @ORM\Column(name="modificable", type="boolean", options={"default": false})
      */
     protected $modificable = false;
 

@@ -1,55 +1,51 @@
 {% extends 'base.html.twig' %}
+{% trans_default_domain "federation" %}
 
 {% block body %}
-    <h1>Federation</h1>
-
-    <table>
+<div class="ibox">
+    <div class="ibox-title">
+        <h1>{{ "index.federation_list_federation"|trans|raw }}</h1>
+    </div>
+    <div class="ibox-content">
+    <table class="table table-striped text-center">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ federation.id }}</td>
-            </tr>
-            <tr>
-                <th>Metadataurl</th>
-                <td>{{ federation.metadataUrl }}</td>
-            </tr>
-            <tr>
-                <th>Lastchecked</th>
-                <td>{% if federation.lastChecked %}{{ federation.lastChecked|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
+                <th  scope="row">{{ "index.federation_list_name"|trans|raw }}</th>
                 <td>{{ federation.name }}</td>
             </tr>
             <tr>
-                <th>Slug</th>
+                <th  scope="row">{{ "index.federation_list_slug"|trans|raw }}</th>
                 <td>{{ federation.slug }}</td>
             </tr>
             <tr>
-                <th>Federationurl</th>
-                <td>{{ federation.federationUrl }}</td>
+                <th  scope="row">{{ "index.federation_list_federationurl"|trans|raw }}</th>
+                <td><a href="{{ federation.federationUrl }}"> {{ federation.federationUrl }} </a></td>
             </tr>
             <tr>
-                <th>Contactname</th>
+                <th  scope="row">{{ "index.federation_list_lastchecked"|trans|raw }}</th>
+                <td>{% if federation.lastChecked %}{{ federation.lastChecked|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th  scope="row"> {{ "index.federation_list_metadataurl"|trans|raw }}</th>
+                <td><a href="{{ federation.federationUrl }}"> {{ federation.metadataUrl }} </a></td>
+            </tr>
+            <tr>
+                <th  scope="row">{{ "index.federation_list_contactname"|trans|raw }}</th>
                 <td>{{ federation.contactName }}</td>
             </tr>
             <tr>
-                <th>Contactemail</th>
-                <td>{{ federation.contactEmail }}</td>
+                <th  scope="row">{{ "index.federation_list_contactemail"|trans|raw }}</th>
+                <td><a href="mailto:{{federation.contactEmail }}"> {{ federation.contactEmail }} </a></td>
             </tr>
             <tr>
-                <th>Sps</th>
+                <th  scope="row">{{ "index.federation_list_sps"|trans|raw }}</th>
                 <td>{{ federation.sps }}</td>
             </tr>
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('federation_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('federation_edit', { 'id': federation.id }) }}">Edit</a>
-        </li>
-    </ul>
+    <div class="hr-line-dashed"></div>
+                <a class="btn btn-white  pull-left" href="{{ path('federation_index') }}"><i class="fa fa-undo"></i> {{ "index.federation_list_backtothelist"|trans|raw }} </a>
+                <a class="btn btn-warning pull-right" href="{{ path('federation_edit', { 'id': federation.id }) }}"><i class="fa fa-edit"></i> {{ "index.federation_list_edit"|trans|raw }}</a>
+    </div>
+</div>
 {% endblock %}
