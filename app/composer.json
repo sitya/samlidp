@@ -78,7 +78,7 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
-            "bin/console assetic:dump"
+            "php bin/console assetic:dump"
         ],
         "post-install-cmd": [
             "@symfony-scripts"

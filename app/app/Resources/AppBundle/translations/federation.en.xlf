@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="1" resname="index.federation_list_title">
+        <source>index.federation_list_title</source>
+        <target>Federation list</target>
+      </trans-unit>
+      <trans-unit id="2" resname="index.new_federation">
+        <source>index.new_federation</source>
+        <target>New federation</target>
+      </trans-unit>
+      <trans-unit id="3" resname="index.federation_list_name">
+        <source>index.federation_list_name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="4" resname="index.federation_list_slug">
+        <source>index.federation_list_slug</source>
+        <target>Slug</target>
+      </trans-unit>
+      <trans-unit id="5" resname="index.federation_list_federationurl">
+        <source>index.federation_list_federationurl</source>
+        <target>Federation URL</target>
+      </trans-unit>
+      <trans-unit id="6" resname="index.federation_list_lastchecked">
+        <source>index.federation_list_lastchecked</source>
+        <target>Last checked</target>
+      </trans-unit>
+      <trans-unit id="7" resname="index.federation_list_metadataurl">
+        <source>index.federation_list_metadataurl</source>
+        <target>Metadata URL</target>
+      </trans-unit>
+      <trans-unit id="8" resname="index.federation_list_contactname">
+        <source>index.federation_list_contactname</source>
+        <target>Contact name</target>
+      </trans-unit>
+      <trans-unit id="9" resname="index.federation_list_contactemail">
+        <source>index.federation_list_contactemail</source>
+        <target>Contact E-mail</target>
+      </trans-unit>
+      <trans-unit id="10" resname="index.federation_list_sps">
+        <source>index.federation_list_sps</source>
+        <target>SPS</target>
+      </trans-unit>
+      <trans-unit id="11" resname="index.federation_list_edit">
+        <source>index.federation_list_edit</source>
+        <target>Edit</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

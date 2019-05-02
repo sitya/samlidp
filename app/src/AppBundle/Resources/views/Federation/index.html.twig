@@ -1,53 +1,76 @@
 {% extends '::base.html.twig' %}
+{% trans_default_domain "federation" %}
 
 {% block body %}
-    <h1>Federations list</h1>
+    <div class="ibox">
+        <div class="ibox-title">
+            <h1>
+                {{ "index.federation_list_title"|trans|raw }}
+                <span class="pull-right">
+                <a href="{{ path('federation_new') }}" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="create a new federation"><i class="fa fa-plus"></i>{{ "index.federation_list_title"|trans|raw }}</a>
+            </span>
+            </h1>
+        </div>
+        <div class="ibox-content">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>{{ "index.federation_list_name"|trans|raw }}</th>
+                    <th>{{ "index.federation_list_slug"|trans|raw }}</th>
+                    <th>{{ "index.federation_list_federationurl"|trans|raw }}</th>
+                    <th> {{ "index.federation_list_lastchecked"|trans|raw }}</th>
+                    <th> {{ "index.federation_list_metadataurl"|trans|raw }}</th>
+                    <th> {{ "index.federation_list_contactname"|trans|raw }}</th>
+                    <th> {{ "index.federation_list_contactemail"|trans|raw }}</th>
+                    <th> {{ "index.federation_list_sps"|trans|raw }}</th>
+                    <th> {{ "index.federation_list_edit"|trans|raw }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for federation in federations %}
+                    <tr>
+                        <td> <a href="{{ path('federation_show', { 'id': federation.id }) }}">{{ federation.name }}</a></td>
+                        <td>{{ federation.slug }}</td>
+                        <td>{{ federation.federationUrl }}</td>
+                        <td>{% if federation.lastChecked %}{{ federation.lastChecked|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td>{{ federation.metadataUrl }}</td>
+                        <td>{{ federation.contactName }}</td>
+                        <td>{{ federation.contactEmail }}</td>
+                        <td>{{ federation.sps }}</td>
+                        <td>
+                            <a href="{{ path('federation_edit', { 'id': federation.id }) }}" title="edit"><i class="fa fa-edit"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Metadataurl</th>
-                <th>Lastchecked</th>
-                <th>Name</th>
-                <th>Slug</th>
-                <th>Federationurl</th>
-                <th>Contactname</th>
-                <th>Contactemail</th>
-                <th>Sps</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for federation in federations %}
-            <tr>
-                <td><a href="{{ path('federation_show', { 'id': federation.id }) }}">{{ federation.id }}</a></td>
-                <td>{{ federation.metadataUrl }}</td>
-                <td>{% if federation.lastChecked %}{{ federation.lastChecked|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ federation.name }}</td>
-                <td>{{ federation.slug }}</td>
-                <td>{{ federation.federationUrl }}</td>
-                <td>{{ federation.contactName }}</td>
-                <td>{{ federation.contactEmail }}</td>
-                <td>{{ federation.sps }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('federation_show', { 'id': federation.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('federation_edit', { 'id': federation.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{% endblock %}
+{% block javascripts %}
+    {% javascripts
+        '@datatables_js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        var table = $('table').DataTable({
+            pageLength: 100,
+            responsive: true,
+            dom: '<"html5buttons"B>lTfgitp',
+        });
 
-    <ul>
-        <li>
-            <a href="{{ path('federation_new') }}">Create a new federation</a>
-        </li>
-    </ul>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
+    </script>
+{% endblock %}
+{% block stylesheets %}
+    {% stylesheets
+        '@datatables_css'
+    %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+    {% endstylesheets %}
 {% endblock %}
