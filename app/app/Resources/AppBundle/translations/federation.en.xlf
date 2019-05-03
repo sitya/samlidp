@@ -45,6 +45,10 @@
         <source>index.federation_list_sps</source>
         <target>SPS</target>
       </trans-unit>
+      <trans-unit id="cmid7jkdf" resname="index.federation_list_idps">
+        <source>index.federation_list_idps</source>
+        <target>IdPs</target>
+      </trans-unit>
       <trans-unit id="11" resname="index.federation_list_edit">
         <source>index.federation_list_edit</source>
         <target>Edit</target>
@@ -56,6 +60,18 @@
       <trans-unit id="13" resname="index.federation_list_federation">
         <source>index.federation_list_federation</source>
         <target>Federation</target>
+      </trans-unit>
+      <trans-unit id="14" resname="index.federation_show_idps">
+        <source>index.federation_show_idps</source>
+        <target>Connected Identity Providers</target>
+      </trans-unit>
+      <trans-unit id="15" resname="index.federation_show_idp_list_name">
+        <source>index.federation_show_idp_list_name</source>
+        <target>IdP name</target>
+      </trans-unit>
+      <trans-unit id="16" resname="index.federation_show_idp_list_owners">
+        <source>index.federation_show_idp_list_owners</source>
+        <target>Owners</target>
       </trans-unit>
     </body>
   </file>

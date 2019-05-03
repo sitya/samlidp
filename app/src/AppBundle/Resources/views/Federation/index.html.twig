@@ -22,6 +22,7 @@
                     <th> {{ "index.federation_list_metadataurl"|trans|raw }}</th>
                     <th> {{ "index.federation_list_contactname"|trans|raw }}</th>
                     <th> {{ "index.federation_list_contactemail"|trans|raw }}</th>
+                    <th> {{ "index.federation_list_idps"|trans|raw }}</th>
                     <th> {{ "index.federation_list_sps"|trans|raw }}</th>
                     <th> {{ "index.federation_list_edit"|trans|raw }}</th>
                 </tr>
@@ -32,10 +33,11 @@
                         <td> <a href="{{ path('federation_show', { 'id': federation.id }) }}">{{ federation.name }}</a></td>
                         <td>{{ federation.slug }}</td>
                         <td>{{ federation.federationUrl }}</td>
-                        <td>{% if federation.lastChecked %}{{ federation.lastChecked|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td class="text-nowrap">{% if federation.lastChecked %}{{ federation.lastChecked|date('Y-m-d H:i:s') }}{% endif %}</td>
                         <td>{{ federation.metadataUrl }}</td>
                         <td>{{ federation.contactName }}</td>
                         <td>{{ federation.contactEmail }}</td>
+                        <td><div class="badge badge-info">{{ federation.idps|length }}</div></td>
                         <td>{{ federation.sps }}</td>
                         <td>
                             <a href="{{ path('federation_edit', { 'id': federation.id }) }}" title="edit"><i class="fa fa-edit"></i></a>
