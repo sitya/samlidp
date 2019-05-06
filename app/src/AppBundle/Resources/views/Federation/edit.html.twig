@@ -1,16 +1,59 @@
 {% extends 'base.html.twig' %}
+{% trans_default_domain "federation" %}
 
 {% block body %}
-    <h1>Federation edit</h1>
-
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+    <div class="ibox">
+        <div class="ibox-title">
+            <h1>{{ "index.federation_list_federation_edit"|trans|raw }}</h1>
+        </div>
+        <div class="ibox-content">
+            <table class="table table-striped text-center">
+                <tbody>
+                <tr>
+                    <th  scope="row">{{ "index.federation_list_name"|trans|raw }}</th>
+                    <td> {{ form_widget(edit_form.name) }} {{ form_errors(edit_form.name) }}</td>
+                </tr>
+                <tr>
+                    <th  scope="row">{{ "index.federation_list_slug"|trans|raw }}</th>
+                    <td> {{ form_widget(edit_form.slug) }} {{ form_errors(edit_form.slug) }}</td>
+                </tr>
+                <tr>
+                    <th  scope="row">{{ "index.federation_list_federationurl"|trans|raw }}</th>
+                    <td>    {{ form_widget(edit_form.federationUrl) }} {{ form_errors(edit_form.federationUrl) }}</td>
+                </tr>
+                <tr>
+                    <th  scope="row">{{ "index.federation_list_lastchecked"|trans|raw }}</th>
+                    <td>{{ form_widget(edit_form.lastChecked) }}{{ form_errors(edit_form.lastChecked) }}</td>
+                </tr>
+                <tr>
+                    <th  scope="row"> {{ "index.federation_list_metadataurl"|trans|raw }}</th>
+                    <td>    {{ form_widget(edit_form.metadataUrl) }} {{ form_errors(edit_form.metadataUrl) }}</td>
+                </tr>
+                <tr>
+                    <th  scope="row">{{ "index.federation_list_contactname"|trans|raw }}</th>
+                    <td>{{ form_widget(edit_form.contactName) }}{{ form_errors(edit_form.contactName) }}</td>
+                </tr>
+                <tr>
+                    <th  scope="row">{{ "index.federation_list_contactemail"|trans|raw }}</th>
+                    <td> {{ form_widget(edit_form.contactEmail) }}{{ form_errors(edit_form.contactEmail) }}</td>
+                </tr>
+                <tr>
+                    <th  scope="row">{{ "index.federation_list_sps"|trans|raw }}</th>
+                    <td>{{ form_widget(edit_form.sps) }}{{ form_errors(edit_form.sps) }}</td>
+                </tr>
+                <tr>
+                    <th  scope="row">{{ "index.federation_list_idps"|trans|raw }}</th>
+                    <td>{{ form_widget(edit_form.idps) }}{{ form_errors(edit_form.idps) }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="hr-line-dashed"></div>
+            <div class="row">
+                <a class="btn btn-white  pull-left" href="{{ path('federation_index') }}"><i class="fa fa-undo"></i> {{ "index.federation_list_backtothelist"|trans|raw }} </a>
+                <input class="btn btn-warning pull-right" type="submit" value=" {{ "index.federation_save"|trans|raw }}" />
+            </div>
+        </div>
+    </div>
     {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('federation_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}

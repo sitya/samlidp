@@ -77,9 +77,17 @@
         <source>index.federation_list_federation_creation</source>
         <target>Federation creation</target>
       </trans-unit>
-      <trans-unit id="18" resname="index.federation_new_create_button">
-        <source>index.federation_new_create_button</source>
+      <trans-unit id="18" resname="index.federation_create">
+        <source>index.federation_create</source>
         <target>Create</target>
+      </trans-unit>
+      <trans-unit id="19" resname="index.federation_list_federation_edit">
+         <source>index.federation_list_federation_edit</source>
+         <target>Federation edit</target>
+      </trans-unit>
+      <trans-unit id="20" resname="index.federation_save">
+         <source>index.federation_save</source>
+         <target>Save</target>
       </trans-unit>
     </body>
   </file>
