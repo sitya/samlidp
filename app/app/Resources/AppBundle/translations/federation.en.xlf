@@ -73,6 +73,10 @@
         <source>index.federation_show_idp_list_owners</source>
         <target>Owners</target>
       </trans-unit>
+      <trans-unit id="17" resname="index.federation_list_federation_creation">
+        <source>index.federation_list_federation_creation</source>
+        <target>Federation creation</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
