@@ -44,6 +44,8 @@ class FederationController extends Controller
     {
         $federation = new Federation();
         $form = $this->createForm('AppBundle\Form\FederationType', $federation);
+        $form->remove('sps');
+        $form->remove('lastChecked');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

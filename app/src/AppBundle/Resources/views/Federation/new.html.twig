@@ -8,53 +8,26 @@
             <h1>{{ "index.federation_list_federation_creation"|trans|raw }}</h1>
         </div>
         <div class="ibox-content">
-            <table class="table table-striped text-center">
-                <tbody>
-                <tr>
-                    <th  scope="row">{{ "index.federation_list_name"|trans|raw }}</th>
-                    <td> {{ form_widget(form.name) }} {{ form_errors(form.name) }}</td>
-                </tr>
-                <tr>
-                    <th  scope="row">{{ "index.federation_list_slug"|trans|raw }}</th>
-                    <td> {{ form_widget(form.slug) }} {{ form_errors(form.slug) }}</td>
-                </tr>
-                <tr>
-                    <th  scope="row">{{ "index.federation_list_federationurl"|trans|raw }}</th>
-                    <td>    {{ form_widget(form.federationUrl) }} {{ form_errors(form.federationUrl) }}</td>
-                </tr>
-                <tr>
-                    <th  scope="row">{{ "index.federation_list_lastchecked"|trans|raw }}</th>
-                    <td>{{ form_widget(form.lastChecked) }}{{ form_errors(form.lastChecked) }}</td>
-                </tr>
-                <tr>
-                    <th  scope="row"> {{ "index.federation_list_metadataurl"|trans|raw }}</th>
-                    <td>    {{ form_widget(form.metadataUrl) }} {{ form_errors(form.metadataUrl) }}</td>
-                </tr>
-                <tr>
-                    <th  scope="row">{{ "index.federation_list_contactname"|trans|raw }}</th>
-                    <td>{{ form_widget(form.contactName) }}{{ form_errors(form.contactName) }}</td>
-                </tr>
-                <tr>
-                    <th  scope="row">{{ "index.federation_list_contactemail"|trans|raw }}</th>
-                    <td> {{ form_widget(form.contactEmail) }}{{ form_errors(form.contactEmail) }}</td>
-                </tr>
-                <tr>
-                    <th  scope="row">{{ "index.federation_list_sps"|trans|raw }}</th>
-                    <td>{{ form_widget(form.sps) }}{{ form_errors(form.sps) }}</td>
-                </tr>
-                <tr>
-                    <th  scope="row">{{ "index.federation_list_idps"|trans|raw }}</th>
-                    <td>{{ form_widget(form.idps) }}{{ form_errors(form.idps) }}</td>
-                </tr>
-                </tbody>
-            </table>
+            {{ form_start(form) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.slug) }}
+            {{ form_row(form.federationUrl) }}
+            {{ form_row(form.metadataUrl) }}
+            {{ form_row(form.contactName) }}
+            {{ form_row(form.contactEmail) }}
+            {{ form_row(form.idps) }}
+            {{ form_widget(form) }}
+
             <div class="hr-line-dashed"></div>
-            <div class="row">
-                <a class="btn btn-white  pull-left" href="{{ path('federation_index') }}"><i class="fa fa-undo"></i> {{ "index.federation_list_backtothelist"|trans|raw }} </a>
-                <input class="btn btn-warning pull-right" type="submit" value="Create" />
+
+            <div class="form-group">
+                <div class="col-sm-6 col-sm-offset-2">
+                    <a class="btn btn-white" href="{{ path('federation_index') }}">{{ "index.federation_list_backtothelist"|trans|raw }}</a>
+                    <input type="submit" class="btn btn-primary" value="{{ "index.federation_new_create_button"|trans|raw }}" />
+                </div>
             </div>
+            {{ form_end(form) }}
         </div>
     </div>
-    {{ form_end(form) }}
 {% endblock %}
 
