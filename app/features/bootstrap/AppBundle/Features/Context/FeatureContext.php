@@ -107,4 +107,17 @@ class FeatureContext extends RawMinkContext implements Context, SnippetAccepting
     {
         return str_replace('\\"', '"', $argument);
     }
+
+
+    /**
+     * Checks, that ibox-title h1 contains specified text
+     * Example: Then I should see "Batman" in the title
+     * Example: And I should see "Batman" in the title
+     *
+     * @Then /^(?:|I )should see "(?P<text>(?:[^"]|\\")*)" in the title$/
+     */
+    public function assertElementContainsTextInTitle($text)
+    {
+        $this->assertSession()->elementTextContains('css', "ibox-title>h1", $this->fixStepArgument($text));
+    }
 }

@@ -27,6 +27,7 @@ default:
                     Users: src/AppBundle/DataFixtures/ORM/users.yml
                     InternalUsers: src/AppBundle/DataFixtures/ORM/idp_internal_users.yml
                     IdPAudit: src/AppBundle/DataFixtures/ORM/idp_audit.yml
+                    Federations: src/AppBundle/DataFixtures/ORM/federations.yml
 
                 dependencies:
                     IdPs: [ Users ]

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Federation
@@ -25,6 +26,7 @@ class Federation
      * @var string
      *
      * @ORM\Column(name="metadataUrl", type="string", length=255, nullable=true)
+     * @Assert\Url()
      */
     private $metadataUrl;
 
@@ -53,6 +55,7 @@ class Federation
      * @var string
      *
      * @ORM\Column(name="federationUrl", type="string", length=255, nullable=true)
+     * @Assert\Url()
      */
     private $federationUrl;
 
@@ -67,6 +70,7 @@ class Federation
      * @var string
      *
      * @ORM\Column(name="contactEmail", type="string", length=255, nullable=true)
+     * @Assert\Email()
      */
     private $contactEmail;
 

@@ -39,11 +39,11 @@
       </trans-unit>
       <trans-unit id="9" resname="index.federation_list_contactemail">
         <source>index.federation_list_contactemail</source>
-        <target>Contact E-mail</target>
+        <target>Contact email</target>
       </trans-unit>
       <trans-unit id="10" resname="index.federation_list_sps">
         <source>index.federation_list_sps</source>
-        <target>SPS</target>
+        <target>SPs</target>
       </trans-unit>
       <trans-unit id="cmid7jkdf" resname="index.federation_list_idps">
         <source>index.federation_list_idps</source>
@@ -87,7 +87,7 @@
       </trans-unit>
       <trans-unit id="20" resname="index.federation_save">
          <source>index.federation_save</source>
-         <target>Save</target>
+         <target>Save changes</target>
       </trans-unit>
     </body>
   </file>

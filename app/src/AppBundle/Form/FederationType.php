@@ -15,9 +15,18 @@ class FederationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('metadataUrl')->add('lastChecked' , DateTimeType::class, array('disabled'=> true, 'widget' => 'single_text', 'format' => 'yyyy-MM-dd  HH:mm'))->add('name')->add('slug')->add('federationUrl')->add('contactName')->add('contactEmail')->add('sps' ,
-                IntegerType::class,
-                array('disabled'=> true))->add('idps');
+        $builder
+            ->add('metadataUrl')
+//            ->add('lastChecked' , DateTimeType::class, array('disabled'=> true, 'widget' => 'single_text', 'format' => 'yyyy-MM-dd  HH:mm'))
+            ->add('name')
+            ->add('slug')
+            ->add('federationUrl')
+            ->add('contactName')
+            ->add('contactEmail')
+//            ->add('sps',
+//                IntegerType::class,
+//                array('disabled'=> true))
+            ->add('idps');
     }
     /**
      * {@inheritdoc}

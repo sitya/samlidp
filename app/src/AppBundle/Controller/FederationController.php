@@ -44,8 +44,6 @@ class FederationController extends Controller
     {
         $federation = new Federation();
         $form = $this->createForm('AppBundle\Form\FederationType', $federation);
-        $form->remove('sps');
-        $form->remove('lastChecked');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -83,18 +81,18 @@ class FederationController extends Controller
      */
     public function editAction(Request $request, Federation $federation)
     {
-        $editForm = $this->createForm('AppBundle\Form\FederationType', $federation);
-        $editForm->handleRequest($request);
+        $form = $this->createForm('AppBundle\Form\FederationType', $federation);
+        $form->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
+            $this->get('session')->getFlashBag()->add('success', 'Federation updated successful.');
             return $this->redirectToRoute('federation_edit', array('id' => $federation->getId()));
         }
 
         return $this->render('AppBundle:Federation:edit.html.twig', array(
             'federation' => $federation,
-            'edit_form' => $editForm->createView(),
+            'form' => $form->createView(),
         ));
     }
 }

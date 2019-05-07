@@ -2,7 +2,7 @@
 AppBundle\Entity\Federation:
   eduid:
     metadataUrl: https://metadata.eduid.hu/current/href.xml
-    #lastChecked: new DateTime()
+    lastChecked: new DateTime('2019-05-05 05:05:05')
     name: eduID
     slug: eduid
     federationUrl: https://www.eduid.hu
