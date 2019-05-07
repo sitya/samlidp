@@ -1,5 +1,6 @@
 @reset-schema
 @alice(Federations)
+@alice(Users)
 @federation
 Feature: Admin the fedetarions
 
