@@ -24,7 +24,6 @@ default:
                     DomainScopes: src/AppBundle/DataFixtures/ORM/domains_scopes.yml
                     Users: src/AppBundle/DataFixtures/ORM/users.yml
                     IdPs: src/AppBundle/DataFixtures/ORM/idps.yml
-                    Users: src/AppBundle/DataFixtures/ORM/users.yml
                     InternalUsers: src/AppBundle/DataFixtures/ORM/idp_internal_users.yml
                     IdPAudit: src/AppBundle/DataFixtures/ORM/idp_audit.yml
                     Federations: src/AppBundle/DataFixtures/ORM/federations.yml

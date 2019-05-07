@@ -15,17 +15,22 @@ Feature: Admin the fedetarions
   Scenario: Show federation's list
     Given I am on "/federation/"
     Then I should see the following table
-      | Name  | Slug  | Federation URL       | Last checked        | Metadata URL                               | Contact name  | Contact email | IdPs | SPs | Edit |
-      | eduID | eduid | https://www.eduid.hu | 2019-05-05 05:05:05 | https://metadata.eduid.hu/current/href.xml | info@eduid.hu | info@eduid.hu | 0    |     |      |
+      | Name  | Slug  | Federation URL       | Last checked        | Metadata URL                               | Contact name  | Contact email | IdPs | SPs |  |
+      | eduID | eduid | https://www.eduid.hu | 2019-05-05 05:05:05 | https://metadata.eduid.hu/current/href.xml | info@eduid.hu | info@eduid.hu | 0    |     |  |
 
   Scenario: Show federation details
     Given I am on "/federation/"
     When I follow "eduID"
     Then I should see "Federation" in the title
-    And I should see the following table portion
-      | Name | eduID |
-      | Slug | eduid |
-
+    And I should see the following table
+      | Name           | eduID                                      |
+      | Slug           | eduid                                      |
+      | Federation URL | https://www.eduid.hu                       |
+      | Last checked   | 2019-05-05 05:05:05                        |
+      | Metadata URL   | https://metadata.eduid.hu/current/href.xml |
+      | Contact name   | info@eduid.hu                              |
+      | Contact email  | info@eduid.hu                              |
+      | SPs            |                                            |
   Scenario: Add new federation
     Given I am on "/federation/"
     When I follow "New federation"
@@ -37,14 +42,15 @@ Feature: Admin the fedetarions
       | Metadata url   | http://test.org/metadata.xml |
       | Contact name   | test                         |
       | Contact email  | test@test.org                |
-      | Idps           |                              |
     And I press "Create"
-    Then I should see "Federation list" in the title
+    Then I should see "Federation" in the title
     And I should see the following table portion
-      | test | test | http://test.org | | http://test.org/metadata.xml | test | test@test.org | 0    |     |      |
+      | test                         |
+      | test                         |
+      | http://test.org              |
 
   Scenario: Edit federation
-    Given I am on "/federation/2/edit"
+    Given I am on "/federation/1/edit"
     Then I should see "Federation edit" in the title
     When I fill in the following:
       | Name           | edittest |
@@ -53,4 +59,5 @@ Feature: Admin the fedetarions
     When I follow "Back to the federation's list"
     Then I should see "Federation list" in the title
     And I should see the following table portion
-      | edittest | test | http://test.org | | http://test.org/metadata.xml | test | test@test.org | 0    |     |      |
+      | Name     | Slug  | Federation URL       | Last checked        | Metadata URL                               | Contact name  | Contact email | IdPs | SPs |  |
+      | edittest | eduid | https://www.eduid.hu | 2019-05-05 05:05:05 | https://metadata.eduid.hu/current/href.xml | info@eduid.hu | info@eduid.hu | 0    |     |  |

@@ -118,6 +118,6 @@ class FeatureContext extends RawMinkContext implements Context, SnippetAccepting
      */
     public function assertElementContainsTextInTitle($text)
     {
-        $this->assertSession()->elementTextContains('css', "ibox-title>h1", $this->fixStepArgument($text));
+        $this->assertSession()->elementTextContains('css', ".ibox-title>h1", $this->fixStepArgument($text));
     }
 }
