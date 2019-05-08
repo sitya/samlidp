@@ -55,14 +55,20 @@
         "staffim/rollbar-bundle": "^1.3",
         "oneup/flysystem-bundle": "^1.11",
         "league/flysystem-aws-s3-v3": "^1.0",
-        "hanfrey/sparkpost-bundle": "dev-master"
+        "hanfrey/sparkpost-bundle": "dev-master",
+        "symfony/web-server-bundle": "^3.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
         "doctrine/doctrine-fixtures-bundle": "^2.3",
+        "doctrine/data-fixtures": "^1.0.0",
         "alexandresalome/mailcatcher": "^1.2",
-        "symfony/web-server-bundle": "^3.4"
+        "hautelook/alice-bundle": "^1.3",
+        "behat/mink-browserkit-driver": "~1.3",
+        "behat/symfony2-extension": "~2.1",
+        "behat/mink-extension": "~2.3",
+        "behat/mink-selenium2-driver": "~1.3"
     },
     "scripts": {
         "symfony-scripts": [

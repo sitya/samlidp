@@ -1,0 +1,38 @@
+---
+AppBundle\Entity\User:
+  admin:
+    username: admin
+    plainPassword: admin
+    email: admin@gmail.com
+    enabled: true
+    roles:
+      - ROLE_SUPER_ADMIN
+    sn: Admin
+    givenName: Admin
+  user:
+    username: user
+    plainPassword: user
+    email: user@gmail.com
+    enabled: true
+    roles:
+      - ROLE_USER
+    sn: User
+    givenName: User
+  user_{3..30}:
+    username: <username()>
+    plainPassword: <password()>
+    email: <safeEmail()>
+    enabled: true
+    roles:
+      - ROLE_USER
+    sn: <name()>
+    givenName: <name()>
+  alien:
+    username: alien
+    plainPassword: alien
+    email: <safeEmail()>
+    enabled: true
+    roles:
+      - ROLE_USER
+    sn: <name()>
+    givenName: <name()>

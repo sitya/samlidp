@@ -273,12 +273,15 @@ class IdPUser implements UserInterface, \Serializable
     public function getScope($samlidp_hostname = null)
     {
         if (empty($samlidp_hostname)) {
-            if (substr_count($_SERVER['HTTP_HOST'], '.') == 1) {
+            $http_host = preg_split("/:/", $_SERVER['HTTP_HOST']);
+            if (ip2long($http_host[0]) > 0) {
+                $samlidp_hostname = "samlidp.io"; // XXX this is just for testing
+            } elseif (substr_count($_SERVER['HTTP_HOST'], '.') == 1) {
                 $samlidp_hostname = $_SERVER['HTTP_HOST'];
             } else {
                 $samlidp_hostname = substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.')+1);
             }
-            
+
         }
         if (!empty($this->scope)) {
             return $this->scope;

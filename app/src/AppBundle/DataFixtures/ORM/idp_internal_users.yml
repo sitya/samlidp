@@ -1,0 +1,34 @@
+---
+AppBundle\Entity\IdPUser:
+  behatidpuser_{1..11}:
+    givenName: firstname_<current()>
+    surName: lastname_<current()>
+    displayName: firstname_<current()> lastname_<current()>
+    username: username_<current()>
+    email: email_<current()>@gmail.com
+    password: idpuser_<current()>
+    enabled: true
+    affiliation: staff
+    IdP: '@behatidp_1'
+
+  behatidpuser_12:
+    givenName: firstname_12
+    surName: lastname_12
+    displayName: firstname_12 lastname_12
+    username: username_12
+    email: email_12@gmail.com
+    password: idpuser_12
+    enabled: false
+    affiliation: staff
+    IdP: '@behatidp_1'
+
+  idpuser_{1..100}:
+    givenName: <firstName()>
+    surName: <LastName()>
+    displayName: <name()>
+    username: <username()>
+    email: <safeEmail()>
+    password: idpuser_<current()>
+    enabled: true
+    affiliation: <randomElement($array = array ('staff','employee','student'))>
+    IdP: '@idp_*'

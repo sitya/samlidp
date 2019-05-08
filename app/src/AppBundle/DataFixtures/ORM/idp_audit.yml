@@ -1,0 +1,8 @@
+---
+AppBundle\Entity\IdPAudit:
+    audit_{1..1000}:
+        __construct:
+            - '@idpuser_*'
+            - <dateTimeThisYear($max = 'now')>
+            - '@idp_*'
+            - 'none'
