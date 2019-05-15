@@ -1,0 +1,27 @@
+{% extends "@FOSUser/layout.html.twig" %}
+{% block fos_user_content %}
+    {% trans_default_domain 'FOSUserBundle' %}
+
+    <h1 class="m-b-lg">Authenticate with your FIDO device</h1>
+
+
+    Authenticate with credential:
+
+    {% if error is defined %}
+
+        <p>{{ error }}</p>
+
+    {% elseif posted %}
+
+        <p>Authenticated as user: <code>{{ credentialId }}</code></p>
+
+    {% else %}
+
+        <p>Please perfom the user action your authenticator.</p>
+        {{ webauthn_form(clientOptions) }}
+
+    {% endif %}
+
+    <div class="clearfix"></div>
+
+{% endblock %}

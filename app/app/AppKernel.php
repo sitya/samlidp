@@ -1,5 +1,5 @@
 <?php
-
+namespace SAMLIdP;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Oneup\FlysystemBundle\OneupFlysystemBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Staffim\RollbarBundle\StaffimRollbarBundle(),
+            new MadWizard\WebAuthnBundle\MadWizardWebAuthnBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

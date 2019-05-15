@@ -1,0 +1,49 @@
+{% extends "@FOSUser/layout.html.twig" %}
+{% block fos_user_content %}
+    {% trans_default_domain 'FOSUserBundle' %}
+
+    <h1 class="m-b-lg">Your 2fa tokens</h1>
+
+
+    <div class="col-sm-6 b-r p-w-lg">
+        <h2>FIDO</h2>
+        <table class="table-condensed">
+            {% for token in fido_tokens %}
+                <tr>
+                    <td>{{ token.displayName }}</td>
+                    <td class="text-right">
+                        <button class="btn btn-danger" disabled>delete</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <div class="form-group">
+            <a href="{{ path("app_webauthn_register") }}" class="btn btn-primary pull-right">Register new token</a>
+        </div>
+    </div>
+    <div class="col-sm-6 p-w-lg">
+        <h2>TOTP</h2>
+        <table class="table-condensed">
+            <tr>
+                <td>neve</td>
+                <td class="text-right">delete</td>
+            </tr>
+        </table>
+        <div class="form-group">
+            <a href="TODO" class="btn btn-primary pull-right disabled">Register new token</a>
+        </div>
+    </div>
+
+
+    {% if error is defined and error %}
+        <div class="alert alert-danger alert-dismissible">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
+
+    <div class="clearfix"></div>
+
+{% endblock %}

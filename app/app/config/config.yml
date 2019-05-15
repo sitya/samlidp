@@ -127,3 +127,14 @@ oneup_flysystem:
         logos:
             adapter: appbundle.flysystem_adapter
             mount: prefix
+
+madwizard_webauthn:
+    relying_party:
+        # id: example.com
+        name: "%madwizard_webauthn_relying_party_name%"
+        origin: "%madwizard_webauthn_relying_party_origin%"
+        # Origin should match the host of your website and should be secure
+        # (either encrypted via https or a trusted host like `localhost`).
+    credential_store:
+        service_id: appbundle.webauthn_credentialstore
+    # challenge_length: 64

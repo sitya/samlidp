@@ -84,7 +84,7 @@ class RequestListener
         }
 
         //Force authentication code dialog
-        $response = $this->templating->renderResponse('AppBundle:TwoFactor:google.html.twig');
+        $response = $this->templating->renderResponse('AppBundle:TOTP:form.html.twig');
         $event->setResponse($response);
     }
 }

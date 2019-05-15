@@ -9,6 +9,11 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Controller managing password resetting.
+ *
+ * @author Gyula Szabó <gyufi@szabocsalad.com>
+ */
 class ResettingController extends BaseController
 {
     /**

@@ -19,7 +19,7 @@ services:
         class: AppBundle\Security\TwoFactor\Google\InteractiveLoginListener
         arguments: ['@appbundle.twofactor.google.provider']
         tags:
-          - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
+            - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
     appbundle.twofactor.google.request_listener:
         class: AppBundle\Security\TwoFactor\Google\RequestListener
         arguments:
@@ -68,3 +68,8 @@ services:
                 credentials:
                     key: "%s3client_key%"
                     secret: "%s3client_secret%"
+
+
+    appbundle.webauthn_credentialstore:
+        class: AppBundle\Security\CredentialStore
+        arguments: ["@doctrine.orm.entity_manager"]

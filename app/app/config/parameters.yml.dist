@@ -58,3 +58,6 @@ parameters:
     env(SLACK_URL): fakeslackurl
 
     loggly_access_token: "fake"
+
+    madwizard_webauthn_relying_party_name: "%samlidp_hostname%"
+    madwizard_webauthn_relying_party_origin: "%samlidp_hostname%"
