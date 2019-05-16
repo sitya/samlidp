@@ -57,7 +57,8 @@
         "league/flysystem-aws-s3-v3": "^1.0",
         "hanfrey/sparkpost-bundle": "dev-master",
         "symfony/web-server-bundle": "^3.4",
-        "madwizard/webauthn-bundle": "^0.0.1"
+        "madwizard/webauthn-bundle": "^0.0.1",
+        "scheb/two-factor-bundle": "^4.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

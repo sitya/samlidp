@@ -84,7 +84,7 @@ class RequestListener
         }
 
         //Force authentication code dialog
-        $response = $this->templating->renderResponse('AppBundle:TOTP:form.html.twig');
+        $response = $this->templating->renderResponse('AppBundle:TOTP:totp_authentication.html.twig');
         $event->setResponse($response);
     }
 }

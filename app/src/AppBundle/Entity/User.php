@@ -5,12 +5,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use MadWizard\WebAuthn\Format\ByteBuffer;
+use Scheb\TwoFactorBundle\Model\Totp\TotpConfiguration;
+use Scheb\TwoFactorBundle\Model\Totp\TotpConfigurationInterface;
+use Scheb\TwoFactorBundle\Model\Totp\TwoFactorInterface;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\Table(name="fos_user")
  */
-class User extends BaseUser
+class User extends BaseUser implements TwoFactorInterface
 {
     /**
      * @ORM\Id
@@ -47,6 +50,11 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="WebauthnCredential", mappedBy="user")
      */
     private $webauthnCredentials;
+
+    /**
+     * @ORM\Column(name="totpSecret", type="string", nullable=true)
+     */
+    private $totpSecret;
 
     /**
      * @ORM\Column(type="string")
@@ -228,4 +236,21 @@ class User extends BaseUser
         return parent::setUsernameCanonical($usernameCanonical);
     }
 
+
+    // IMplement twofactorinterface methods
+    public function isTotpAuthenticationEnabled(): bool
+    {
+        return $this->totpSecret ? true : false;
+    }
+
+    public function getTotpAuthenticationUsername(): string
+    {
+        return $this->username;
+    }
+
+    public function getTotpAuthenticationConfiguration(): TotpConfigurationInterface
+    {
+        // You could persist the other configuration options in the user entity to make it individual per user.
+        return new TotpConfiguration($this->totpSecret, TotpConfiguration::ALGORITHM_SHA1, 20, 8);
+    }
 }

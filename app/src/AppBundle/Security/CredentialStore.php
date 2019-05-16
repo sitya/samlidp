@@ -3,10 +3,8 @@
 
 namespace AppBundle\Security;
 
-use AppBundle\Entity\IdPUser;
 use AppBundle\Entity\User;
 use AppBundle\Entity\WebauthnCredential;
-use AppBundle\Repository\WebauthnCredentialRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use MadWizard\WebAuthn\Credential\CredentialStoreInterface;
 use MadWizard\WebAuthn\Credential\UserCredentialInterface;

@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Staffim\RollbarBundle\StaffimRollbarBundle(),
             new MadWizard\WebAuthnBundle\MadWizardWebAuthnBundle(),
+            new Scheb\TwoFactorBundle\SchebTwoFactorBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
