@@ -14,7 +14,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\User;
 use AppBundle\Entity\WebauthnCredential;
 use AppBundle\Security\CredentialStore;
-use MadWizard\WebAuthn\Credential\CredentialRegistration;
 use MadWizard\WebAuthn\Exception\WebAuthnException;
 use MadWizard\WebAuthn\Format\ByteBuffer;
 use MadWizard\WebAuthn\Server\Authentication\AuthenticationOptions;
@@ -121,7 +120,6 @@ class WebauthnController extends Controller
 
         $manager = $this->get('madwizard_webauthn.manager');
         $entityManager = $this->getDoctrine()->getManager();
-        //$store = $this->get('madwizard_webauthn.store');
 
         $posted = $request->isMethod('POST');
         $vars['posted'] = $posted;
@@ -130,9 +128,6 @@ class WebauthnController extends Controller
                 $options = new AuthenticationOptions();
 
                 // Specify which credentials are allowed to authenticate
-                // Normally there can be multiple credentials for one user. This example just adds one.
-//                $credential = $store->findCredential('---DEMO CREDENTIAL ID HERE---');       // <!---- modify this
-
                 $credential = $entityManager->getRepository(WebauthnCredential::class)->findOneByUser($this->getUser());
                 $options->addAllowCredential($credential);
 
@@ -142,11 +137,17 @@ class WebauthnController extends Controller
             } else {
                 $result = $manager->finishAuthenticationFromRequest($request);
                 $vars['credentialId'] = $result->getUserCredential()->getCredentialId();
+                // set validated 2nd factor fact to session
+                $this->get('session')->set('2ndfactor', 'fido');
+                $this->addFlash('success', 'You authenticate successful with 2nd factor token.');
+                return $this->redirectToRoute('app_idp_idplist');
             }
         } catch (WebAuthnException $e) {
             // NOTE: do not pass exception messages to the client. The exception messages could contain
             // security sensitive information useful for attackers.
             $vars['error'] = "Authentication failed";
+            $this->container->get('security.token_storage')->setToken(null);
+
         }
 
         return $this->render('AppBundle:SecondFactor:webauthn_authentication.html.twig', $vars);

@@ -5,7 +5,7 @@
   #- id: php-unit
   - id: php-cs
     files: \.(php)$
-    args: [--standard=PSR1 -p]
+    args: [--standard=PSR1 -p --ignore=*/AppKernel.php]
   - id: php-cbf
     files: \.(php)$
     args: [--standard=PSR1 -p]
