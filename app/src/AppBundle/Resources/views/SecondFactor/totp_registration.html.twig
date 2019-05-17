@@ -1,0 +1,36 @@
+{% extends "@FOSUser/layout.html.twig" %}
+{% block fos_user_content %}
+    {% trans_default_domain 'FOSUserBundle' %}
+
+    <h1 class="m-b-lg">Register your TOTP</h1>
+
+    {% if message is defined %}
+    <div>
+        <div class="row">Scan the code!</div>
+        <div class="row">
+            <img src="{{ qr_code_path(message) }}" />
+        </div>
+    </div>
+    {% endif %}
+
+    <form class="form-horizontal" action="" method="post">
+        <form role="form">
+            <input type="hidden" id="secret" name="secret" value="{{ secret }}">
+            <div class="form-group {% if error is defined %}has-error{% endif %}"><label>{{ 'security.login.totp.label'|trans }}</label>
+                <input type="text" id="code" name="code" autocomplete="false" autofocus
+                       value=""
+                       placeholder="{{ 'security.login.totp.placeholder'|trans }}" class="form-control input-lg" required="required">
+            </div>
+            {% if error is defined %}
+                <span class="has-error">{{ error }}</span>
+            {% endif %}
+            <div class="form-group">
+                <input class="btn btn-primary btn pull-right" type="submit"
+                       value="{{ 'security.login.totp.submit'|trans }}"/>
+            </div>
+        </form>
+    </form>
+
+    <div class="clearfix"></div>
+
+{% endblock %}

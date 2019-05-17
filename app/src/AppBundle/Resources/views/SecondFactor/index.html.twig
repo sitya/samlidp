@@ -23,15 +23,18 @@
     </div>
     <div class="col-sm-6 p-w-lg">
         <h2>TOTP</h2>
-        <table class="table-condensed">
-            <tr>
-                <td>neve</td>
-                <td class="text-right">delete</td>
-            </tr>
-        </table>
+
+        {% if app.user.isTotpAuthenticationEnabled %}
+            TOTP enabled.
+            <div class="form-group">
+                <a href="{{ path('app_totp_register') }}" class="btn btn-danger disabled pull-right">Delete token</a>
+            </div>
+        {% else %}
         <div class="form-group">
-            <a href="TODO" class="btn btn-primary pull-right disabled">Register new token</a>
+            <a href="{{ path('app_totp_register') }}" class="btn btn-primary pull-right">Register token</a>
         </div>
+        {% endif %}
+
     </div>
 
 

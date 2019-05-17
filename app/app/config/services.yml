@@ -69,7 +69,20 @@ services:
                     key: "%s3client_key%"
                     secret: "%s3client_secret%"
 
-
     appbundle.webauthn_credentialstore:
         class: AppBundle\Security\CredentialStore
         arguments: ["@doctrine.orm.entity_manager"]
+
+    appbundle.two_factor.provider.webauthn:
+        class: AppBundle\Security\TwoFactor\Provider\Webauthn
+        tags:
+          - { name: scheb_two_factor.provider, alias: webauthn }
+        arguments:
+            - "@appbundle.two_factor.security.webauthn.form_renderer"
+        public: true
+
+    appbundle.two_factor.security.webauthn.form_renderer:
+        class: Scheb\TwoFactorBundle\Security\TwoFactor\Provider\DefaultTwoFactorFormRenderer
+        arguments:
+            - "@twig"
+            - "AppBundle:SecondFactor:webauthn_authentication.html.twig"

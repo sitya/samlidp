@@ -226,31 +226,57 @@ class User extends BaseUser implements TwoFactorInterface
     }
 
     /**
+     * @param mixed $totpSecret
+     */
+    public function setTotpSecret($totpSecret): void
+    {
+        $this->totpSecret = $totpSecret;
+    }
+
+    /**
      * @param $usernameCanonical
      * @return BaseUser
      */
     public function setUsernameCanonical($usernameCanonical)
     {
-        $userHandle = ByteBuffer::fromHex(sha1($usernameCanonical));
-        $this->userHandleBase64Url = $userHandle->getBase64Url();
+        $this->setUserHandleBase64Url($usernameCanonical);
         return parent::setUsernameCanonical($usernameCanonical);
     }
 
 
-    // IMplement twofactorinterface methods
+    // Implement twofactorinterface methods
+
+    /**
+     * @return bool
+     */
     public function isTotpAuthenticationEnabled(): bool
     {
         return $this->totpSecret ? true : false;
     }
 
+    /**
+     * @return string
+     */
     public function getTotpAuthenticationUsername(): string
     {
         return $this->username;
     }
 
+    /**
+     * @return TotpConfigurationInterface
+     */
     public function getTotpAuthenticationConfiguration(): TotpConfigurationInterface
     {
         // You could persist the other configuration options in the user entity to make it individual per user.
-        return new TotpConfiguration($this->totpSecret, TotpConfiguration::ALGORITHM_SHA1, 20, 8);
+        return new TotpConfiguration($this->totpSecret, TotpConfiguration::ALGORITHM_SHA1, 30, 6);
+    }
+
+    /**
+     * @param $usernameCanonical
+     */
+    private function setUserHandleBase64Url($usernameCanonical): void
+    {
+        $userHandle = ByteBuffer::fromHex(sha1($usernameCanonical));
+        $this->userHandleBase64Url = $userHandle->getBase64Url();
     }
 }

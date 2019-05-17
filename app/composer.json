@@ -58,7 +58,9 @@
         "hanfrey/sparkpost-bundle": "dev-master",
         "symfony/web-server-bundle": "^3.4",
         "madwizard/webauthn-bundle": "^0.0.1",
-        "scheb/two-factor-bundle": "^4.1"
+        "scheb/two-factor-bundle": "^4.1",
+        "twig/extensions": "^1.5",
+        "endroid/qr-code-bundle": "^3.3"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

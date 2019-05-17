@@ -4,6 +4,7 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\User;
 use AppBundle\Entity\WebauthnCredential;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,25 +16,8 @@ use Symfony\Component\HttpFoundation\Response;
  * @package AppBundle\Controller
  * @Route("/secondfactor")
  */
-class SecondFactorDispatcherController extends Controller
+class SecondFactorManagerController extends Controller
 {
-    /**
-     * @Route("/")
-     * @return RedirectResponse
-     */
-    public function indexAction()
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $fido_tokens = $entityManager->getRepository(WebauthnCredential::class)->findByUser($this->getUser());
-
-        // TODO choose the default token
-        if ($fido_tokens) {
-            return $this->redirectToRoute('app_webauthn_authenticate');
-        }
-
-        return $this->redirectToRoute('app_idp_idplist');
-    }
-
     /**
      * @Route("/list")
      * @return Response

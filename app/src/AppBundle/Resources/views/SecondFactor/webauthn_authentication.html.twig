@@ -11,14 +11,16 @@
 
         <p>{{ error }}</p>
 
-    {% elseif posted %}
+    {% elseif posted is defined %}
 
         <p>Authenticated as user: <code>{{ credentialId }}</code></p>
 
     {% else %}
 
         <p>Please perfom the user action your authenticator.</p>
+{#
         {{ webauthn_form(clientOptions) }}
+#}
 
     {% endif %}
 
