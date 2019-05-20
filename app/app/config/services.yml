@@ -86,3 +86,9 @@ services:
         arguments:
             - "@twig"
             - "AppBundle:SecondFactor:webauthn_authentication.html.twig"
+
+    appbundle.twig.extension.sha1:
+        class: AppBundle\Twig\AppExtension
+        tags:
+            - {name: twig.extension}
+        public: true
