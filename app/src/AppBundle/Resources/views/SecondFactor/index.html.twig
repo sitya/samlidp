@@ -27,7 +27,7 @@
         {% if app.user.isTotpAuthenticationEnabled %}
             TOTP enabled.
             <div class="form-group">
-                <a href="{{ path('app_totp_register') }}" class="btn btn-danger disabled pull-right">Delete token</a>
+                <a href="{{ path('app_totp_delete') }}" class="btn btn-danger pull-right">Delete token</a>
             </div>
         {% else %}
         <div class="form-group">

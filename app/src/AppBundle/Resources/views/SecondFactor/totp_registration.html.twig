@@ -2,34 +2,37 @@
 {% block fos_user_content %}
     {% trans_default_domain 'FOSUserBundle' %}
 
-    <h1 class="m-b-lg">Register your TOTP</h1>
-
-    {% if message is defined %}
-    <div>
-        <div class="row">Scan the code!</div>
-        <div class="row">
-            <img src="{{ qr_code_path(message) }}" />
-        </div>
+    <div class="col-sm-6 b-r p-w-lg">
+        {% if message is defined %}
+            <h2>1. {{ 'security.2fa.totp.register.step1'|trans }}</h2>
+            <div>
+                <img src="{{ qr_code_path(message) }}"/>
+            </div>
+        {% endif %}
     </div>
-    {% endif %}
-
-    <form class="form-horizontal" action="" method="post">
-        <form role="form">
-            <input type="hidden" id="secret" name="secret" value="{{ secret }}">
-            <div class="form-group {% if error is defined %}has-error{% endif %}"><label>{{ 'security.login.totp.label'|trans }}</label>
-                <input type="text" id="code" name="code" autocomplete="false" autofocus
-                       value=""
-                       placeholder="{{ 'security.login.totp.placeholder'|trans }}" class="form-control input-lg" required="required">
-            </div>
-            {% if error is defined %}
-                <span class="has-error">{{ error }}</span>
-            {% endif %}
-            <div class="form-group">
-                <input class="btn btn-primary btn pull-right" type="submit"
-                       value="{{ 'security.login.totp.submit'|trans }}"/>
-            </div>
+    <div class="col-sm-6 p-w-lg">
+        <h2>2. {{ 'security.2fa.totp.register.step1'|trans }}</h2>
+        <form class="form-horizontal" action="" method="post">
+            <form role="form">
+                <input type="hidden" id="secret" name="secret" value="{{ secret }}">
+                <input type="hidden" id="message" name="message" value="{{ message }}">
+                <div class="form-group {% if error is defined %}has-error{% endif %}">
+                    <label>{{ 'security.login.totp.label'|trans }}</label>
+                    <input type="text" id="code" name="code" autocomplete="off" autofocus
+                           value=""
+                           placeholder="{{ 'security.login.totp.placeholder'|trans }}" class="form-control input-lg"
+                           required="required">
+                </div>
+                {% if error is defined %}
+                    <span class="has-error">{{ error }}</span>
+                {% endif %}
+                <div class="form-group">
+                    <input class="btn btn-primary btn pull-right" type="submit"
+                           value="{{ 'security.login.totp.submit'|trans }}"/>
+                </div>
+            </form>
         </form>
-    </form>
+    </div>
 
     <div class="clearfix"></div>
 
