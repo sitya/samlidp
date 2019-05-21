@@ -79,6 +79,8 @@ services:
           - { name: scheb_two_factor.provider, alias: webauthn }
         arguments:
             - "@appbundle.two_factor.security.webauthn.form_renderer"
+            - "@request_stack"
+            - "@madwizard_webauthn.manager"
         public: true
 
     appbundle.two_factor.security.webauthn.form_renderer:

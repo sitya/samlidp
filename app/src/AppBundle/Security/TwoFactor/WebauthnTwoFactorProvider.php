@@ -3,11 +3,13 @@
 
 namespace AppBundle\Security\TwoFactor;
 
+use Doctrine\ORM\PersistentCollection;
+use MadWizard\WebAuthnBundle\Exception\ClientRegistrationException;
+use MadWizard\WebAuthnBundle\Manager\WebAuthnManager;
 use Scheb\TwoFactorBundle\Security\TwoFactor\AuthenticationContextInterface;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\TwoFactorFormRendererInterface;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\TwoFactorProviderInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class Webauth
@@ -17,22 +19,16 @@ class WebauthnTwoFactorProvider implements TwoFactorProviderInterface
 {
 
     private $formRenderer;
+    private $requestStack;
+    private $webauthnManager;
 
     /**
-     * PHP 5 allows developers to declare constructor methods for classes.
-     * Classes which have a constructor method call this method on each newly-created object,
-     * so it is suitable for any initialization that the object may need before it is used.
-     *
-     * Note: Parent constructors are not called implicitly if the child class defines a constructor.
-     * In order to run a parent constructor, a call to parent::__construct() within the child constructor is required.
-     *
-     * param [ mixed $args [, $... ]]
-     * @link https://php.net/manual/en/language.oop5.decon.php
-     * @param TwoFactorFormRendererInterface $formRenderer
      */
-    public function __construct(TwoFactorFormRendererInterface $formRenderer)
+    public function __construct(TwoFactorFormRendererInterface $formRenderer, RequestStack $requestStack, WebAuthnManager $webauthnManager)
     {
         $this->formRenderer = $formRenderer;
+        $this->requestStack = $requestStack;
+        $this->webauthnManager = $webauthnManager;
     }
 
 
@@ -45,8 +41,9 @@ class WebauthnTwoFactorProvider implements TwoFactorProviderInterface
      */
     public function beginAuthentication(AuthenticationContextInterface $context): bool
     {
+        /** @var PersistentCollection $webautnCredentials */
         $webautnCredentials = $context->getUser()->getWebauthnCredentials();
-        return ! empty($webautnCredentials);
+        return $webautnCredentials->count() ? true : false;
     }
 
     /**
@@ -56,7 +53,7 @@ class WebauthnTwoFactorProvider implements TwoFactorProviderInterface
      */
     public function prepareAuthentication($user): void
     {
-        // TODO: Implement prepareAuthentication() method.
+        return;
     }
 
     /**
@@ -69,8 +66,14 @@ class WebauthnTwoFactorProvider implements TwoFactorProviderInterface
      */
     public function validateAuthenticationCode($user, string $authenticationCode): bool
     {
-        dump($user, $authenticationCode); exit;
-        // TODO: Implement validateAuthenticationCode() method.
+        $request = $this->requestStack->getMasterRequest();
+        try {
+            $this->webauthnManager->finishAuthenticationFromRequest($request);
+        } catch (ClientRegistrationException $exception) {
+            return false;
+        }
+        // set validated 2nd factor fact to session
+        return true;
     }
 
     /**
