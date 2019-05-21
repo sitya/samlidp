@@ -1,7 +1,6 @@
-FROM richarvey/nginx-php-fpm:1.5.5
+FROM richarvey/nginx-php-fpm:1.7.1
 
 RUN apk update && apk add openssl rsyslog rsyslog-tls php7-pdo_pgsql postgresql-dev  && rm -rf /var/cache/apk/*
-RUN docker-php-ext-install pdo pdo_pgsql
 
 ADD conf/credentials/wildcard_certificate.crt conf/credentials/wildcard_certificate.key.enc /etc/pki/
 ADD app/composer.json /app/
@@ -32,8 +31,12 @@ ADD conf/simplesamlphp/enable /app/vendor/simplesamlphp/simplesamlphp/modules/sq
 ADD conf/rsyslog/rsyslog.conf /etc/
 ADD conf/rsyslog/10-simplesamlphp.conf /etc/rsyslog.d/
 ADD misc/rsyslog-start.sh /rsyslog-start.sh
+ADD misc/samlidp-start.sh /samlidp-start.sh
+
+# cron for backend mode
+ADD conf/backend-crontab /var/spool/cron/crontabs/root
 
 RUN echo "error_reporting = E_ALL & ~E_NOTICE & ~E_WARNING" >> /usr/local/etc/php-fpm.conf
 RUN echo "error_reporting = E_ALL & ~E_NOTICE & ~E_WARNING" >> /usr/local/etc/php/conf.d/php.ini
 
-CMD sed -i -e "s/SAMLIDP_HOSTNAME/$SAMLIDP_HOSTNAME/" /etc/nginx/sites-available/default.conf && sed -i -e "s/REMOTE_LOGSERVER_AND_PORT/@@$REMOTE_LOGSERVER_AND_PORT/" /etc/rsyslog.conf && /app/bin/console d:s:u -f && /app/bin/console samli:createDomainOne && cd /etc/pki && openssl des3 -d -k $VAULT_PASS -in wildcard_certificate.key.enc -out wildcard_certificate.key && /rsyslog-start.sh && /start.sh
+CMD ["/samlidp-start.sh"]

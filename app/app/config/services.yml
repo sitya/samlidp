@@ -74,7 +74,7 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
 
     appbundle.two_factor.provider.webauthn:
-        class: AppBundle\Security\TwoFactor\Provider\Webauthn
+        class: AppBundle\Security\TwoFactor\WebauthnTwoFactorProvider
         tags:
           - { name: scheb_two_factor.provider, alias: webauthn }
         arguments:
@@ -82,10 +82,13 @@ services:
         public: true
 
     appbundle.two_factor.security.webauthn.form_renderer:
-        class: Scheb\TwoFactorBundle\Security\TwoFactor\Provider\DefaultTwoFactorFormRenderer
+        class: AppBundle\Security\TwoFactor\WebauthnTwoFactorFormRenderer
         arguments:
             - "@twig"
-            - "AppBundle:SecondFactor:webauthn_authentication.html.twig"
+            - "@doctrine.orm.entity_manager"
+            - "@madwizard_webauthn.manager"
+            - "@security.token_storage"
+            - "@router"
 
     appbundle.twig.extension.sha1:
         class: AppBundle\Twig\AppExtension

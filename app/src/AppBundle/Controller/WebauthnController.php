@@ -113,6 +113,7 @@ class WebauthnController extends Controller
      * @param CredentialStore $store
      * @return Response
      * @Route("/authenticate")
+     * @deprecated
      */
     public function authenticate(Request $request)
     {
@@ -130,7 +131,6 @@ class WebauthnController extends Controller
                 // Specify which credentials are allowed to authenticate
                 $credential = $entityManager->getRepository(WebauthnCredential::class)->findOneByUser($this->getUser());
                 $options->addAllowCredential($credential);
-
                 // Get array with configuration for webauthn client
                 $clientOptions = $manager->startAuthentication($options);
                 $vars['clientOptions'] = $clientOptions;
@@ -138,7 +138,6 @@ class WebauthnController extends Controller
                 $result = $manager->finishAuthenticationFromRequest($request);
                 $vars['credentialId'] = $result->getUserCredential()->getCredentialId();
                 // set validated 2nd factor fact to session
-                $this->get('session')->set('2ndfactor', 'fido');
                 $this->addFlash('success', 'You authenticate successful with 2nd factor token.');
                 return $this->redirectToRoute('app_idp_idplist');
             }

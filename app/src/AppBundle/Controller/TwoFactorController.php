@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Security("has_role('ROLE_USER')")
+ * @deprecated
  */
 class TwoFactorController extends Controller
 {
