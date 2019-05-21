@@ -44,6 +44,7 @@ then put the certificate and the encrypted key into `conf/credentials` folder. Y
 
 | Parameter | Description |
 |-----------|-------------|
+| `SAMLIDP_RUNNING_MODE` | `frontend` or `backend`. Backend does the metadata processing of the handled federations. Frontend does everything else. **Required** |
 | `SAMLIDP_HOSTNAME` | FQDN for your samlidp instance. **Required** |
 | `VAULT_PASS` | Encryption key for samlidp secret variables. At the moment used for encrypt/decrypt key of the wildcard certificate.  **Required** |
 | `DATABASE_HOST` | The database server IP address. **Required** |

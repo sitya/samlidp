@@ -15,7 +15,7 @@ class ParseFederationsCommand extends ContainerAwareCommand
     {
         $this
             ->setName('samli:parseFederations')
-            ->setDescription('Parsing federations from MET');
+            ->setDescription('Refresh metadatas for the registered federations.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -23,61 +23,25 @@ class ParseFederationsCommand extends ContainerAwareCommand
         $doctrine = $this->getContainer()->get('doctrine');
         $em = $doctrine->getManager();
 
-        // $jsonData = file_get_contents('https://met.refeds.org/?export=federations&format=json');
-        // $addedFederation = 0;
-        // foreach (json_decode($jsonData, true) as $key => $value) {
-        //     $slug = $this->toAscii($key);
-        //     $federation = $em->getRepository('AppBundle:Federation')->findOneBySlug($slug);
-        //     if (!$federation) {
-        //         $federation = new Federation();
-        //         ++$addedFederation;
-        //     }
-        //     $federation->setSlug($slug);
-        //     $federation->setLastChecked(new \DateTime());
-        //     $federation->setSps($value['SPSSO']);
-        //     $federation->setName($key);
-        //     $em->persist($federation);
-        //     $em->flush();
-        // }
-        // if ($addedFederation > 0) {
-        //     $output->writeln("Hozzáadtunk $addedFederation föderációt.");
-        // } else {
-        //     $output->writeln('Nem került be új föderáció.');
-        // }
-
         $federations = $em->getRepository('AppBundle:Federation')->findAll();
-        //$federations = $em->getRepository('AppBundle:Federation')->findBySlug('eduidhu-federation');
 
         foreach ($federations as $federation) {
             $modified = $notmodified = $failed = 0;
-            $mdSource = (empty($federation->getMetadataurl())) ? 'MET' : $federation->getMetadataurl();
-            $output->writeln("\n<info> * ".$federation->getName().' -- download metadata from '.$mdSource.'</info>');
             if ($federation->getLastChecked()->diff(new \DateTime())->days > 1) {
                 $federation->setLastChecked(new \DateTime());
                 $em->persist($federation);
                 $em->flush($federation);
-
+                $output->writeln("\n<info> * ".$federation->getName().' -- downloading metadata from '.$federation->getMetadataurl().'</info>');
                 if (!empty($federation->getMetadataurl())) {
-                    $progress = new ProgressBar($output, 50);
-                    $ctx = stream_context_create(array('ssl' => ['verify_peer' => false], 'http' => array('ignore_errors' => true)), array('notification' => function ($notification_code, $severity, $message, $message_code, $bytes_transferred, $bytes_max) use ($output, $progress) {
-                        switch ($notification_code) {
-                            case STREAM_NOTIFY_FILE_SIZE_IS:
-                                $progress->start($bytes_max);
-                                break;
-                            case STREAM_NOTIFY_PROGRESS:
-                                $progress->setProgress($bytes_transferred);
-                                break;
-                        }
-                    }));
+                    $ctx = stream_context_create(array('ssl' => ['verify_peer' => false], 'http' => array('ignore_errors' => true)));
                     try {
                         $xmlData = file_get_contents($federation->getMetadataurl(), false, $ctx);
                     } catch (Exception $e) {
+                        // TODO: error handling
                     }
 
-                    $progress->finish();
-
-                    $doc = \SAML2_DOMDocumentFactory::fromString($xmlData);
-                    $entities = \SimpleSAML_Metadata_SAMLParser::parseDescriptorsElement($doc->documentElement);
+                    $doc = \SAML2\DOMDocumentFactory::fromString($xmlData);
+                    $entities = \SimpleSAML\Metadata\SAMLParser::parseDescriptorsElement($doc->documentElement);
 
                     foreach ($entities as $key => $entity) {
                         $ifSp = $entity->getMetadata20SP();
@@ -120,59 +84,11 @@ class ParseFederationsCommand extends ContainerAwareCommand
                         }
                     }
                     $progress->finish();
-                    $output->writeln('<comment> '.$modified.'</comment> <info>'.$notmodified.'</info> <error>'.$failed.'</error>');
-                } else {
-                    $rounds = ceil($federation->getSps() / 20);
-
-                    $progress = new ProgressBar($output, $federation->getSps());
-                    $progress->setFormatDefinition('custom', '%message%: %percent%% (%current%/%max%) %elapsed% %memory% ');
-                    $progress->setFormat('custom');
-                    $progress->setMessage('Fetching entities from MET one by one');
-                    $progress->setBarWidth(50);
-                    $progress->start();
-                    for ($i = 1; $i <= $rounds; ++$i) {
-                        $jsonData = file_get_contents('https://met.refeds.org/met/federation/'.$federation->getSlug().'/?format=json&entity_type=SPSSODescriptor&page='.$i);
-
-                        foreach (json_decode($jsonData, true) as $entity) {
-                            if ($entity['types'][0] == 'SP') {
-                                $spXml = file_get_contents('https://met.refeds.org/met/entity/'.urlencode($entity['entityid']).'/?viewxml=true&federation='.$federation->getSlug());
-                                $sp = $em->getRepository('AppBundle:Entity')->findOneByEntityid($entity['entityid']);
-
-                                if (!$sp || $sp->getSha1sum() != sha1($spXml)) {
-                                    try {
-                                        $m = \SimpleSAML_Metadata_SAMLParser::parseDescriptorsString($spXml);
-                                        $m = $m[$entity['entityid']]->getMetadata20SP();
-                                        unset($m['entityDescriptor']);
-                                        unset($m['expire']);
-                                        unset($m['metadata-set']);
-                                    } catch (\Exception $e) {
-                                        // XXX hekk, hogy érvénytelen xml esetén se álljon le a futás
-                                        ++$failed;
-                                        continue;
-                                    }
-                                    if (!$sp) {
-                                        $sp = new Entity();
-                                        $sp->setEntityid($entity['entityid']);
-                                    }
-                                    $sp->setSha1sum(sha1($spXml));
-                                    $sp->setEntitydata(serialize($m));
-                                    $sp->setFederation($federation);
-                                    $sp->setLastModified(new \DateTime());
-                                    $em->persist($sp);
-                                    $em->flush($sp);
-                                    ++$modified;
-                                } else {
-                                    ++$notmodified;
-                                }
-                            }
-                            $progress->advance();
-                        }
-                    }
-                    $progress->finish();
-                    $output->writeln('<comment> '.$modified.'</comment> <info>'.$notmodified.'</info> <error>'.$failed.'</error>');
+                    $output->writeln("\n\t<comment>added or changed: ".$modified."</comment>\n\t<info>updated, but not changed: ".$notmodified."</info>");
                 }
             }
         }
+        $output->writeln("\n<info>Updating federation metadatas has been done.</info>");
     }
 
     protected function toAscii($str, $replace = array(), $delimiter = '-')
