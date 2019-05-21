@@ -7,25 +7,23 @@
 
     <div class="col-sm-6 b-r p-w-lg">
         <h2>FIDO</h2>
-        <table class="table-condensed">
-            {% for token in fido_tokens %}
-                <tr>
-                    <td>{{ token.displayName }}</td>
-                    <td class="text-right">
-                        <button class="btn btn-danger" disabled>delete</button>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
+        {% if fido_tokens|length %}
+            {{ dump(fido_tokens) }}
+            Webauthn method is enabled.
+            <div class="form-group">
+                <a href="{{ path('app_webauthn_delete') }}" class="btn btn-danger pull-right">Delete token</a>
+            </div>
+        {% else %}
         <div class="form-group">
-            <a href="{{ path("app_webauthn_register") }}" class="btn btn-primary pull-right">Register new token</a>
+            <a href="{{ path("app_webauthn_register") }}" class="btn btn-primary pull-right">Register token</a>
         </div>
+        {% endif %}
     </div>
     <div class="col-sm-6 p-w-lg">
         <h2>TOTP</h2>
 
         {% if app.user.isTotpAuthenticationEnabled %}
-            TOTP enabled.
+            TOTP method is enabled.
             <div class="form-group">
                 <a href="{{ path('app_totp_delete') }}" class="btn btn-danger pull-right">Delete token</a>
             </div>

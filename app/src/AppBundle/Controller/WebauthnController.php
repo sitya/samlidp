@@ -14,6 +14,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\User;
 use AppBundle\Entity\WebauthnCredential;
 use AppBundle\Security\CredentialStore;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManagerInterface;
 use MadWizard\WebAuthn\Exception\WebAuthnException;
 use MadWizard\WebAuthn\Format\ByteBuffer;
 use MadWizard\WebAuthn\Server\Authentication\AuthenticationOptions;
@@ -24,6 +26,7 @@ use MadWizard\WebAuthnBundle\Manager\WebAuthnManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -108,47 +111,23 @@ class WebauthnController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param WebAuthnManager $manager
-     * @param CredentialStore $store
-     * @return Response
-     * @Route("/authenticate")
-     * @deprecated
+     * @Route("/delete")
+     * @return RedirectResponse
      */
-    public function authenticate(Request $request)
+    public function deleteAction()
     {
-        $vars = [];
-
-        $manager = $this->get('madwizard_webauthn.manager');
+        /** @var EntityManager $entityManager */
         $entityManager = $this->getDoctrine()->getManager();
-
-        $posted = $request->isMethod('POST');
-        $vars['posted'] = $posted;
-        try {
-            if (!$posted) {
-                $options = new AuthenticationOptions();
-
-                // Specify which credentials are allowed to authenticate
-                $credential = $entityManager->getRepository(WebauthnCredential::class)->findOneByUser($this->getUser());
-                $options->addAllowCredential($credential);
-                // Get array with configuration for webauthn client
-                $clientOptions = $manager->startAuthentication($options);
-                $vars['clientOptions'] = $clientOptions;
-            } else {
-                $result = $manager->finishAuthenticationFromRequest($request);
-                $vars['credentialId'] = $result->getUserCredential()->getCredentialId();
-                // set validated 2nd factor fact to session
-                $this->addFlash('success', 'You authenticate successful with 2nd factor token.');
-                return $this->redirectToRoute('app_idp_idplist');
-            }
-        } catch (WebAuthnException $e) {
-            // NOTE: do not pass exception messages to the client. The exception messages could contain
-            // security sensitive information useful for attackers.
-            $vars['error'] = "Authentication failed";
-            $this->container->get('security.token_storage')->setToken(null);
-
+        /** @var User $user */
+        $user = $this->getUser();
+        foreach ($user->getWebauthnCredentials() as $webauthnCredential) {
+            $entityManager->remove($webauthnCredential);
         }
+        $entityManager->flush();
 
-        return $this->render('AppBundle:SecondFactor:webauthn_authentication.html.twig', $vars);
+        $this->addFlash('success', 'Your FIDO token has been deleted.');
+        return $this->redirectToRoute('app_secondfactormanager_list');
+
     }
+
 }

@@ -47,7 +47,7 @@ class User extends BaseUser implements TwoFactorInterface
     private $googleAuthenticatorCode = null;
 
     /**
-     * @ORM\OneToMany(targetEntity="WebauthnCredential", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="WebauthnCredential", mappedBy="user", cascade={"persist", "remove"})
      */
     private $webauthnCredentials;
 
