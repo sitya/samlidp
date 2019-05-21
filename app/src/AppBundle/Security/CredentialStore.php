@@ -45,7 +45,6 @@ class CredentialStore implements CredentialStoreInterface
     public function registerCredential(CredentialRegistration $credential)
     {
         $user = $this->entityManager->getRepository(User::class)->findOneByUserHandle($credential->getUserHandle());
-        dump($user, $credential->getUserHandle()->getBase64Url());
         $webauthnCredential = new WebauthnCredential();
         $webauthnCredential->setUser($user);
         $webauthnCredential->setCredentialId($credential->getCredentialId());
