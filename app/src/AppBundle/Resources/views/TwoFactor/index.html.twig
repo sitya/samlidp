@@ -1,34 +1,34 @@
 {% extends "@FOSUser/layout.html.twig" %}
 {% block fos_user_content %}
-    {% trans_default_domain 'FOSUserBundle' %}
+    {% trans_default_domain 'twofactor' %}
 
-    <h1 class="m-b-lg">Your 2fa tokens</h1>
+    <h1 class="m-b-lg">{{ 'index.header'|trans }}</h1>
 
 
     <div class="col-sm-6 b-r p-w-lg">
-        <h2>FIDO</h2>
+        <h2>{{ 'index.webauthn_header'|trans }}</h2>
         {% if fido_tokens|length %}
-            Webauthn method is enabled.
+            {{ 'index.webauthn_enabled'|trans }}
             <div class="form-group">
-                <a href="{{ path('app_webauthn_delete') }}" class="btn btn-danger pull-right">Delete token</a>
+                <a href="{{ path('app_webauthn_delete') }}" class="btn btn-danger pull-right">{{ 'index.delete'|trans }}</a>
             </div>
         {% else %}
         <div class="form-group">
-            <a href="{{ path("app_webauthn_register") }}" class="btn btn-primary pull-right">Register token</a>
+            <a href="{{ path("app_webauthn_register") }}" class="btn btn-primary pull-right">{{ 'index.register'|trans }}</a>
         </div>
         {% endif %}
     </div>
     <div class="col-sm-6 p-w-lg">
-        <h2>TOTP</h2>
+        <h2>{{ 'index.totp_header'|trans }}</h2>
 
         {% if app.user.isTotpAuthenticationEnabled %}
-            TOTP method is enabled.
+            {{ 'index.totp_enabled'|trans }}
             <div class="form-group">
-                <a href="{{ path('app_totp_delete') }}" class="btn btn-danger pull-right">Delete token</a>
+                <a href="{{ path('app_totp_delete') }}" class="btn btn-danger pull-right">{{ 'index.delete'|trans }}</a>
             </div>
         {% else %}
         <div class="form-group">
-            <a href="{{ path('app_totp_register') }}" class="btn btn-primary pull-right">Register token</a>
+            <a href="{{ path('app_totp_register') }}" class="btn btn-primary pull-right">{{ 'index.register'|trans }}</a>
         </div>
         {% endif %}
 

@@ -1,8 +1,8 @@
 {% extends "@FOSUser/layout.html.twig" %}
 {% block fos_user_content %}
-    {% trans_default_domain 'FOSUserBundle' %}
+    {% trans_default_domain 'twofactor' %}
 
-    <h1>Provide your second factor</h1>
+    <h1>{{ 'totp.authentication.header'|trans }}</h1>
     <div class="col-sm-6 b-r p-w-lg">
         <form class="form-horizontal" action="{{ path("2fa_login_check") }}" method="post">
 

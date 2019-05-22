@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="oq7lwxP" resname="totp.register.step1">
+        <source>totp.register.step1</source>
+        <target>1. Scan the code!</target>
+      </trans-unit>
+      <trans-unit id="GajRkbb" resname="totp.register.step2">
+        <source>totp.register.step2</source>
+        <target>2. Enter the TOTP value!</target>
+      </trans-unit>
+      <trans-unit id="3B4YfTw" resname="totp.register.label">
+        <source>totp.register.label</source>
+        <target>TOTP</target>
+      </trans-unit>
+      <trans-unit id="UfuJsXc" resname="totp.register.placeholder">
+        <source>totp.register.placeholder</source>
+        <target>TOTP</target>
+      </trans-unit>
+      <trans-unit id="3oH6_Js" resname="totp.register.submit">
+        <source>totp.register.submit</source>
+        <target>Register the token!</target>
+      </trans-unit>
+      <trans-unit id="dwH3g5R" resname="index.header">
+        <source>index.header</source>
+        <target>Tokens for second factor authentication</target>
+      </trans-unit>
+      <trans-unit id="Tpbg5z0" resname="index.webauthn_header">
+        <source>index.webauthn_header</source>
+        <target>Webauthn</target>
+      </trans-unit>
+      <trans-unit id="y8GQpl1" resname="index.webauthn_enabled">
+        <source>index.webauthn_enabled</source>
+        <target>Token registered and in use.</target>
+      </trans-unit>
+      <trans-unit id="iKybboK" resname="index.delete">
+        <source>index.delete</source>
+        <target>Delete token</target>
+      </trans-unit>
+      <trans-unit id="aE0wLlz" resname="index.register">
+        <source>index.register</source>
+        <target>Register token</target>
+      </trans-unit>
+      <trans-unit id="AcG1mmy" resname="index.totp_header">
+        <source>index.totp_header</source>
+        <target>TOTP</target>
+      </trans-unit>
+      <trans-unit id="XG6qCY7" resname="index.totp_enabled">
+        <source>index.totp_enabled</source>
+        <target>Token registered and in use.</target>
+      </trans-unit>
+      <trans-unit id="FFTXAou" resname="totp.authentication.header">
+        <source>totp.authentication.header</source>
+        <target>TOTP authentication</target>
+      </trans-unit>
+      <trans-unit id="jLbr77W" resname="webauthn.authentication.header">
+        <source>webauthn.authentication.header</source>
+        <target>Webauthn authentication</target>
+      </trans-unit>
+      <trans-unit id="rdg_FFO" resname="webauthn.authentication.canceled">
+        <source>webauthn.authentication.canceled</source>
+        <target>Authentication canceled/failed. Choose another method or sign out.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

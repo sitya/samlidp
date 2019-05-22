@@ -1,12 +1,12 @@
 {% extends "@FOSUser/layout.html.twig" %}
 {% block fos_user_content %}
-    {% trans_default_domain 'FOSUserBundle' %}
+    {% trans_default_domain 'twofactor' %}
     <div class="clearfix"></div>
 
-    <h1>Provide your second factor</h1>
+    <h1>{{ 'webauthn.authentication.header'|trans }}</h1>
     <div class="col-sm-6 b-r p-w-lg">
         {% if authenticationError %}
-            Authentication cancelled/failed. Try another method or sign out.
+            {{ 'webauthn.authentication.canceled'|trans }}
         {% else %}
             <form class="form-horizontal" action="{{ path("2fa_login_check") }}" method="post">
                 {{ webauthn_form(clientOptions) }}
@@ -15,7 +15,6 @@
                 {% endif %}
             </form>
         {% endif %}
-
     </div>
     {# Let the user select the authentication method #}
     <div class="col-sm-6 p-w-sm"><h3>{{ "choose_provider"|trans({}, 'SchebTwoFactorBundle') }}</h3>
