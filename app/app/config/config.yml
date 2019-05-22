@@ -40,7 +40,6 @@ twig:
         - bootstrap_3_horizontal_layout.html.twig
         - AppBundle:Form:help_layout.html.twig
     globals:
-      tfa_provider: "@appbundle.twofactor.google.provider"
       samlidp_hostname: "%samlidp_hostname%"
 
 # Doctrine Configuration
@@ -142,8 +141,8 @@ madwizard_webauthn:
 scheb_two_factor:
 
     # Trusted device feature
-    trusted_device:
-        enabled: true                 # If the trusted device feature should be enabled
+#    trusted_device:
+#        enabled: true                 # If the trusted device feature should be enabled
 #        manager: acme.custom_trusted_device_manager  # Use a custom trusted device manager
 #        lifetime: 5184000              # Lifetime of the trusted device token
 #        extend_lifetime: false         # Automatically extend lifetime of the trusted cookie on re-login
@@ -167,7 +166,7 @@ scheb_two_factor:
 #        window: 1                      # How many codes before/after the current one would be accepted as valid
 #        parameters:                    # Additional parameters added in the QR code
 #            image: 'https://my-service/img/logo.png'
-        template: AppBundle:SecondFactor:totp_authentication.html.twig
+        template: AppBundle:TwoFactor:totp_authentication.html.twig
 
 #    webauthn:
 #        enabled: true

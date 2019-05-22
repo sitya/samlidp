@@ -8,28 +8,6 @@ services:
         class: AppBundle\Utils\SSPGetter
         arguments: ['@doctrine.orm.entity_manager','%database_host%','%database_name%','%database_user%','%database_password%', '%database_driver%', '%database_port%', '%samlidp_hostname%']
 
-    appbundle.twofactor.google:
-        class: Google\Authenticator\GoogleAuthenticator
-    appbundle.twofactor.google.provider:
-        class: AppBundle\Security\TwoFactor\Google\Helper
-        arguments:
-            - '%samlidp_hostname%'
-            - '@appbundle.twofactor.google'
-    appbundle.twofactor.google.interactive_login_listener:
-        class: AppBundle\Security\TwoFactor\Google\InteractiveLoginListener
-        arguments: ['@appbundle.twofactor.google.provider']
-        tags:
-            - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
-    appbundle.twofactor.google.request_listener:
-        class: AppBundle\Security\TwoFactor\Google\RequestListener
-        arguments:
-          - '@appbundle.twofactor.google.provider'
-          - '@security.token_storage'
-          - '@templating'
-          - '@router'
-        tags:
-          - { name: kernel.event_listener, event: kernel.request, method: onCoreRequest, priority: -1 }
-
     # appbundle.idpuser_authenticator:
     #    class: AppBundle\Security\IdPUserAuthenticator
 

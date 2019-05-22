@@ -105,7 +105,7 @@ class WebauthnController extends Controller
         }
 
 
-        return $this->render("AppBundle:SecondFactor:webauthn_registration.html.twig",
+        return $this->render("AppBundle:TwoFactor:webauthn_registration.html.twig",
             $vars
         );
     }
@@ -126,7 +126,7 @@ class WebauthnController extends Controller
         $entityManager->flush();
 
         $this->addFlash('success', 'Your FIDO token has been deleted.');
-        return $this->redirectToRoute('app_secondfactormanager_list');
+        return $this->redirectToRoute('app_twofactormanager_list');
 
     }
 

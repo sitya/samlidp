@@ -25,7 +25,7 @@ class AppKernel extends Kernel
             new Staffim\RollbarBundle\StaffimRollbarBundle(),
             new MadWizard\WebAuthnBundle\MadWizardWebAuthnBundle(),
             new Scheb\TwoFactorBundle\SchebTwoFactorBundle(),
-            new \Endroid\QrCodeBundle\EndroidQrCodeBundle(),
+            new Endroid\QrCodeBundle\EndroidQrCodeBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

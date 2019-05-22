@@ -8,7 +8,6 @@
     <div class="col-sm-6 b-r p-w-lg">
         <h2>FIDO</h2>
         {% if fido_tokens|length %}
-            {{ dump(fido_tokens) }}
             Webauthn method is enabled.
             <div class="form-group">
                 <a href="{{ path('app_webauthn_delete') }}" class="btn btn-danger pull-right">Delete token</a>

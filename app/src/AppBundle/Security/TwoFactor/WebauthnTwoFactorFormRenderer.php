@@ -71,7 +71,7 @@ class WebauthnTwoFactorFormRenderer implements TwoFactorFormRendererInterface
             $vars['error'] = "Webauthn authentication failed";
         }
 
-        $content = $this->twig->render('AppBundle:SecondFactor:webauthn_authentication.html.twig', $vars);
+        $content = $this->twig->render('AppBundle:TwoFactor:webauthn_authentication.html.twig', $vars);
         return new Response($content);
     }
 }

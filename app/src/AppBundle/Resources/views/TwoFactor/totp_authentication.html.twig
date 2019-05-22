@@ -39,11 +39,13 @@
     </div>
     {# Let the user select the authentication method #}
     <div class="col-sm-6 p-w-sm"><h3>{{ "choose_provider"|trans({}, 'SchebTwoFactorBundle') }}</h3>
-        <p class="text-center">
+        <ul class="list-unstyled">
             {% for provider in availableTwoFactorProviders %}
-                <a href="{{ path("2fa_login", {"preferProvider": provider}) }}">{{ provider }}</a>
+                <li>
+                    <a href="{{ path("2fa_login", {"preferProvider": provider}) }}">{{ provider }}</a>
+                </li>
             {% endfor %}
-        </p>
+        </ul>
     </div>
     <hr>
     <div class="text-center b-t p-sm col-md-12 m-t-lg" style="border-top: 1px solid #aaa">

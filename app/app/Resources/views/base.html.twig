@@ -60,14 +60,11 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-pencil"></i> Edit profile</a></li>
                                     <li><a href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> Change password</a></li>
-                                    <li><a href="{{ path('app_secondfactormanager_list') }}"><i class="fa fa-hand-peace-o"></i> 2nd factors</a></li>
+                                    <li><a href="{{ path('app_twofactormanager_list') }}"><i class="fa fa-hand-peace-o"></i> 2nd factors</a></li>
                                     {% if is_granted('ROLE_SUPER_ADMIN')  %}
                                         <li><a href="{{ path('federation_index') }}"><i class="fa fa-rebel"></i> Federations</a></li>
                                     {% endif %}
                                 </ul>
-                            </li>
-                            <li>
-                                <p></p>
                             </li>
                             <li>
                                 <a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i> {% trans %}Sign out{% endtrans %}</a>

@@ -64,7 +64,7 @@ class TOTPController extends Controller
                         $entityManager->flush();
 
                         $this->addFlash('success', 'Your TOTP token has been registered.');
-                        return $this->redirectToRoute('app_secondfactormanager_list');
+                        return $this->redirectToRoute('app_twofactormanager_list');
                     } else {
                         $vars['message'] = $message;
                         $vars['secret'] = $secret;
@@ -84,10 +84,10 @@ class TOTPController extends Controller
                 $vars['error'] = "Registration failed";
             }
 
-            return $this->render("AppBundle:SecondFactor:totp_registration.html.twig", $vars);
+            return $this->render("AppBundle:TwoFactor:totp_registration.html.twig", $vars);
         }
         $this->addFlash('error', 'You already have registered TOTP. You have to delete it before regsiter a new one.');
-        return $this->redirectToRoute('app_secondfactormanager_list');
+        return $this->redirectToRoute('app_twofactormanager_list');
 
     }
 
@@ -106,7 +106,7 @@ class TOTPController extends Controller
         $entityManager->flush();
 
         $this->addFlash('success', 'Your TOTP token has been deleted.');
-        return $this->redirectToRoute('app_secondfactormanager_list');
+        return $this->redirectToRoute('app_twofactormanager_list');
 
     }
 }
