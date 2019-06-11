@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 /**
  * IdPUser.
@@ -45,6 +46,11 @@ class IdPUser implements UserInterface, \Serializable
      * @ORM\Column(name="password", type="string", length=255, nullable=false)
      */
     protected $password;
+
+    /**
+     * @ORM\Column(name="password_ntml", type="string", length=255, nullable=true)
+     */
+    protected $password_ntml;
 
     /**
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
@@ -281,7 +287,7 @@ class IdPUser implements UserInterface, \Serializable
             } else {
                 $samlidp_hostname = substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.')+1);
             }
-
+            
         }
         if (!empty($this->scope)) {
             return $this->scope;
@@ -352,6 +358,20 @@ class IdPUser implements UserInterface, \Serializable
     }
 
     /**
+     * Returns the password used to authenticate the user.
+     *
+     * This should be the encoded password. On authentication, a plain-text
+     * password will be salted, encoded, and then compared to this value.
+     *
+     * @return string The password
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    
+    /**
      * Set salt.
      *
      * @param string $salt
@@ -366,16 +386,29 @@ class IdPUser implements UserInterface, \Serializable
     }
 
     /**
-     * Returns the password used to authenticate the user.
+     * Set NTML password.
      *
-     * This should be the encoded password. On authentication, a plain-text
-     * password will be salted, encoded, and then compared to this value.
+     * @param string $password_ntml
+     *
+     * @return IdPUser
+     */
+    public function setPasswordNtml($ntml_hash)
+    {
+        $this->password_ntml = $ntml_hash;
+
+        return $this;
+    }
+
+    /**
+     * Returns the password used to authenticate the user with eduroam.
+     *
+     * This should be the NT Hash encoded password.
      *
      * @return string The password
      */
-    public function getPassword()
+    public function getPasswordNtml()
     {
-        return $this->password;
+        return $this->password_ntml;
     }
 
     /**
