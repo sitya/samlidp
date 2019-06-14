@@ -23,7 +23,7 @@ Using this service is free, but donations are welcome and will go towards furthe
 
 1. Clone this repository
 1. Grab your wildcard certificate from your CA, use `wildcard_certificate.key/wildcard_certificate.crt` names for them.
-1. Encrypt the key: `openssl aes256 -a -salt -k $VAULT_PASS -in wildcard_certificate.key -out wildcard_certificate.key.enc`
+1. Encrypt the key: `openssl aes256 -md sha256 -a -salt -k $VAULT_PASS -in wildcard_certificate.key -out wildcard_certificate.key.enc`
 then put the certificate and the encrypted key into `conf/credentials` folder. You will need this `$VAULT_PASS` for starting the app, so save it. Depending your CA but you may have to merge the certificatechain into `wildcard_certificate.crt`.
 1. Configure storage service in `app/app/config/config.yml` and logging service in `app/app/config/config_prod.yml`. There are lots of [Monolog handlers](https://github.com/Seldaek/monolog/tree/master/src/Monolog/Handler) you can use directly.
 1. Generate a self-signed certificate for the attribute release checking service, which will be deployed to `attributes.$SAMLIDP_HOSTNAME`. `cd conf/credentials && openssl req -new -newkey rsa:2048 -x509 -days 3652 -nodes -out attributes.$SAMLIDP_HOSTNAME.crt -keyout attributes.$SAMLIDP_HOSTNAME.key`. Important: value of `CN` must be `$SAMLIDP_HOSTNAME`
