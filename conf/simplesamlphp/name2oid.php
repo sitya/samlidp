@@ -9,4 +9,6 @@ $attributemap = array(
     'givenName' => 'urn:oid:2.5.4.42',
     'schacHomeOrganization'         => 'urn:oid:1.3.6.1.4.1.25178.1.2.9',
     'o'                             => 'urn:oid:2.5.4.10',
+    'subject-id' => 'urn:oasis:names:tc:SAML:attribute:subject-id',
+    'pairwise-id' => 'urn:oasis:names:tc:SAML:attribute:pairwise-id'
 );

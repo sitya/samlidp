@@ -710,6 +710,8 @@ class IdpController extends AppController
             'urn:oid:2.16.840.1.113730.3.1.241' => 'displayName',
             'urn:oid:2.5.4.4' => 'sn',
             'urn:oid:2.5.4.42' => 'givenName',
+            'urn:oasis:names:tc:SAML:attribute:pairwise-id' => 'pairwise-id',
+            'urn:oasis:names:tc:SAML:attribute:subject-id' => 'subject-id'
         );
         $ret = array();
         foreach ($attributes as $oid) {
@@ -732,6 +734,8 @@ class IdpController extends AppController
             'displayName' => 'urn:oid:2.16.840.1.113730.3.1.241',
             'sn' => 'urn:oid:2.5.4.4',
             'givenName' => 'urn:oid:2.5.4.42',
+            'subject-id' => 'urn:oasis:names:tc:SAML:attribute:subject-id',
+            'pairwise-id' => 'urn:oasis:names:tc:SAML:attribute:pairwise-id'
         );
         $ret = array();
         foreach ($attributes as $name) {
