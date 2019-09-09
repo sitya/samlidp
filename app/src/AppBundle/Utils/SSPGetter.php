@@ -118,7 +118,7 @@ class SSPGetter
                     'redirect.sign' => true,
                     'assertion.encryption' => true,
                     'EntityAttributes' => array(
-                        'http://macedir.org/entity-category-support' => array('http://refeds.org/category/research-and-scholarship'),
+                        'http://macedir.org/entity-category-support' => array('http://refeds.org/category/research-and-scholarship', 'http://www.geant.net/uri/dataprotection-code-of-conduct/v1'),
                     ),
 
                     'name' => array(
