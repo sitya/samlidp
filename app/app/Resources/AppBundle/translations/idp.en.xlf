@@ -362,6 +362,18 @@
         <source>edit.idp_updated_successful</source>
         <target>IdP updated successful</target>
       </trans-unit>
+      <trans-unit id="zJfO589" resname="edit.404.exception">
+        <source>edit.404.exception</source>
+        <target>The idp does not exist</target>
+      </trans-unit>
+      <trans-unit id="X8yoHn." resname="edit.validate.organizationname.notblank">
+        <source>edit.validate.organizationname.notblank</source>
+        <target>Name of your Organization cannot be empty.</target>
+      </trans-unit>
+      <trans-unit id="TZqiBaH" resname="edit.validate.organizationurl.notblank">
+        <source>edit.validate.organizationurl.notblank</source>
+        <target>URL of your Organization cannot be empty.</target>
+      </trans-unit>
       <trans-unit id="R9POtyd" resname="idp.wizard.hostname.label">
         <source>idp.wizard.hostname.label</source>
         <target>Short identifier</target>
@@ -377,6 +389,130 @@
       <trans-unit id="btJsVVn" resname="idp.edit.instituteUrl.label">
         <source>idp.edit.instituteUrl.label</source>
         <target>Organization URL</target>
+      </trans-unit>
+      <trans-unit id="MxD8B.9" resname="idp.delete.404">
+        <source>idp.delete.404</source>
+        <target>Unable to find IdP entity.</target>
+      </trans-unit>
+      <trans-unit id="W1Pplr2" resname="idp.delete.deleted">
+        <source>idp.delete.deleted</source>
+        <target>Identity Provider deleted.</target>
+      </trans-unit>
+      <trans-unit id="3bjM3uU" resname="idp.checkdomain.txt.notok">
+        <source>idp.checkdomain.txt.notok</source>
+        <target>There is no TXT record with the verification value: </target>
+      </trans-unit>
+      <trans-unit id="nQsFeEI" resname="idp.checkdomain.txt.empty">
+        <source>idp.checkdomain.txt.empty</source>
+        <target>There is no TXT record for %domain% domain</target>
+      </trans-unit>
+      <trans-unit id="lvlNWXn" resname="idp.checkdomain.verified_domain">
+        <source>idp.checkdomain.verified_domain</source>
+        <target>It's a verified domain.</target>
+      </trans-unit>
+      <trans-unit id="6ON_fl6" resname="idp.checkdomain.noidp">
+        <source>idp.checkdomain.noidp</source>
+        <target>There is no IdP.</target>
+      </trans-unit>
+      <trans-unit id="SsZUUtK" resname="idp.unauthorized">
+        <source>idp.unauthorized</source>
+        <target>Unauthorized.</target>
+      </trans-unit>
+      <trans-unit id="enOxl50" resname="idp.wrong_parameters">
+        <source>idp.wrong_parameters</source>
+        <target>Wrong parameters.</target>
+      </trans-unit>
+      <trans-unit id="XDaTzq3" resname="idp.not_ajax">
+        <source>idp.not_ajax</source>
+        <target>This is not ajax!</target>
+      </trans-unit>
+      <trans-unit id="tIRlopQ" resname="idp.scope.no_such_scope">
+        <source>idp.scope.no_such_scope</source>
+        <target>No such scope.</target>
+      </trans-unit>
+      <trans-unit id="wc20WaU" resname="idp.scope.invalid_domain_name_format">
+        <source>idp.scope.invalid_domain_name_format</source>
+        <target>Invalid domain name format.</target>
+      </trans-unit>
+      <trans-unit id="w1yk0qc" resname="idp.scope.already_exists">
+        <source>idp.scope.already_exists</source>
+        <target>This scope already exists.</target>
+      </trans-unit>
+      <trans-unit id="DyrL.ba" resname="idp.scope.idp_domain_not_match">
+        <source>idp.scope.idp_domain_not_match</source>
+        <target>IdP and Domain did not match.</target>
+      </trans-unit>
+      <trans-unit id="OuhDQC." resname="idp.scope.delete.deleted">
+        <source>idp.scope.delete.deleted</source>
+        <target>Scope deleted.</target>
+      </trans-unit>
+      <trans-unit id="amgEI2L" resname="idp.scope.delete.default">
+        <source>idp.scope.delete.default</source>
+        <target>You cannot delete the default scope.</target>
+      </trans-unit>
+      <trans-unit id="bhahAz_" resname="idp.scope.update.not_exists">
+        <source>idp.scope.update.not_exists</source>
+        <target>IdP and/or Domain did not exists.</target>
+      </trans-unit>
+      <trans-unit id="E2A0SS2" resname="idp.idp_not_match">
+        <source>idp.idp_not_match</source>
+        <target>IdP did not match.</target>
+      </trans-unit>
+      <trans-unit id="YKRu4V8" resname="idp.domain.delete.deleted">
+        <source>idp.domain.delete.deleted</source>
+        <target>Domain deleted.</target>
+      </trans-unit>
+      <trans-unit id="k7Tjz2W" resname="idp.domain.delete.default_scope">
+        <source>idp.domain.delete.default_scope</source>
+        <target>You cannot delete domain that contain the default scope.</target>
+      </trans-unit>
+      <trans-unit id="931dLBe" resname="idp.sp_attributes.404">
+        <source>idp.sp_attributes.404</source>
+        <target>SP not found.</target>
+      </trans-unit>
+      <trans-unit id="3kNKE.j" resname="idp.sp_attributes.saved">
+        <source>idp.sp_attributes.saved</source>
+        <target>Attributes saved.</target>
+      </trans-unit>
+      <trans-unit id="wijZ9jd" resname="idp.sp_edit.no_connection">
+        <source>idp.sp_edit.no_connection</source>
+        <target>There is no connection between your IdP and the given SP identifier.</target>
+      </trans-unit>
+      <trans-unit id="LSN7Sxe" resname="idp.sp.delete.deleted">
+        <source>idp.sp.delete.deleted</source>
+        <target>Service Provider removed.</target>
+      </trans-unit>
+      <trans-unit id="K64J5lA" resname="idp.sp.add.url_not_reachable">
+        <source>idp.sp.add.url_not_reachable</source>
+        <target>The given URL is not reachable.</target>
+      </trans-unit>
+      <trans-unit id="N0OvXym" resname="idp.sp.add.no_metadata">
+        <source>idp.sp.add.no_metadata</source>
+        <target>There is no SAML metadata file on the given URL.</target>
+      </trans-unit>
+      <trans-unit id="Em6fLqK" resname="idp.sp.add.invalid_url">
+        <source>idp.sp.add.invalid_url</source>
+        <target>It does not seem to be a valid URL.</target>
+      </trans-unit>
+      <trans-unit id="b9CQup0" resname="idp.sp.add.no_public_key.sign">
+        <source>idp.sp.add.no_public_key.sign</source>
+        <target>The given metadata does not contain a public key for signing.</target>
+      </trans-unit>
+      <trans-unit id="pcfpRDs" resname="idp.sp.add.no_public_key.enc">
+        <source>idp.sp.add.no_public_key.enc</source>
+        <target>The given metadata does not contain a public key for encrypting.</target>
+      </trans-unit>
+      <trans-unit id="90cT999" resname="idp.sp.add.added">
+        <source>idp.sp.add.added</source>
+        <target>Service Provider added.</target>
+      </trans-unit>
+      <trans-unit id="a4zUa0z" resname="idp.sp.add.already_exists">
+        <source>idp.sp.add.already_exists</source>
+        <target>This Service Provider has been already added.</target>
+      </trans-unit>
+      <trans-unit id="zVK2pP4" resname="idp.sp.add.already_known">
+        <source>idp.sp.add.already_known</source>
+        <target>Your Identity Provider already knows that Service Provider via %federation_name%</target>
       </trans-unit>
     </body>
   </file>

@@ -23,6 +23,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Translation\DataCollectorTranslator;
 
 /**
  * @Route("/idp")
@@ -122,7 +123,7 @@ class IdpController extends AppController
         $em = $this->getDoctrine()->getManager();
         $idp = $em->getRepository('AppBundle:IdP')->find($id);
         if (!$idp) {
-            throw $this->createNotFoundException('The idp does not exist');
+            throw $this->createNotFoundException($this->trans('edit.404.exception'));
         }
         if (!$this->validateOwnership($idp)) {
             throw $this->createAccessDeniedException();
@@ -169,12 +170,14 @@ class IdpController extends AppController
         $form->handleRequest($request);
 
         if (empty($form->get('instituteName')->getData()) && $form->isSubmitted()) {
-            $formerror = new FormError('Name of your Organization cannot be empty.');
+            $error_message = $this->trans('edit.validate.organizationname.notblank');
+            $formerror = new FormError($error_message);
             $form->get('instituteName')->addError($formerror);
         }
 
         if (empty($form->get('instituteUrl')->getData()) && $form->isSubmitted()) {
-            $formerror = new FormError('URL of your Organization cannot be empty.');
+            $error_message = $this->trans('edit.validate.organizationurl.notblank');
+            $formerror = new FormError($error_message);
             $form->get('instituteUrl')->addError($formerror);
         }
 
@@ -192,9 +195,9 @@ class IdpController extends AppController
             $em->persist($idp);
             $em->flush();
 
-            $message = $this->get('translator')->trans('edit.idp_updated_successful', array(), 'idp');
+            $message = $this->trans('edit.idp_updated_successful');
             if ($create) {
-                $message = $this->get('translator')->trans('edit.create_step_second_success', array(), 'idp');
+                $message = $this->trans('edit.create_step_second_success');
             }
             $this->get('session')->getFlashBag()->add('success', $message);
 
@@ -218,7 +221,7 @@ class IdpController extends AppController
      *
      * @param mixed $id The entity id
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return \Symfony\Component\Form\FormInterface The form
      */
     private function createDeleteForm($id)
     {
@@ -245,7 +248,7 @@ class IdpController extends AppController
             $entity = $em->getRepository('AppBundle:IdP')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find IdP entity.');
+                throw $this->createNotFoundException($this->trans('idp.delete.404'));
             }
 
             $hostname = $entity->getHostname();
@@ -256,7 +259,7 @@ class IdpController extends AppController
                 $em->remove($scope);
                 $em->flush($scope);
             }
-            $this->get('session')->getFlashBag()->add('success', 'Identity Provider deleted.');
+            $this->get('session')->getFlashBag()->add('success', $this->trans('idp.delete.deleted'));
         }
 
         return $this->redirect($this->generateUrl('app_idp_idplist'));
@@ -271,7 +274,7 @@ class IdpController extends AppController
         $em = $this->getDoctrine()->getManager();
         $idp = $em->getRepository('AppBundle:IdP')->find($id);
         if (!$idp) {
-            throw $this->createNotFoundException('The idp does not exist');
+            throw $this->createNotFoundException($this->trans('idp.delete.404'));
         }
         if (!$this->validateOwnership($idp)) {
             throw $this->createAccessDeniedException();
@@ -319,14 +322,15 @@ class IdpController extends AppController
                         return new JsonResponse(
                             array(
                                 'success' => false,
-                                'message' => 'There is no TXT record with the verification value: '.$idp->getDNSCheckerHash(),
+                                'message' => $this->trans('idp.checkdomain.txt.notok').$idp->getDNSCheckerHash(),
                             )
                         );
                     } else {
                         return new JsonResponse(
                             array(
                                 'success' => false,
-                                'message' => "There is no TXT record for $domain domain",
+                                'message' => $this->trans('idp.checkdomain.txt.empty', array('%domain%' => $domain)),
+
                             )
                         );
                     }
@@ -334,7 +338,7 @@ class IdpController extends AppController
                     return new JsonResponse(
                         array(
                             'success' => false,
-                            'message' => "It's a verified domain.",
+                            'message' => $this->trans('idp.checkdomain.verified_domain'),
                         )
                     );
                 }
@@ -342,13 +346,13 @@ class IdpController extends AppController
                 return new JsonResponse(
                     array(
                         'success' => false,
-                        'message' => 'There is no IdP',
+                        'message' => $this->trans('idp.checkdomain.noidp'),
                     )
                 );
             }
         }
 
-        return new Response('This is not ajax!', 400);
+        return new Response($this->trans('idp.not_ajax'), 400);
     }
 
     /**
@@ -361,7 +365,7 @@ class IdpController extends AppController
             $domainid = $request->request->get('domainid');
             $scopeValue = $request->request->get('scopeValue');
             if (!preg_match('/^[a-zA-Z0-9\.-]+$/', $scopeValue)) {
-                return new JsonResponse(array('success' => false, 'message' => 'Invalid domain name format.'));
+                return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.scope.invalid_domain_name_format')));
             }
             if (is_numeric($domainid)
                 && is_string($scopeValue)
@@ -378,7 +382,7 @@ class IdpController extends AppController
                                 return new JsonResponse(
                                     array(
                                         'success' => false,
-                                        'message' => 'This scope already exists.',
+                                        'message' => $this->trans('idp.scope.already_exists'),
                                     )
                                 );
                             }
@@ -391,17 +395,17 @@ class IdpController extends AppController
 
                         return new JsonResponse(array('success' => true, 'id' => $scope->getId()));
                     } else {
-                        return new JsonResponse(array('success' => false, 'message' => 'unauthorized'), 403);
+                        return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.unauthorized')), 403);
                     }
                 } else {
-                    return new JsonResponse(array('success' => false, 'message' => 'IdP and Domain did not match.'));
+                    return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.scope.idp_domain_not_match')));
                 }
             } else {
-                return new JsonResponse(array('success' => false, 'message' => 'Wrong parameters.'));
+                return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.wrong_parameters')));
             }
         }
 
-        return new Response('This is not ajax!', 400);
+        return new Response($this->trans('idp.not_ajax'), 400);
     }
 
     /**
@@ -422,7 +426,7 @@ class IdpController extends AppController
                             return new JsonResponse(
                                 array(
                                     'success' => false,
-                                    'message' => 'You cannot delete the default scope.',
+                                    'message' => $this->trans('idp.scope.delete.default'),
                                 )
                             );
                         } else {
@@ -433,20 +437,20 @@ class IdpController extends AppController
                             $em->remove($scope);
                             $em->flush();
 
-                            return new JsonResponse(array('success' => true, 'message' => 'Scope deleted.'));
+                            return new JsonResponse(array('success' => true, 'message' => $this->trans('idp.scope.delete.deleted')));
                         }
                     } else {
-                        return new JsonResponse(array('success' => false, 'message' => 'Unauthorized'), 403);
+                        return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.unauthorized')), 403);
                     }
                 } else {
-                    return new JsonResponse(array('success' => false, 'message' => 'IdP and Domain did not match.'));
+                    return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.scope.idp_domain_not_match')));
                 }
             } else {
-                return new JsonResponse(array('success' => false, 'message' => 'Wrong parameters.'));
+                return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.wrong_parameters')));
             }
         }
 
-        return new Response('This is not ajax!', 400);
+        return new Response($this->trans('idp.not_ajax'), 400);
     }
 
     /**
@@ -459,7 +463,7 @@ class IdpController extends AppController
             $scopeid = $request->get('scopeid');
             $scopeValue = $request->request->get('scopeValue');
             if (!preg_match('/^[a-zA-Z0-9\.-]+$/', $scopeValue)) {
-                return new JsonResponse(array('success' => false, 'message' => 'Invalid domain name format.'));
+                return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.scope.invalid_domain_name_format')));
             }
             if (is_numeric($scopeid)
                 && is_string($scopeValue)
@@ -473,7 +477,11 @@ class IdpController extends AppController
                         // itt nézzük meg, hogy a scope létezik-e már
                         foreach ($scope->getDomain()->getScopes() as $curr_scope) {
                             if ($curr_scope->getValue() == $scopeValue) {
-                                return new JsonResponse(array('success' => false, 'message' => 'This scope already exists.'));
+                                return new JsonResponse(array(
+                                    'success' => false,
+                                    'message' => $this->trans('idp.scope.already_exists'),
+                                    )
+                                );
                             }
                         }
                         $scope->setValue($scopeValue);
@@ -486,7 +494,7 @@ class IdpController extends AppController
                         return new JsonResponse(
                             array(
                                 'success' => false,
-                                'message' => 'unauthorized',
+                                'message' => $this->trans('idp.unauthorized'),
                             ),
                             403
                         );
@@ -495,20 +503,21 @@ class IdpController extends AppController
                     return new JsonResponse(
                         array(
                             'success' => false,
-                            'message' => 'IdP and/or Domain did not exists.', )
+                            'message' => $this->trans('idp.scope.update.not_exists'),
+                            ),
                     );
                 }
             } else {
                 return new JsonResponse(
                     array(
                         'success' => false,
-                        'message' => 'Wrong parameters.',
+                        'message' => $this->trans('idp.wrong_parameters'),
                     )
                 );
             }
         }
 
-        return new Response('This is not ajax!', 400);
+        return new Response($this->trans('idp.not_ajax'), 400);
     }
 
     /**
@@ -532,17 +541,17 @@ class IdpController extends AppController
 
                         return new JsonResponse(array('success' => true));
                     } else {
-                        return new JsonResponse(array('success' => false, 'message' => 'No such scope.'));
+                        return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.scope.no_such_scope')));
                     }
                 } else {
-                    return new JsonResponse(array('success' => false, 'message' => 'unauthorized'), 403);
+                    return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.unauthorized')), 403);
                 }
             } else {
-                return new JsonResponse(array('success' => false, 'message' => 'Wrong parameters.'));
+                return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.wrong_parameters')));
             }
         }
 
-        return new Response('This is not ajax!', 400);
+        return new Response($this->trans('idp.not_ajax'), 400);
     }
 
     /**
@@ -564,7 +573,7 @@ class IdpController extends AppController
                                 return new JsonResponse(
                                     array(
                                         'success' => false,
-                                        'message' => 'You cannot delete domain that contain the default scope.',
+                                        'message' => $this->trans('idp.domain.delete.default_scope'),
                                     )
                                 );
                             }
@@ -576,20 +585,20 @@ class IdpController extends AppController
 
                         $em->remove($domain);
                         $em->flush();
-
-                        return new JsonResponse(array('success' => true, 'message' => 'Domain deleted.'));
+                        return new JsonResponse(array('success' => true, 'message' => $this->trans('idp.domain.delete.deleted')));
                     } else {
-                        return new JsonResponse(array('success' => false, 'message' => 'Unauthorized'), 403);
+                        return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.unauthorized')), 403);
                     }
                 } else {
-                    return new JsonResponse(array('success' => false, 'message' => 'IdP did not match.'));
+                    return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.idp_not_match')));
                 }
             } else {
-                return new JsonResponse(array('success' => false, 'message' => 'Wrong parameters.'));
+                return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.wrong_parameters')));
+
             }
         }
 
-        return new Response('This is not ajax!', 400);
+        return new Response($this->trans('idp.not_ajax'), 400);
     }
 
     /**
@@ -766,7 +775,7 @@ class IdpController extends AppController
                     if ($this->validateOwnership($idp)) {
                         $sp = $em->getRepository('AppBundle:Entity')->findOneById($request->get('spid'));
                         if (!$sp) {
-                            return new JsonResponse(array('success' => false, 'message' => 'Invalid SP identifier'));
+                            return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.sp_attributes.404')));
                         }
 
                         foreach ($idp->getEntities() as $entity) {
@@ -780,21 +789,21 @@ class IdpController extends AppController
                                 $em->persist($sp);
                                 $em->flush($sp);
 
-                                return new JsonResponse(array('success' => true, 'message' => 'Attributes saved.'));
+                                return new JsonResponse(array('success' => true, 'message' => $this->trans('idp.sp_attributes.saved')));
                             }
                         }
                     } else {
-                        return new JsonResponse(array('success' => false, 'message' => 'Unauthorized'), 403);
+                        return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.unauthorized')), 403);
                     }
                 } else {
-                    return new JsonResponse(array('success' => false, 'message' => 'IdP did not match.'));
+                    return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.idp_not_match')));
                 }
             } else {
-                return new JsonResponse(array('success' => false, 'message' => 'Wrong parameters.'));
+                return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.wrong_parameters')));
             }
         }
 
-        return new Response('This is not ajax!', 400);
+        return new Response($this->trans('idp.not_ajax'), 400);
     }
 
     /**
@@ -815,7 +824,7 @@ class IdpController extends AppController
                         $sp = $em->getRepository('AppBundle:Entity')->find($spid);
 
                         if (!$sp) {
-                            return new JsonResponse(array('success' => false, 'message' => 'Invalid SP identifier'));
+                            return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.sp_attributes.404')));
                         }
 
                         foreach ($idp->getEntities() as $entity) {
@@ -824,20 +833,18 @@ class IdpController extends AppController
                                 return new JsonResponse(array('success' => true, 'modificable' => $sp->getModificable(), 'attributes' => json_encode(isset($spData['attributes']) ? $this->attributeMapOid2Name($spData['attributes']) : array())));
                             }
                         }
-
-                        return new JsonResponse(array('success' => false, 'message' => 'There is no connection between your IdP and the given SP identifier.'));
+                        return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.sp_edit.no_connection')));
                     } else {
-                        return new JsonResponse(array('success' => false, 'message' => 'Unauthorized'), 403);
+                        return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.unauthorized')), 403);
                     }
                 } else {
-                    return new JsonResponse(array('success' => false, 'message' => 'IdP did not match.'));
+                    return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.idp_not_match')));
                 }
             } else {
-                return new JsonResponse(array('success' => false, 'message' => 'Wrong parameters.'));
+                return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.wrong_parameters')));
             }
         }
-
-        return new Response('This is not ajax!', 400);
+        return new Response($this->trans('idp.not_ajax'), 400);
     }
 
     /**
@@ -858,31 +865,29 @@ class IdpController extends AppController
                         $sp = $em->getRepository('AppBundle:Entity')->find($spid);
 
                         if (!$sp) {
-                            return new JsonResponse(array('success' => false, 'message' => 'Invalid SP identifier'));
+                            return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.sp_attributes.404')));
                         }
 
                         foreach ($idp->getEntities() as $entity) {
                             if ($entity->getId() == $sp->getId()) {
                                 $em->remove($sp);
                                 $em->flush($sp);
-
-                                return new JsonResponse(array('success' => true, 'message' => 'Service Provider removed.'));
+                                return new JsonResponse(array('success' => true, 'message' => $this->trans('idp.sp.delete.deleted')));
                             }
                         }
-
-                        return new JsonResponse(array('success' => false, 'message' => 'There is no connection between your IdP and the given SP identifier.'));
+                        return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.sp_edit.no_connection')));
                     } else {
-                        return new JsonResponse(array('success' => false, 'message' => 'Unauthorized'), 403);
+                        return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.unauthorized')), 403);
                     }
                 } else {
-                    return new JsonResponse(array('success' => false, 'message' => 'IdP did not match.'));
+                    return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.idp_not_match')));
                 }
             } else {
-                return new JsonResponse(array('success' => false, 'message' => 'Wrong parameters.'));
+                return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.wrong_parameters')));
             }
         }
 
-        return new Response('This is not ajax!', 400);
+        return new Response($this->trans('idp.not_ajax'), 400);
     }
 
     /**
@@ -909,7 +914,7 @@ class IdpController extends AppController
                                     //var_dump(filter_var($spmetadataurl, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE|FILTER_FLAG_NO_RES_RANGE));
                                 } else {
                                     if (!checkdnsrr($parsedUrl)) {
-                                        return new JsonResponse(array('success' => false, 'message' => 'The given URL is not reachable.'));
+                                        return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.sp.add.url_not_reachable')));
                                     }
                                 }
                                 $rawheader = "User-Agent: SimpleSAMLphp metarefresh, run by ".$this->getParameter('samlidp_hostname'). "\r\n";
@@ -917,13 +922,13 @@ class IdpController extends AppController
                                 try {
                                     list($spXml, $responseHeaders) = \SimpleSAML\Utils\HTTP::fetch($spmetadataurl, $context, true);
                                 } catch (\Exception $e) {
-                                    return new JsonResponse(array('success' => false, 'message' => 'The given URL is not reachable.'));
+                                    return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.sp.add.url_not_reachable')));
                                 }
                                 if (!preg_match('/xml/', $responseHeaders['content-type'])) {
-                                    return new JsonResponse(array('success' => false, 'message' => 'There is no SAML metadata file on the given URL.'));
+                                    return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.sp.add.no_metadata')));
                                 }
                             } else {
-                                return new JsonResponse(array('success' => false, 'message' => 'It does not seem to be a valid URL.'));
+                                return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.sp.add.invalid_url')));
                             }
                         }
                         try {
@@ -934,34 +939,36 @@ class IdpController extends AppController
                             return new JsonResponse(array('success' => false, 'message' => $e->getMessage()), 500);
                         }
                     } else {
-                        return new JsonResponse(array('success' => false, 'message' => 'Unauthorized'), 403);
+                        return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.unauthorized')), 403);
                     }
                 } else {
-                    return new JsonResponse(array('success' => false, 'message' => 'IdP did not match.'));
+                    return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.idp_not_match')));
                 }
             } else {
-                return new JsonResponse(array('success' => false, 'message' => 'It does not seem to be a valid IdP.'));
+                return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.sp.add.invalid_url')));
             }
         }
 
-        return new Response('This is not ajax!', 400);
+        return new Response($this->trans('idp.not_ajax'), 400);
     }
 
     /**
      * Add the SP to database.
      *
      * @param $spXml sp metadata in xml format
-     * @param $idp the idp entity
-     * @param $em entity manager
+     * @param IdP $idp the idp entity
+     * @param EntityManager $em entity manager
      *
      * @return JsonResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     private function spAddFunction($spXml, IdP $idp, EntityManager $em)
     {
         $m = \SimpleSAML_Metadata_SAMLParser::parseDescriptorsString($spXml);
         $m = $m[key($m)]->getMetadata20SP();
         if (is_null($m)) {
-            return new JsonResponse(array('success' => false, 'message' => 'There is no SAML Service Provider\'s metadata file on the given URL.'));
+            return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.sp.add.no_metadata')));
         }
 
         $hasEncKey = false;
@@ -975,11 +982,11 @@ class IdpController extends AppController
             }
         }
         if (!$hasSignKey) {
-            return new JsonResponse(array('success' => false, 'message' => 'The given metadata does not contain a public key for signing.'));
+            return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.sp.add.no_public_key.sign')));
         }
 
         if (!$hasEncKey) {
-            return new JsonResponse(array('success' => false, 'message' => 'The given metadata does not contain a public key for encrypting.'));
+            return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.sp.add.no_public_key.enc')));
         }
 
         unset($m['entityDescriptor']);
@@ -1001,7 +1008,9 @@ class IdpController extends AppController
             $em->persist($idp);
             $em->flush($idp);
 
-            return new JsonResponse(array('success' => true, 'message' => 'Service Provider added', 'spid' => $sp->getId(), 'attributes' => (isset($m['attributes']) ? $this->attributeMapOid2Name($m['attributes']) : null)));
+            return new JsonResponse(array('success' => true,
+                'message' => $this->trans('idp.sp.add.added'),
+                'spid' => $sp->getId(), 'attributes' => (isset($m['attributes']) ? $this->attributeMapOid2Name($m['attributes']) : null)));
         } else {
             foreach ($spentities as $spentity) {
                 $commonFederations = null;
@@ -1018,9 +1027,9 @@ class IdpController extends AppController
                 }
             }
             if ($alreadyIn) {
-                return new JsonResponse(array('success' => false, 'message' => 'This Service Provider has been already added.'));
+                return new JsonResponse(array('success' => false, 'message' => $this->trans('idp.sp.add.already_exists')));
             } elseif ($commonFederations != null) {
-                return new JsonResponse(array('success' => 'warning', 'message' => 'Your Identity Provider already knows that Service Provider via '.$commonFederations->getName()));
+                return new JsonResponse(array('success' => 'warning', 'message' => $this->trans('idp.sp.add.already_known', array('%federation_name%' => $commonFederations->getName()))));
             } else {
                 $newsp = new Entity();
                 $newsp->setSha1sum(sha1($spXml))
@@ -1034,9 +1043,21 @@ class IdpController extends AppController
                 $idp->addEntity($newsp);
                 $em->persist($idp);
                 $em->flush($idp);
-
-                return new JsonResponse(array('success' => true, 'message' => 'Service Provider added', 'spid' => $newsp->getId(), 'attributes' => (isset($m['attributes']) ? $this->attributeMapOid2Name($m['attributes']) : null)));
+                return new JsonResponse(array('success' => true, 'message' => $this->trans('idp.sp.add.added'), 'spid' => $newsp->getId(), 'attributes' => (isset($m['attributes']) ? $this->attributeMapOid2Name($m['attributes']) : null)));
             }
         }
+    }
+
+    /**
+     * Translate from "idp" domain
+     * @param $id
+     * @param array $placeholders
+     * @return string
+     */
+    private function trans($id, $placeholders = array())
+    {
+        /** @var DataCollectorTranslator $translator */
+        $translator = $this->get('translator');
+        return $translator->trans($id, $placeholders, 'idp');
     }
 }
