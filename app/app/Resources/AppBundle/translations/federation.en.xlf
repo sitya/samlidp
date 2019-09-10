@@ -93,6 +93,10 @@
         <source>index.federation_new_create_button</source>
         <target>Create new federation</target>
       </trans-unit>
+      <trans-unit id="edit" resname="edit.federation.flash.success.message">
+        <source>edit.federation.flash.success.message</source>
+        <target>Federation updated successful.</target>
+      </trans-unit>
       <trans-unit id="I_5sA1X" resname="federation.metadataurl.label">
         <source>federation.metadataurl.label</source>
         <target>Metadata URL</target>

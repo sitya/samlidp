@@ -43,10 +43,14 @@ class FederationType extends AbstractType
 //            ->add('sps',
 //                IntegerType::class,
 //                array('disabled'=> true))
+          //  ->add('idps')
             ->add('idps', EntityType::class, array(
                 'label' => 'federation.idps.label',
-                'class' => IdP::class,
-            ));
+                'class' => 'AppBundle\Entity\IdP',
+                'multiple' => true,
+                'required' => false,
+            ))
+        ;
     }
     /**
      * {@inheritdoc}
