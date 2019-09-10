@@ -6,7 +6,16 @@ parameters:
 services:
     appbundle.sspgetter:
         class: AppBundle\Utils\SSPGetter
-        arguments: ['@doctrine.orm.entity_manager','%database_host%','%database_name%','%database_user%','%database_password%', '%database_driver%', '%database_port%', '%samlidp_hostname%']
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '%database_host%'
+            - '%database_name%'
+            - '%database_user%'
+            - '%database_password%'
+            - '%database_driver%'
+            - '%database_port%'
+            - '%samlidp_hostname%'
+            - '@translator'
 
     appbundle.twofactor.google:
         class: Google\Authenticator\GoogleAuthenticator
