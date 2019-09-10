@@ -229,6 +229,58 @@
         <source>idp_user.affiliation.choices.library-walk-in</source>
         <target>library-walk-in</target>
       </trans-unit>
+      <trans-unit id="lsKdY6w" resname="item_writer.already_exists">
+        <source>item_writer.already_exists</source>
+        <target>Can not add user, it is already exists.</target>
+      </trans-unit>
+      <trans-unit id="QWqqw_5" resname="item_writer.404">
+        <source>item_writer.404</source>
+        <target>There is no user with this username.</target>
+      </trans-unit>
+      <trans-unit id="WEaA9La" resname="item_writer.cannot_delete">
+        <source>item_writer.cannot_delete</source>
+        <target>Can not delete user, it is not exists.</target>
+      </trans-unit>
+      <trans-unit id="Wcs95vm" resname="item_writer.invalid_action">
+        <source>item_writer.invalid_action</source>
+        <target>Invalid action: %action%.</target>
+      </trans-unit>
+      <trans-unit id="XLFmzRj" resname="item_writer.invalid_scope">
+        <source>item_writer.invalid_scope</source>
+        <target>Invalid scope: %scope%.</target>
+      </trans-unit>
+      <trans-unit id="bMw9tSf" resname="item_writer.enabled_blank">
+        <source>item_writer.enabled_blank</source>
+        <target>You must set if user is enabled or not.</target>
+      </trans-unit>
+      <trans-unit id="vSimhwB" resname="item_writer.email_exists">
+        <source>item_writer.email_exists</source>
+        <target>Email is already taken.</target>
+      </trans-unit>
+      <trans-unit id="_ROCTff" resname="controller.user_created">
+        <source>controller.user_created</source>
+        <target>User created successful.</target>
+      </trans-unit>
+      <trans-unit id="gqHRwep" resname="controller.user_inactivated">
+        <source>controller.user_inactivated</source>
+        <target>User  inactivated successful.</target>
+      </trans-unit>
+      <trans-unit id="UGmX7d2" resname="controller.user_updated">
+        <source>controller.user_updated</source>
+        <target>User updated successful.</target>
+      </trans-unit>
+      <trans-unit id="bowxVb_" resname="controller.user_deleted">
+        <source>controller.user_deleted</source>
+        <target>User deleted successful.</target>
+      </trans-unit>
+      <trans-unit id="3qpltoR" resname="controller.password_reset_mail_sent">
+        <source>controller.password_reset_mail_sent</source>
+        <target>Password reset mail sent successful.</target>
+      </trans-unit>
+      <trans-unit id="ZcEHOSq" resname="selfservice.token_404">
+        <source>selfservice.token_404</source>
+        <target>Token not found.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

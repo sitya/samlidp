@@ -504,7 +504,7 @@ class IdpController extends AppController
                         array(
                             'success' => false,
                             'message' => $this->trans('idp.scope.update.not_exists'),
-                            ),
+                            )
                     );
                 }
             } else {

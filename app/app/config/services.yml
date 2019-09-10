@@ -63,7 +63,7 @@ services:
     # logo and csv uploader
     appbundle.upload_listener:
         class: AppBundle\EventListener\UploadListener
-        arguments: ["@doctrine.orm.entity_manager", "@serializer", "@validator", "@router", "@twig", "@mailer", "@doctrine", "%samlidp_hostname%"]
+        arguments: ["@doctrine.orm.entity_manager", "@serializer", "@validator", "@router", "@twig", "@mailer", "@doctrine", "%samlidp_hostname%", "@translator"]
         tags:
             - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
 
