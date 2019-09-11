@@ -40,4 +40,6 @@ ADD conf/backend-crontab /var/spool/cron/crontabs/root
 RUN echo "error_reporting = E_ALL & ~E_NOTICE & ~E_WARNING" >> /usr/local/etc/php-fpm.conf
 RUN echo "error_reporting = E_ALL & ~E_NOTICE & ~E_WARNING" >> /usr/local/etc/php/conf.d/php.ini
 
+WORKDIR /app
+
 CMD ["/samlidp-start.sh"]

@@ -6,11 +6,26 @@
     <div class="container">
       <div class="col-md-10 col-md-offset-1" style="padding:100px 0;">
         <div style="background: rgba(226, 226, 226, 0.7 );;padding: 30px;border-radius: 10px;">
-		    <h1><i class="fa fa-frown-o" aria-hidden="true"></i> <br />Oh, sorry.</h1>
-		    <p class="text-center">
-		        The requested page does not exist or you are not authorized to see it.
-		    </p>
-        	<p class="clearfix text-center p-h-md"><a role="button" class="btn btn-primary btn-lg" href="{% if is_granted('IS_AUTHENTICATED_FULLY') %}{{ path('app_idp_idplist') }}{% else %}{{ path('app_default_index') }}{% endif %}">Get me back to the starting point</a></p>
+            <h1><i class="fa fa-frown-o" aria-hidden="true"></i> <br />Oh, sorry, something went wrong.</h1>
+            <p class="text-center">
+                {{ status_text }}
+                {% if exception is defined %}
+                    <h2>Details</h2>
+                    <br>
+                    <label class="detailslabel">Message: </label>
+                    {{ exception.getMessage() }}
+                    <br>
+                    <label class="detailslabel">Code: </label>
+                    {{ exception.getCode() }}
+                    <br>
+                    <label class="detailslabel">Status code: </label>
+                    {{ exception.getStatusCode() }}
+                    <br>
+                {% endif %}
+            </p>
+            <p class="clearfix text-center p-h-md">
+                <a role="button" class="btn btn-primary btn-lg" href="{% if is_granted('IS_AUTHENTICATED_FULLY') %}{{ path('app_idp_idplist') }}{% else %}{{ path('app_default_index') }}{% endif %}">Get me back to the starting point</a>
+            </p>
         </div>
         </div>
 
