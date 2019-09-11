@@ -11,15 +11,15 @@
     {% endif %}
 
     <div class="ibox-title">
-		<h1 class="col-md-10">{% if create %}{{ "edit.create_step_second"|trans|raw }}{% else %}{{ "edit.bigtitle"|trans|raw }}{% endif %}</h1>
+        <h1 class="col-md-10">{% if create %}{{ "edit.create_step_second"|trans|raw }}{% else %}{{ "edit.bigtitle"|trans|raw }}{% endif %}</h1>
     </div>
-	<div class="ibox-content">
+    <div class="ibox-content">
         <div class="form-group">
             <div class="col-md-4"><h2 class="pull-right">{{ "edit.main_settings"|trans|raw }}</h2></div>
         </div>
         {% if not create %}
         <div class="row p-sm">
-    		<div class="text-info col-md-8 col-md-offset-4">
+            <div class="text-info col-md-8 col-md-offset-4">
                 <i class="fa fa-info m-r-sm"></i>{{ "edit.note"|trans|raw }}
                 <div class="hr-line-dashed"></div>
             </div>
@@ -204,6 +204,28 @@
                                     <input type="checkbox" {% if idp in fed.idps %}checked{% endif %} class="onoffswitch-checkbox fedlistswitch" id="{{ fed.slug }}">
                                     <label class="onoffswitch-label" for="{{ fed.slug }}"><span class="onoffswitch-inner"></span><span class="onoffswitch-switch"></span></label>
                                 </div></div>
+                                {% if fed in idp.federationsContaining %}
+                                    <span class="label label-primary">
+                                        <i class="fa fa-check-circle"></i>
+                                        In federation
+                                    </span>
+                                {% else %}
+                                    <span class="label label-warning">
+                                        <i class="fa fa-question-circle"></i>
+                                        Not in federation
+                                    </span>
+                                {% endif %}
+                                {% if idp in fed.idpsContained %}
+                                    <span class="label label-primary">
+                                        <i class="fa fa-check-circle"></i>
+                                        In federation
+                                    </span>
+                                {% else %}
+                                    <span class="label label-warning">
+                                        <i class="fa fa-question-circle"></i>
+                                        Not in federation
+                                    </span>
+                                {% endif %}
                             </td></tr>
                         {% endfor %}
                         </tbody>

@@ -113,9 +113,16 @@ class IdP
     private $entities;
 
     /**
+     * Metadata from these federations will be loaded.
      * @ORM\ManyToMany(targetEntity="Federation", mappedBy="idps")
      */
     private $federations;
+
+    /*
+     * Federations whose metadata contains this IdP
+     * @ORM\ManyToMany(targetEntity="Federation", mappedBy="idpsContained")
+     */
+    private $federationsContaining;
 
     /**
      * Constructor.
@@ -128,6 +135,7 @@ class IdP
         $this->idpAudits = new \Doctrine\Common\Collections\ArrayCollection();
         $this->domains = new \Doctrine\Common\Collections\ArrayCollection();
         $this->federations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->federationsContaining = new \Doctrine\Common\Collections\ArrayCollection();
         $this->entities = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -681,6 +689,40 @@ class IdP
     public function getFederations()
     {
         return $this->federations;
+    }
+
+    /**
+     * Add federationContaining.
+     *
+     * @param \AppBundle\Entity\Federation $federationContaining
+     *
+     * @return IdP
+     */
+    public function addFederationContaining(\AppBundle\Entity\Federation $federationContaining)
+    {
+        $this->federationsContaining[] = $federationContaining;
+
+        return $this;
+    }
+
+    /**
+     * Remove federationContaining.
+     *
+     * @param \AppBundle\Entity\Federation $federationContaining
+     */
+    public function removeFederationContaining(\AppBundle\Entity\Federation $federationContaining)
+    {
+        $this->federationsContaining->removeElement($federationContaining);
+    }
+
+    /**
+     * Get federationsContaining.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFederationsContaining()
+    {
+        return $this->federationsContaining;
     }
 
     /**
