@@ -5,221 +5,221 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="253774a9eac2dac5c315e7b5527667e4" resname="doc.bigtitle">
+      <trans-unit id="8hq3l2a" resname="doc.bigtitle">
         <source>doc.bigtitle</source>
         <target>SAML Identity Provider as a Service</target>
       </trans-unit>
-      <trans-unit id="94998eb16c8675493a7ac354712d3f7e" resname="doc.subtitle">
+      <trans-unit id="3JeTecJ" resname="doc.subtitle">
         <source>doc.subtitle</source>
         <target>Easy. Secured. Trusted. Inexpensive.</target>
       </trans-unit>
-      <trans-unit id="9b160f74dac8a2a792bc141953a40742" resname="doc.gettingstarted">
+      <trans-unit id="uLdZrTF" resname="doc.gettingstarted">
         <source>doc.gettingstarted</source>
         <target>Get started</target>
       </trans-unit>
-      <trans-unit id="4a36c800e315da1ad3cd4ea7ca19fd21" resname="doc.docs">
+      <trans-unit id="Ysywnsw" resname="doc.docs">
         <source>doc.docs</source>
         <target>Docs</target>
       </trans-unit>
-      <trans-unit id="8a561a348cc6ce75f89f9fa23fd4901c" resname="doc.user_managemet">
+      <trans-unit id="qvCZDIZ" resname="doc.user_managemet">
         <source>doc.user_managemet</source>
         <target>User management</target>
       </trans-unit>
-      <trans-unit id="b14f91c899c44442224af6a63e2c6494" resname="doc.pricing">
+      <trans-unit id="RcSf.gz" resname="doc.pricing">
         <source>doc.pricing</source>
         <target>Pricing</target>
       </trans-unit>
-      <trans-unit id="cd4f50d720eabca885fe3ced456fd894" resname="doc.identity_federations">
+      <trans-unit id="1STzHjV" resname="doc.identity_federations">
         <source>doc.identity_federations</source>
         <target>Identity Federations</target>
       </trans-unit>
-      <trans-unit id="8c2f46fe2005f40a7a06cdc5d2f09f53" resname="doc.identity_federation_description">
+      <trans-unit id="J67iwWM" resname="doc.identity_federation_description">
         <source>doc.identity_federation_description</source>
         <target>We know the following federations (approx. 8500 Service Providers). If you can't find the one you want to collaborate with, please do not hesitate to contact us.</target>
       </trans-unit>
-      <trans-unit id="61f5d0efdcb6374379ef9273ff7e7300" resname="doc.identity_federation_header_federation">
+      <trans-unit id="brip5Y3" resname="doc.identity_federation_header_federation">
         <source>doc.identity_federation_header_federation</source>
         <target>Federation</target>
       </trans-unit>
-      <trans-unit id="6937ecc7ec1e6a935ac83ded9101add5" resname="doc.identity_federation_header_metadata_url">
+      <trans-unit id="KxE.pZ1" resname="doc.identity_federation_header_metadata_url">
         <source>doc.identity_federation_header_metadata_url</source>
         <target>Metadata URL</target>
       </trans-unit>
-      <trans-unit id="4a3792b800b83192ad26225e38776602" resname="doc.identity_federation_header_contact_url">
+      <trans-unit id="NEqUVrK" resname="doc.identity_federation_header_contact_url">
         <source>doc.identity_federation_header_contact_url</source>
         <target>Contact URL</target>
       </trans-unit>
-      <trans-unit id="eb0f00e02f8895503ced260662289a3b" resname="doc.identity_federation_header_contact_email">
+      <trans-unit id="FJ3ZcX3" resname="doc.identity_federation_header_contact_email">
         <source>doc.identity_federation_header_contact_email</source>
         <target>Contact email</target>
       </trans-unit>
-      <trans-unit id="4dfe95df17b9470223ef0a8e39de40da" resname="doc.saml_stuffs">
+      <trans-unit id="E5YSXKx" resname="doc.saml_stuffs">
         <source>doc.saml_stuffs</source>
         <target>SAML stuff</target>
       </trans-unit>
-      <trans-unit id="af1c22f20fa4d2dba6f70b1dc99ef73b" resname="doc.supported_attributes">
+      <trans-unit id="K6wcL1M" resname="doc.supported_attributes">
         <source>doc.supported_attributes</source>
         <target>Supported attributes</target>
       </trans-unit>
-      <trans-unit id="58796171f8727a95fcd71209e44cc9e5" resname="doc.supported_attributes_description">
+      <trans-unit id="NDhmtJc" resname="doc.supported_attributes_description">
         <source>doc.supported_attributes_description</source>
         <target>The following SAML attributes are supported for all hosted Identity Providers:</target>
       </trans-unit>
-      <trans-unit id="4afffbdae5d86541856d1c6ca6973ccc" resname="doc.supported_attributes_sn">
+      <trans-unit id="rKDHYPm" resname="doc.supported_attributes_sn">
         <source>doc.supported_attributes_sn</source>
         <target>Contains the user's surname.</target>
       </trans-unit>
-      <trans-unit id="2e38c05161a6d3ce6c98a88701aa9c2c" resname="doc.supported_attributes_givenname">
+      <trans-unit id="R33d6Vf" resname="doc.supported_attributes_givenname">
         <source>doc.supported_attributes_givenname</source>
         <target>Contains the user's given name.</target>
       </trans-unit>
-      <trans-unit id="9d93fc91f2d2af4f77266cfa7f6db97f" resname="doc.supported_attributes_displayname">
+      <trans-unit id="54hMiKO" resname="doc.supported_attributes_displayname">
         <source>doc.supported_attributes_displayname</source>
         <target>Name of the person in a form the user (or his or her organization) probably wants to be shown.</target>
       </trans-unit>
-      <trans-unit id="cf7a099d7da7e28076210edf71335428" resname="doc.supported_attributes_mail">
+      <trans-unit id="PNx6SHG" resname="doc.supported_attributes_mail">
         <source>doc.supported_attributes_mail</source>
         <target>Preferred address for the "to:" field of email to be sent to this person. The address in this attribute cannot be assumed to represent an organizationally-assigned contact address for a user established as part of a strong identity-proofing process.</target>
       </trans-unit>
-      <trans-unit id="c0a47028e5dbf90fda40ed9db2da1881" resname="doc.supported_attributes_eppn">
+      <trans-unit id="1LhWhLC" resname="doc.supported_attributes_eppn">
         <source>doc.supported_attributes_eppn</source>
         <target>A single value of the form user@scope, where scope is a DNS-like subdomain representing the security domain of the user ("foobar.example.org" or own domain of the organization added to the Identity Provider on admin page) and user is an arbitrary persistent key which unambiguously maps to a person within an organization.</target>
       </trans-unit>
-      <trans-unit id="72a16b343d9994134d5f64e61e7ddb89" resname="doc.supported_attributes_eptid">
+      <trans-unit id="hfVsYqb" resname="doc.supported_attributes_eptid">
         <source>doc.supported_attributes_eptid</source>
         <target>A single string value of no more than 256 characters that uniquely identifiers a user in an opaque, privacy-preserving fashion. The value will be different for a given user for each service provider to which a value is sent, to prevent correlation of activity between service providers.</target>
       </trans-unit>
-      <trans-unit id="8b7191dbda174bc96db27107c1b1b686" resname="doc.supported_attributes_epsa">
+      <trans-unit id="FCdGbj3" resname="doc.supported_attributes_epsa">
         <source>doc.supported_attributes_epsa</source>
         <target>Multiple values of the form value@scope, where scope is a DNS-like subdomain representing the organization or sub-organization of the affiliation ("foobar.example.org" or own domain of the organization added to the Identity Provider on admin page) and value is one of:</target>
       </trans-unit>
-      <trans-unit id="6d2d4a862da11f6ccfe3ba5f9d83bb65" resname="doc.supported_attributes_epsa_description">
+      <trans-unit id="SYap2g_" resname="doc.supported_attributes_epsa_description">
         <source>doc.supported_attributes_epsa_description</source>
         <target>Affiliation is a high-level expression of the relationship of the user to the university or organization specified in the scope. A user can possess many affiliations, though some values are mutually exclusive. This attribute is often made available to any service provider, and is a good way to filter or block users of a given general type. In particular, "member" is an indication that the user is somebody with relatively official standing with a university at the present time, and does not apply to guests, other temporary accounts, terminated employees, unpaid/unregistered students, and other exceptional cases.</target>
       </trans-unit>
-      <trans-unit id="022b29045c74bf2b8ff03f64faabccaf" resname="doc.supported_attributes_schachot">
+      <trans-unit id="jv.aZda" resname="doc.supported_attributes_schachot">
         <source>doc.supported_attributes_schachot</source>
         <target>The type of the organization, one of the following values:</target>
       </trans-unit>
-      <trans-unit id="448bb67b257dead4b9f5ed31fe0a2d34" resname="doc.test_attribute_releasing">
+      <trans-unit id="43Wndo9" resname="doc.test_attribute_releasing">
         <source>doc.test_attribute_releasing</source>
         <target>Test attribute release</target>
       </trans-unit>
-      <trans-unit id="1e34fe3a8bce90890f369aef705e4ae4" resname="doc.ec">
+      <trans-unit id="8TsjjPs" resname="doc.ec">
         <source>doc.ec</source>
         <target>Entity Categories</target>
       </trans-unit>
-      <trans-unit id="a5ea004bf8c6889c1233805ce65322bc" resname="doc.all_identity_provider_support">
+      <trans-unit id="mquGuBN" resname="doc.all_identity_provider_support">
         <source>doc.all_identity_provider_support</source>
         <target><![CDATA[
           Your Identity Provider supports the <a href="https://refeds.org/category/research-and-scholarship" target="_blank">Research and Scholarship Entity Category</a><br />When your users access a Service Provider which has the Research and Scholarship Entity Category the following attributes are released if consent is also given: 
           ]]></target>
       </trans-unit>
-      <trans-unit id="269036bf37fb575eaa73cbb446de76de" resname="doc.scopes_title">
+      <trans-unit id="0QEbXFw" resname="doc.scopes_title">
         <source>doc.scopes_title</source>
         <target>Scopes</target>
       </trans-unit>
-      <trans-unit id="cce4253f059b07c2cec5eb2803d2b097" resname="doc.scopes_description">
+      <trans-unit id="bkjGQ8f" resname="doc.scopes_description">
         <source>doc.scopes_description</source>
-        <target><![CDATA[
+        <target>
           Your Identity Provider has a default scope under the main domain. It is perfectly fine but for production usage we recommend to use a domain name that belongs to your organization. Before we start using your domain name as a scope, we verify that it exists and it is under your control. Please create a TXT record in your domain name's DNS zone with the content of the hash you can find in the IdP's edit page.
-        ]]></target>
+        </target>
       </trans-unit>
-      <trans-unit id="ef177b403ccb65b88d488fd1d57ccb3f" resname="index.ready_title">
+      <trans-unit id="amGK3S." resname="index.ready_title">
         <source>index.ready_title</source>
         <target>Ready in five minutes</target>
       </trans-unit>
-      <trans-unit id="02c0af50b9c86e02acbedc56227164af" resname="index.ready_text">
+      <trans-unit id="JoURHYg" resname="index.ready_text">
         <source>index.ready_text</source>
         <target>Your interoperable and secure SAML Identity Provider is just a few clicks away! No infrastructure or SAML expertise is required.</target>
       </trans-unit>
-      <trans-unit id="b9985bac842b74f4d7f3baa85d9066d2" resname="index.easy_administration_title">
+      <trans-unit id="6aPXR8f" resname="index.easy_administration_title">
         <source>index.easy_administration_title</source>
         <target>Easy administration</target>
       </trans-unit>
-      <trans-unit id="730a4c3a429c4ddb3848239b87cc85ca" resname="index.easy_administration_text">
+      <trans-unit id="WCIbz3r" resname="index.easy_administration_text">
         <source>index.easy_administration_text</source>
         <target>You get a great UI for managing your users, we do all boring SAML stuff.</target>
       </trans-unit>
-      <trans-unit id="2fd7083f9a475a5e4e1ae78fc32f10dd" resname="index.compatibility_title">
+      <trans-unit id="6F71pEv" resname="index.compatibility_title">
         <source>index.compatibility_title</source>
         <target>Compatibility</target>
       </trans-unit>
-      <trans-unit id="f13d7223297d3095197219ac2f1184c4" resname="index.compatibility_text">
+      <trans-unit id="IabeUd8" resname="index.compatibility_text">
         <source>index.compatibility_text</source>
         <target>Integrate with your national identity federation by using the latest standards and recommendations.</target>
       </trans-unit>
-      <trans-unit id="541d066c9d6f73cfaf739fe5234fff75" resname="index.low_fees_title">
+      <trans-unit id="E7QnrFm" resname="index.low_fees_title">
         <source>index.low_fees_title</source>
         <target>Low fees</target>
       </trans-unit>
-      <trans-unit id="7bf5dc4db73ebca3bcebf94176e7b4d8" resname="index.low_fees_text">
+      <trans-unit id="yJQGFpv" resname="index.low_fees_text">
         <source>index.low_fees_text</source>
         <target><![CDATA[You pay based on the number of users actually using the service. No per-login fee. With low usage and during the pilot phase it is <b>absolutely free</b>.]]></target>
       </trans-unit>
-      <trans-unit id="be50ec5ea4ad63e4cb5bf868426c4e64" resname="index.how_to_start">
+      <trans-unit id="gvKd50I" resname="index.how_to_start">
         <source>index.how_to_start</source>
         <target>How to set up an Identity Provider?</target>
       </trans-unit>
-      <trans-unit id="706ef81d4cd01c85495366ca64333ce8" resname="index.sign_up">
+      <trans-unit id="A.AHdJh" resname="index.sign_up">
         <source>index.sign_up</source>
         <target>Sign up as an administrator</target>
       </trans-unit>
-      <trans-unit id="5fc0a624168ea6449df9273126b38322" resname="index.create_idp">
+      <trans-unit id="ZV4jp4I" resname="index.create_idp">
         <source>index.create_idp</source>
         <target>Create your Identity Provider</target>
       </trans-unit>
-      <trans-unit id="ca12b8bfba2bc42171a8328d76776ac7" resname="index.add_users">
+      <trans-unit id="klMM22D" resname="index.add_users">
         <source>index.add_users</source>
         <target>Add users to your organization</target>
       </trans-unit>
-      <trans-unit id="8600f394ca5cd8c1337ddc737c441bd9" resname="index.register_to_fed">
+      <trans-unit id="h.tS.KH" resname="index.register_to_fed">
         <source>index.register_to_fed</source>
         <target>Register the IdP to your national federation</target>
       </trans-unit>
-      <trans-unit id="2d47c329ef8da5830a4f229a2b7aa25c" resname="index.pricing_title">
+      <trans-unit id="dxMXGfg" resname="index.pricing_title">
         <source>index.pricing_title</source>
         <target>Pricing</target>
       </trans-unit>
-      <trans-unit id="6aff647d9b8eed73be1a5053e3cd3787" resname="index.pricing_text">
+      <trans-unit id="Ft7lAOl" resname="index.pricing_text">
         <source>index.pricing_text</source>
         <target>We are using flat rate.</target>
       </trans-unit>
-      <trans-unit id="8634981cb6085247a0e2f25e56cba763" resname="index.pricing_description">
+      <trans-unit id="__h7LD9" resname="index.pricing_description">
         <source>index.pricing_description</source>
         <target><![CDATA[
         Price is based on the <b>type of your organization</b> and the <b>number of unique users logged in</b> via the Identity Provider in the current 30-day period
         ]]></target>
       </trans-unit>
-      <trans-unit id="25ea16053da4e128aee7a78267ebe4ff" resname="doc.usermanagement_registering_title">
+      <trans-unit id="J6et5OY" resname="doc.usermanagement_registering_title">
         <source>doc.usermanagement_registering_title</source>
         <target>Registering users</target>
       </trans-unit>
-      <trans-unit id="bcc9d1c72f38ce6a93e358f2595254ed" resname="doc.usermanagement_registering_content">
+      <trans-unit id="eIAPmP7" resname="doc.usermanagement_registering_content">
         <source>doc.usermanagement_registering_content</source>
         <target>You, as an administrator, can add users one by one, or upload the information about them in a CSV file. All fields are required, and after the user is created, the username cannot be modified.</target>
       </trans-unit>
-      <trans-unit id="17e1614218c8349e89cdc357b3eb84da" resname="doc.usermanagement_passwords_title">
+      <trans-unit id="Ciu5aic" resname="doc.usermanagement_passwords_title">
         <source>doc.usermanagement_passwords_title</source>
         <target>Passwords</target>
       </trans-unit>
-      <trans-unit id="9c319125ea0e5406806087f345b81287" resname="doc.usermanagement_passwords_content">
+      <trans-unit id="OMXBpsE" resname="doc.usermanagement_passwords_content">
         <source>doc.usermanagement_passwords_content</source>
         <target>You cannot set a password for a user. When you register or activate a user, a token will be sent to the user directly by email, using whic he or she can set their password. All passwords are strongly hashed and kept securely.</target>
       </trans-unit>
-      <trans-unit id="fe7e81ed8b3f692e1c916fa414579819" resname="doc.usermanagement_enabling_title">
+      <trans-unit id="DJPOxzI" resname="doc.usermanagement_enabling_title">
         <source>doc.usermanagement_enabling_title</source>
         <target>Setting user status</target>
       </trans-unit>
-      <trans-unit id="6e12640b6649bd7e28c080cda5069985" resname="doc.usermanagement_enabling_content">
+      <trans-unit id="UvDkCfH" resname="doc.usermanagement_enabling_content">
         <source>doc.usermanagement_enabling_content</source>
         <target>If a user is enabled, he or she can login via the Identity Provider, if disabled, it is not allowed. A user with disabled status can be enabled again anytime, but after one year, the user is removed from the user list.</target>
       </trans-unit>
-      <trans-unit id="9df80a7935ce93aa09de38ff0fb4d0d9" resname="doc.usermanagement_deleting_title">
+      <trans-unit id="n8ozQc3" resname="doc.usermanagement_deleting_title">
         <source>doc.usermanagement_deleting_title</source>
         <target>Deleting users</target>
       </trans-unit>
-      <trans-unit id="a629b6fb34d570089c1e629393b21c48" resname="doc.usermanagement_deleting_content">
+      <trans-unit id="_p.67mw" resname="doc.usermanagement_deleting_content">
         <source>doc.usermanagement_deleting_content</source>
         <target>If you delete a user, all data except from their username gets deleted immediately and irrevocably. The username is added to an internal list of deleted user identifiers in order to prevent future reassignment.</target>
       </trans-unit>

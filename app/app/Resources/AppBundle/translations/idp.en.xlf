@@ -5,362 +5,514 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="eeac20873fd3718f4f0489dfcebf4047" resname="add.title">
+      <trans-unit id="Fhb07By" resname="add.title">
         <source>add.title</source>
         <target>Register New Identity Provider</target>
       </trans-unit>
-      <trans-unit id="550a35fdf4ec803dcac9a75c816e2085" resname="add.first_step_title">
+      <trans-unit id="oVf.pCK" resname="add.first_step_title">
         <source>add.first_step_title</source>
         <target>Register New Identity Provider - first step</target>
       </trans-unit>
-      <trans-unit id="2fcea270e03ad28d434a8997f1b2d759" resname="add.cannot_modify">
+      <trans-unit id="kJVgAnA" resname="add.cannot_modify">
         <source>add.cannot_modify</source>
         <target>You cannot modify these parameters after registration.</target>
       </trans-unit>
-      <trans-unit id="44eb5d638d02c9ff3636ec46282cef2e" resname="add.next_step">
+      <trans-unit id="IBDbPc." resname="add.next_step">
         <source>add.next_step</source>
         <target>Next step</target>
       </trans-unit>
-      <trans-unit id="0c393207aeaf16a9d02c8af48c8ea92a" resname="add.only_letters_and_numbers">
+      <trans-unit id="z1hjsed" resname="add.only_letters_and_numbers">
         <source>add.only_letters_and_numbers</source>
         <target>It can contain only letters and numbers</target>
       </trans-unit>
-      <trans-unit id="0eee2929d848881d18b6a8fb7d60113c" resname="add.too_sort">
+      <trans-unit id="0tB50ML" resname="add.too_sort">
         <source>add.too_sort</source>
         <target>It is too short</target>
       </trans-unit>
-      <trans-unit id="73692cf7f48319caa36b9b5e6e3b80b1" resname="add.its_ok">
+      <trans-unit id="Tv1WlDf" resname="add.its_ok">
         <source>add.its_ok</source>
         <target>It is okay.</target>
       </trans-unit>
-      <trans-unit id="52f34fe1c5f675ded3bf681735e29ef7" resname="add.already_taken">
+      <trans-unit id="DJjq9ds" resname="add.already_taken">
         <source>add.already_taken</source>
         <target>This identifier is already taken</target>
       </trans-unit>
-      <trans-unit id="3cffdbb8528a93e6dc87e19c007734af" resname="edit.title">
+      <trans-unit id="dkoZhPX" resname="edit.title">
         <source>edit.title</source>
         <target>Configure your Identity Provider - %idp%</target>
       </trans-unit>
-      <trans-unit id="3e85f267b2c0df4e37e5bfdf0a13b6b8" resname="edit.bigtitle">
+      <trans-unit id="PwEKF1P" resname="edit.bigtitle">
         <source>edit.bigtitle</source>
         <target>Configure your Identity Provider</target>
       </trans-unit>
-      <trans-unit id="43cc603439d374ec277e5ab256c6fdcb" resname="edit.main_settings">
+      <trans-unit id="_JXOd6A" resname="edit.main_settings">
         <source>edit.main_settings</source>
         <target>Main settings</target>
       </trans-unit>
-      <trans-unit id="42a61c8ec81a80cf4447e354f7ddc10a" resname="edit.note">
+      <trans-unit id="QUtFpU1" resname="edit.note">
         <source>edit.note</source>
         <target><![CDATA[
          <b>Note: </b>these changes apply only here. If this Identity Provider is registered in any of the federations, you should have these properties updated there, too.
          
         ]]></target>
       </trans-unit>
-      <trans-unit id="82354bcfc93394842f43d448cead3be9" resname="edit.logo">
+      <trans-unit id="GzznxYE" resname="edit.logo">
         <source>edit.logo</source>
         <target>Logo</target>
       </trans-unit>
-      <trans-unit id="0159b49685e55d45e830d585e0889bf9" resname="edit.remove_logo">
+      <trans-unit id="Rq0PjMl" resname="edit.remove_logo">
         <source>edit.remove_logo</source>
         <target>Remove logo</target>
       </trans-unit>
-      <trans-unit id="38b3010e3f6606fdeecc48b3f5905943" resname="edit.save">
+      <trans-unit id="uokec2Z" resname="edit.save">
         <source>edit.save</source>
         <target>Save settings</target>
       </trans-unit>
-      <trans-unit id="ad11757da2ebb79db181655958979ae6" resname="edit.finish">
+      <trans-unit id=".VXJGS." resname="edit.finish">
         <source>edit.finish</source>
         <target>Finish</target>
       </trans-unit>
-      <trans-unit id="26d0dd1dfeb1dba0628c045c8e5b8ced" resname="edit.domains_and_scopes">
+      <trans-unit id="LI3e.5S" resname="edit.domains_and_scopes">
         <source>edit.domains_and_scopes</source>
         <target>Scopes</target>
       </trans-unit>
-      <trans-unit id="f7b7a44de4f2975b261606825734bc35" resname="edit.domains_text">
+      <trans-unit id="5Vqg2dw" resname="edit.domains_text">
         <source>edit.domains_text</source>
         <target><![CDATA[
             Unless you set your own domain name as a scope, your default scope is <b>%idp%</b>.  It is perfectly fine but for production usage we recommend to use a domain name that belongs to your organization. Before we start using your domain name as a scope, we verify that it exists and it is under your control. Please create a TXT record in your domain name's DNS zone with the content of the hash you can find below, then click 'Verify domain' button.
         ]]></target>
       </trans-unit>
-      <trans-unit id="946b6560fb6dcb97df455101c28d6aa1" resname="edit.domain_name">
+      <trans-unit id="3NtI_N9" resname="edit.domain_name">
         <source>edit.domain_name</source>
         <target>Domain name</target>
       </trans-unit>
-      <trans-unit id="692d0e15f8966b25d1fff704993ef67f" resname="edit.verified_domains">
+      <trans-unit id="sipPB3J" resname="edit.verified_domains">
         <source>edit.verified_domains</source>
         <target>Verified domains and Scopes</target>
       </trans-unit>
-      <trans-unit id="bfed23ed26492796f87e9c55a5cfd688" resname="edit.default_scope">
+      <trans-unit id="WAyKz2D" resname="edit.default_scope">
         <source>edit.default_scope</source>
         <target>default scope</target>
       </trans-unit>
-      <trans-unit id="952c2322f6fc3b9ec7e08753da34c01d" resname="edit.set_as_default_scope">
+      <trans-unit id="Rx5bZlL" resname="edit.set_as_default_scope">
         <source>edit.set_as_default_scope</source>
         <target>set as default scope</target>
       </trans-unit>
-      <trans-unit id="5c3cab2a28b3a6917335ef3a63d92fc7" resname="edit.users_with_scope">
+      <trans-unit id="my6pix0" resname="edit.users_with_scope">
         <source>edit.users_with_scope</source>
         <target>Users with scope</target>
       </trans-unit>
-      <trans-unit id="a2c779a48ab821af8b68c4ddce0e7b88" resname="edit.delete_domain">
+      <trans-unit id="4RYZ8tb" resname="edit.delete_domain">
         <source>edit.delete_domain</source>
         <target>Delete domain</target>
       </trans-unit>
-      <trans-unit id="eb4655beb14d99d1b07bf18281d3c9b4" resname="edit.delete_scope">
+      <trans-unit id="02jdGvg" resname="edit.delete_scope">
         <source>edit.delete_scope</source>
         <target>Delete scope</target>
       </trans-unit>
-      <trans-unit id="6f425a19afb45cbf4ddbcbddc60c4237" resname="edit.add_scope">
+      <trans-unit id="2aGp43Q" resname="edit.add_scope">
         <source>edit.add_scope</source>
         <target>Add scope</target>
       </trans-unit>
-      <trans-unit id="1b6fd9a12acd6f43b424ff4dc2d0d26d" resname="edit.users">
+      <trans-unit id="Vm1bmx9" resname="edit.users">
         <source>edit.users</source>
         <target>Users</target>
       </trans-unit>
-      <trans-unit id="6eebc32fcff762e57d266d52e5c3536d" resname="edit.add_users_text">
+      <trans-unit id="3BU.n4q" resname="edit.add_users_text">
         <source>edit.add_users_text</source>
         <target>Your Identity Provider is almost ready, but you haven't added any users yet. You can add users one by one by using a graphical interface or by uploading a CSV (comma separated values) file.</target>
       </trans-unit>
-      <trans-unit id="7861579a381e772e9360aa67e549e59b" resname="edit.add_users_link">
+      <trans-unit id="IMUzEob" resname="edit.add_users_link">
         <source>edit.add_users_link</source>
         <target>Add your first users</target>
       </trans-unit>
-      <trans-unit id="4a79b818722ae58957a842fa5293fa99" resname="edit.edit_users_text">
+      <trans-unit id="9Ku.Dcj" resname="edit.edit_users_text">
         <source>edit.edit_users_text</source>
         <target>You have %count% users in the authentication database. You can add, edit or delete them one by one or using a graphical interface or by uploading a CSV (comma separated values) file.</target>
       </trans-unit>
-      <trans-unit id="883ebbb53c44873428c5a7bd8b38bfed" resname="edit.edit_users_link">
+      <trans-unit id="61zzxsv" resname="edit.edit_users_link">
         <source>edit.edit_users_link</source>
         <target>Edit users</target>
       </trans-unit>
-      <trans-unit id="6fc6cf5dfd49c993d558d1041dc67dc1" resname="edit.federation">
+      <trans-unit id="V7Ftcyg" resname="edit.federation">
         <source>edit.federation</source>
         <target>Federation</target>
       </trans-unit>
-      <trans-unit id="e99c0184fd84d911df1e63ca049752ad" resname="edit.federation_more_docs">
+      <trans-unit id="vOL4p.L" resname="edit.federation_more_docs">
         <source>edit.federation_more_docs</source>
         <target>more docs</target>
       </trans-unit>
-      <trans-unit id="b3ebc592cdb7d63e0ef6d4e74806aa52" resname="edit.metadata_title">
+      <trans-unit id="4TLF3nw" resname="edit.metadata_title">
         <source>edit.metadata_title</source>
         <target>Metadata of this Identity Provider</target>
       </trans-unit>
-      <trans-unit id="7bd5a020286557b8fdb3d55483fc651a" resname="edit.metadata_text">
+      <trans-unit id="vh4j7AJ" resname="edit.metadata_text">
         <source>edit.metadata_text</source>
         <target>If you want to join a national federation, your SAML metadata must be registered there. You can use the following URL or the XML content as a help with the registration, however keep in mind that different federations have different joining requirements. Most of them are available only for a subset of registered organizations in their country, and probably a signed Service Agreement is also necessary. We cover only the technical bits.</target>
       </trans-unit>
-      <trans-unit id="ab7c78b1f331d833d04d4a753e64f306" resname="edit.sp_title">
+      <trans-unit id="B5cZZCn" resname="edit.sp_title">
         <source>edit.sp_title</source>
         <target>Custom Service Providers</target>
       </trans-unit>
-      <trans-unit id="203895cd9f95be11bfece0262ba5d202" resname="edit.sp_text">
+      <trans-unit id="4sehaor" resname="edit.sp_text">
         <source>edit.sp_text</source>
         <target>You can add any Service Provider exclusively for your Identity Provider, without participating any federation. It is a good option for testing purposes, or if a Service Provider is not part of the federation you are. The given Metadata URL must be reachable from outside and the Metadata must cointain X509Certificate elements for both signing and encryption usage.</target>
       </trans-unit>
-      <trans-unit id="0ce3498b1bbcd5500c0b83b20c2b6a98" resname="edit.sp_text_anyway">
+      <trans-unit id="5FqGugW" resname="edit.sp_text_anyway">
         <source>edit.sp_text_anyway</source>
         <target>Test your Identity Provider with a real Service Provider at</target>
       </trans-unit>
-      <trans-unit id="1ff11aa524a2631e6a138feefbb55c4d" resname="edit.verify_domain">
+      <trans-unit id="DcbRkFe" resname="edit.verify_domain">
         <source>edit.verify_domain</source>
         <target>Verify domain</target>
       </trans-unit>
-      <trans-unit id="f32149c07f4535884b4fe6ea302b661e" resname="list.add_button">
+      <trans-unit id="0QXue1W" resname="list.add_button">
         <source>list.add_button</source>
         <target>Register New Identity Provider</target>
       </trans-unit>
-      <trans-unit id="77f10fc9f06bc1618818e34e82e850e7" resname="list.title">
+      <trans-unit id="b3EnH7p" resname="list.title">
         <source>list.title</source>
         <target>Your Identity Providers</target>
       </trans-unit>
-      <trans-unit id="3aa9293635de71f8e4cf681f73a35e2b" resname="list.renew">
+      <trans-unit id="vopzfQD" resname="list.renew">
         <source>list.renew</source>
         <target><![CDATA[
           Last period to be payed: <b>%date_start%</b> - <b>%date_e%</b>.
         ]]></target>
       </trans-unit>
-      <trans-unit id="0e8bf9b0f6d52357f7f02a63392eadb9" resname="list.checkout">
+      <trans-unit id="hDy.Kk_" resname="list.checkout">
         <source>list.checkout</source>
         <target>Checkout</target>
       </trans-unit>
-      <trans-unit id="5e8d8961db1230020c2efbf896d7e436" resname="list.expired">
+      <trans-unit id="nogUKAG" resname="list.expired">
         <source>list.expired</source>
         <target>Your Identity Provider has been suspended.</target>
       </trans-unit>
-      <trans-unit id="04b36611d210bf5b1ab5ecd691e8f0da" resname="list.status_normal">
+      <trans-unit id="d13PmPE" resname="list.status_normal">
         <source>list.status_normal</source>
         <target>Your Identity Provider is working normally.</target>
       </trans-unit>
-      <trans-unit id="7e4c1b05be45da87a3197ec0125261a1" resname="list.status_expire">
+      <trans-unit id="z0wnKyx" resname="list.status_expire">
         <source>list.status_expire</source>
         <target>Your Trial period expires on</target>
       </trans-unit>
-      <trans-unit id="ff008dd2d2c2c741fd0da7040f84680f" resname="list.status_first_renewing">
+      <trans-unit id="yjKHMyL" resname="list.status_first_renewing">
         <source>list.status_first_renewing</source>
         <target>Your first renewing period will begin on</target>
       </trans-unit>
-      <trans-unit id="b0534b1184e04db138bc5e4fe9ef3390" resname="list.status_active_users">
+      <trans-unit id="waNO2hu" resname="list.status_active_users">
         <source>list.status_active_users</source>
         <target>Active users in current period:</target>
       </trans-unit>
-      <trans-unit id="ab0e75ad235d284679e984fce47bb626" resname="list.status_next_renewing">
+      <trans-unit id="6f.fnlb" resname="list.status_next_renewing">
         <source>list.status_next_renewing</source>
         <target><![CDATA[
           Current period: <b>%date_start%</b> - <b>%date_end%</b>.
         ]]></target>
       </trans-unit>
-      <trans-unit id="febee172f197dac091bc58f7c1a881db" resname="list.status_balance">
+      <trans-unit id="CqDvIAj" resname="list.status_balance">
         <source>list.status_balance</source>
         <target>Current balance:</target>
       </trans-unit>
-      <trans-unit id="7d7f770edab1f53c893fa8687788ceed" resname="list.status_normal_but_renew">
+      <trans-unit id="bh02lTO" resname="list.status_normal_but_renew">
         <source>list.status_normal_but_renew</source>
         <target><![CDATA[
         Your Identity Provider is working normal till <b>%date1%</b>, but you have to renew your subscription. Without renewing, on <b>%date2%</b> will be disabled, users will not be able to login via your Identity Provider, but of course you can reactivate it anytime.
         ]]></target>
       </trans-unit>
-      <trans-unit id="81b68442daddd05bdb13daa44452f90b" resname="list.status_price">
+      <trans-unit id="CoCDNKm" resname="list.status_price">
         <source>list.status_price</source>
         <target>Price is calculated based on the number of active users of last period and the type of your institution</target>
       </trans-unit>
-      <trans-unit id="cc6cb4a560036e68690512fe69ed15c2" resname="list.status_more_fees">
+      <trans-unit id="0XVYcI7" resname="list.status_more_fees">
         <source>list.status_more_fees</source>
         <target>More about fees</target>
       </trans-unit>
-      <trans-unit id="81310d2616280ace71df42c7d17c8db5" resname="list.status_renewing_fee">
+      <trans-unit id="lePp6CA" resname="list.status_renewing_fee">
         <source>list.status_renewing_fee</source>
         <target>Balance for current period at the moment:</target>
       </trans-unit>
-      <trans-unit id="a87fb7a8418a219f14ca23db12065559" resname="list.status_suspended">
+      <trans-unit id="4w2.0He" resname="list.status_suspended">
         <source>list.status_suspended</source>
         <target><![CDATA[
           Your Identity Provider has been suspended on <b>%date%</b> because you did not renew your subscription. You can do it right now, or anytime when you want, for renewing your subscription you must pay for your last period: <b>%period_s% - %period_e%</b>.
           ]]></target>
       </trans-unit>
-      <trans-unit id="c7d24ae29db99c018fd8eaefa7a5ad66" resname="list.status_suspensed_users">
+      <trans-unit id=".Nc0yLD" resname="list.status_suspensed_users">
         <source>list.status_suspensed_users</source>
         <target>While your Identity Provider is suspended, your users cannot use it for doing login.</target>
       </trans-unit>
-      <trans-unit id="d3661c3a73490d8358cd086b994c5d9d" resname="list.confirm">
+      <trans-unit id="4I28sZA" resname="list.confirm">
         <source>list.confirm</source>
         <target>Confirm checkout</target>
       </trans-unit>
-      <trans-unit id="9443da2bace1b2cdb0123faa3b2287a4" resname="list.bitpay">
+      <trans-unit id="thvv5cS" resname="list.bitpay">
         <source>list.bitpay</source>
         <target>Using BitPay it is 30% cheaper.</target>
       </trans-unit>
-      <trans-unit id="8aa0409ea63512adfcfbb8fef3528f01" resname="list.about_invoice_title">
+      <trans-unit id="A.MQlZt" resname="list.about_invoice_title">
         <source>list.about_invoice_title</source>
         <target>About invoice</target>
       </trans-unit>
-      <trans-unit id="0ee60f8f2fbfd24ea28e3d6bdcdd412f" resname="list.about_invoice_text">
+      <trans-unit id="fg45OW5" resname="list.about_invoice_text">
         <source>list.about_invoice_text</source>
         <target>You will get an invoice via the site of the selected paying service (PayPal or BitPay) after payment getting confirmed.</target>
       </trans-unit>
-      <trans-unit id="036eb69aa7efabaf2a370e5062c3f8bd" resname="list.checkout_paypal">
+      <trans-unit id="qUP4VQF" resname="list.checkout_paypal">
         <source>list.checkout_paypal</source>
         <target>Checkout via PayPal</target>
       </trans-unit>
-      <trans-unit id="842093082b55951b99ad793634a61d22" resname="list.checkout_bitpay">
+      <trans-unit id="C2dQaZS" resname="list.checkout_bitpay">
         <source>list.checkout_bitpay</source>
         <target>Checkout via BitPay (-30%)</target>
       </trans-unit>
-      <trans-unit id="2f934843536f4e0f54a2c246f48ac436" resname="list.cancel">
+      <trans-unit id="Y18sbkU" resname="list.cancel">
         <source>list.cancel</source>
         <target>Cancel</target>
       </trans-unit>
-      <trans-unit id="20d8fdf97585c2d9de702381a3dd5446" resname="list.total">
+      <trans-unit id="q7En1Mt" resname="list.total">
         <source>list.total</source>
         <target>Total:</target>
       </trans-unit>
-      <trans-unit id="03de93be29bfbbfbc38502a807a192ee" resname="list.period_started">
+      <trans-unit id="UPXSF9r" resname="list.period_started">
         <source>list.period_started</source>
         <target>Period to be payed:</target>
       </trans-unit>
-      <trans-unit id="7837998bb2fbc348ebf1c22b67b26a10" resname="list.active_users">
+      <trans-unit id="guDhd6Q" resname="list.active_users">
         <source>list.active_users</source>
         <target>Active users in period to be payed:</target>
       </trans-unit>
-      <trans-unit id="1d17581e8809d1d018f8502db26f5a5f" resname="list_element_footer.edit_idp">
+      <trans-unit id="mygpBmZ" resname="list_element_footer.edit_idp">
         <source>list_element_footer.edit_idp</source>
         <target>Edit Identity Provider settings</target>
       </trans-unit>
-      <trans-unit id="e421570a0cfc9ded879eda0f6675f125" resname="list_element_footer.edit_users">
+      <trans-unit id="aMliSvQ" resname="list_element_footer.edit_users">
         <source>list_element_footer.edit_users</source>
         <target>Edit users</target>
       </trans-unit>
-      <trans-unit id="c2465b0b288a0cf0704de2d04ce399f5" resname="list_element_footer.payment_history">
+      <trans-unit id="9LoBLxQ" resname="list_element_footer.payment_history">
         <source>list_element_footer.payment_history</source>
         <target>Payments history</target>
       </trans-unit>
-      <trans-unit id="5ec645c6041dc4e0888945892454e8e6" resname="list_element_footer.metadata">
+      <trans-unit id="UWVEkhF" resname="list_element_footer.metadata">
         <source>list_element_footer.metadata</source>
         <target>SAML Metadata</target>
       </trans-unit>
-      <trans-unit id="2917753203f0f508c23f9a1ab9d15153" resname="edit.known_federation_title">
+      <trans-unit id="IkFCPGF" resname="edit.known_federation_title">
         <source>edit.known_federation_title</source>
         <target>Known federations by your Identity Provider</target>
       </trans-unit>
-      <trans-unit id="dee858c83759b47dd7eef8cacc64b7e3" resname="edit.known_federation_text">
+      <trans-unit id="KZehaxs" resname="edit.known_federation_text">
         <source>edit.known_federation_text</source>
         <target>Here you can select which federations will be known by your Identity Provider. Your users will be able to use only the Service Provders which come from known federations. You must join the federation in order to make your Identity Provider known by the Service Providers.</target>
       </trans-unit>
-      <trans-unit id="d4a31143389b7e6a98fbe697ccf59247" resname="edit.add_sp_add_button">
+      <trans-unit id="__RXW8O" resname="edit.add_sp_add_button">
         <source>edit.add_sp_add_button</source>
         <target>Add Service Provider</target>
       </trans-unit>
-      <trans-unit id="1c0655983f08042c686905728660eae0" resname="edit.list_sp_text">
+      <trans-unit id="xHK4PP5" resname="edit.list_sp_text">
         <source>edit.list_sp_text</source>
         <target>You can edit Service Providers</target>
       </trans-unit>
-      <trans-unit id="0207b0cf71ce9b94941cab2740b0a1f5" resname="edit.list_sp_edit_button">
+      <trans-unit id=".9HA..y" resname="edit.list_sp_edit_button">
         <source>edit.list_sp_edit_button</source>
         <target>Edit</target>
       </trans-unit>
-      <trans-unit id="28826f999690c0ba5def47bb60f6463e" resname="edit.list_sp_remove_button">
+      <trans-unit id="8fixm3R" resname="edit.list_sp_remove_button">
         <source>edit.list_sp_remove_button</source>
         <target>Remove this Service Provider</target>
       </trans-unit>
-      <trans-unit id="0fa9e78a73f708cd13797ddf631cf186" resname="edit.list_sp_title">
+      <trans-unit id="HByMlaP" resname="edit.list_sp_title">
         <source>edit.list_sp_title</source>
         <target>Registered custom Service Providers</target>
       </trans-unit>
-      <trans-unit id="082e3a9035b1dcc4f7d6cd107f29b22b" resname="edit.delete_button">
+      <trans-unit id="mZYy3A3" resname="edit.delete_button">
         <source>edit.delete_button</source>
         <target>Remove</target>
       </trans-unit>
-      <trans-unit id="f7f30ca420fef779baae6354f92a35c0" resname="edit.sp_modal_delete_title">
+      <trans-unit id="hU5iA.x" resname="edit.sp_modal_delete_title">
         <source>edit.sp_modal_delete_title</source>
         <target>Remove Service Provider</target>
       </trans-unit>
-      <trans-unit id="ef452efa71ff0417000949dc89a2e4df" resname="edit.sp_modal_delete_content">
+      <trans-unit id="zHi7o4D" resname="edit.sp_modal_delete_content">
         <source>edit.sp_modal_delete_content</source>
         <target>It is a Service Provider known by exclusively your Identity Provider. With removing it, your users will not be able to login anymore to this Service Provider.</target>
       </trans-unit>
-      <trans-unit id="4ce13976b411699a4cb9dd8854e68a75" resname="edit.idp_remove_button">
+      <trans-unit id="5a3Bd0g" resname="edit.idp_remove_button">
         <source>edit.idp_remove_button</source>
         <target>Delete Identity Provider</target>
       </trans-unit>
-      <trans-unit id="b7b656d9e2aa178ec6230e7d552f1951" resname="edit.idp_modal_delete_title">
+      <trans-unit id="O8zh_J3" resname="edit.idp_modal_delete_title">
         <source>edit.idp_modal_delete_title</source>
         <target>Confirm delete Identity Provider</target>
       </trans-unit>
-      <trans-unit id="128133b2d3c5994662f876dc6e4fe254" resname="edit.idp_modal_delete_content">
+      <trans-unit id="eiw2U0C" resname="edit.idp_modal_delete_content">
         <source>edit.idp_modal_delete_content</source>
         <target>Be careful! If you delete it, all users associated with this IdP will be also deleted, they will not be able to reach any Service Provicer via this Identity Provider anymore.</target>
       </trans-unit>
-      <trans-unit id="989d0cd386d4537ee06b5d1db1d916d8" resname="edit.create_step_second">
+      <trans-unit id="nR3QpMg" resname="edit.create_step_second">
         <source>edit.create_step_second</source>
         <target>Register New Identity Provider - second step</target>
       </trans-unit>
-      <trans-unit id="20cf10bc5f22cc2a58242fe7decb6e2e" resname="edit.create_step_second_success">
+      <trans-unit id="h0.Lnva" resname="edit.create_step_second_success">
         <source>edit.create_step_second_success</source>
         <target>Your IdP created successful.</target>
       </trans-unit>
-      <trans-unit id="1807160f8082e42f8d18f03ebf9a1886" resname="edit.idp_updated_successful">
+      <trans-unit id="KotED7f" resname="edit.idp_updated_successful">
         <source>edit.idp_updated_successful</source>
         <target>IdP updated successful</target>
+      </trans-unit>
+      <trans-unit id="zJfO589" resname="edit.404.exception">
+        <source>edit.404.exception</source>
+        <target>The idp does not exist</target>
+      </trans-unit>
+      <trans-unit id="X8yoHn." resname="edit.validate.organizationname.notblank">
+        <source>edit.validate.organizationname.notblank</source>
+        <target>Name of your Organization cannot be empty.</target>
+      </trans-unit>
+      <trans-unit id="TZqiBaH" resname="edit.validate.organizationurl.notblank">
+        <source>edit.validate.organizationurl.notblank</source>
+        <target>URL of your Organization cannot be empty.</target>
+      </trans-unit>
+      <trans-unit id="R9POtyd" resname="idp.wizard.hostname.label">
+        <source>idp.wizard.hostname.label</source>
+        <target>Short identifier</target>
+      </trans-unit>
+      <trans-unit id="lCyD8_L" resname="idp.wizard.hostname.placeholder">
+        <source>idp.wizard.hostname.placeholder</source>
+        <target>Choose a short name for your IdP. It can contain letters and numbers.</target>
+      </trans-unit>
+      <trans-unit id="sdFFwbD" resname="idp.edit.instituteName.label">
+        <source>idp.edit.instituteName.label</source>
+        <target>Organization name</target>
+      </trans-unit>
+      <trans-unit id="btJsVVn" resname="idp.edit.instituteUrl.label">
+        <source>idp.edit.instituteUrl.label</source>
+        <target>Organization URL</target>
+      </trans-unit>
+      <trans-unit id="MxD8B.9" resname="idp.delete.404">
+        <source>idp.delete.404</source>
+        <target>Unable to find IdP entity.</target>
+      </trans-unit>
+      <trans-unit id="W1Pplr2" resname="idp.delete.deleted">
+        <source>idp.delete.deleted</source>
+        <target>Identity Provider deleted.</target>
+      </trans-unit>
+      <trans-unit id="3bjM3uU" resname="idp.checkdomain.txt.notok">
+        <source>idp.checkdomain.txt.notok</source>
+        <target>There is no TXT record with the verification value: </target>
+      </trans-unit>
+      <trans-unit id="nQsFeEI" resname="idp.checkdomain.txt.empty">
+        <source>idp.checkdomain.txt.empty</source>
+        <target>There is no TXT record for %domain% domain</target>
+      </trans-unit>
+      <trans-unit id="lvlNWXn" resname="idp.checkdomain.verified_domain">
+        <source>idp.checkdomain.verified_domain</source>
+        <target>It's a verified domain.</target>
+      </trans-unit>
+      <trans-unit id="6ON_fl6" resname="idp.checkdomain.noidp">
+        <source>idp.checkdomain.noidp</source>
+        <target>There is no IdP.</target>
+      </trans-unit>
+      <trans-unit id="SsZUUtK" resname="idp.unauthorized">
+        <source>idp.unauthorized</source>
+        <target>Unauthorized.</target>
+      </trans-unit>
+      <trans-unit id="enOxl50" resname="idp.wrong_parameters">
+        <source>idp.wrong_parameters</source>
+        <target>Wrong parameters.</target>
+      </trans-unit>
+      <trans-unit id="XDaTzq3" resname="idp.not_ajax">
+        <source>idp.not_ajax</source>
+        <target>This is not ajax!</target>
+      </trans-unit>
+      <trans-unit id="tIRlopQ" resname="idp.scope.no_such_scope">
+        <source>idp.scope.no_such_scope</source>
+        <target>No such scope.</target>
+      </trans-unit>
+      <trans-unit id="wc20WaU" resname="idp.scope.invalid_domain_name_format">
+        <source>idp.scope.invalid_domain_name_format</source>
+        <target>Invalid domain name format.</target>
+      </trans-unit>
+      <trans-unit id="w1yk0qc" resname="idp.scope.already_exists">
+        <source>idp.scope.already_exists</source>
+        <target>This scope already exists.</target>
+      </trans-unit>
+      <trans-unit id="DyrL.ba" resname="idp.scope.idp_domain_not_match">
+        <source>idp.scope.idp_domain_not_match</source>
+        <target>IdP and Domain did not match.</target>
+      </trans-unit>
+      <trans-unit id="OuhDQC." resname="idp.scope.delete.deleted">
+        <source>idp.scope.delete.deleted</source>
+        <target>Scope deleted.</target>
+      </trans-unit>
+      <trans-unit id="amgEI2L" resname="idp.scope.delete.default">
+        <source>idp.scope.delete.default</source>
+        <target>You cannot delete the default scope.</target>
+      </trans-unit>
+      <trans-unit id="bhahAz_" resname="idp.scope.update.not_exists">
+        <source>idp.scope.update.not_exists</source>
+        <target>IdP and/or Domain did not exists.</target>
+      </trans-unit>
+      <trans-unit id="E2A0SS2" resname="idp.idp_not_match">
+        <source>idp.idp_not_match</source>
+        <target>IdP did not match.</target>
+      </trans-unit>
+      <trans-unit id="YKRu4V8" resname="idp.domain.delete.deleted">
+        <source>idp.domain.delete.deleted</source>
+        <target>Domain deleted.</target>
+      </trans-unit>
+      <trans-unit id="k7Tjz2W" resname="idp.domain.delete.default_scope">
+        <source>idp.domain.delete.default_scope</source>
+        <target>You cannot delete domain that contain the default scope.</target>
+      </trans-unit>
+      <trans-unit id="931dLBe" resname="idp.sp_attributes.404">
+        <source>idp.sp_attributes.404</source>
+        <target>SP not found.</target>
+      </trans-unit>
+      <trans-unit id="3kNKE.j" resname="idp.sp_attributes.saved">
+        <source>idp.sp_attributes.saved</source>
+        <target>Attributes saved.</target>
+      </trans-unit>
+      <trans-unit id="wijZ9jd" resname="idp.sp_edit.no_connection">
+        <source>idp.sp_edit.no_connection</source>
+        <target>There is no connection between your IdP and the given SP identifier.</target>
+      </trans-unit>
+      <trans-unit id="LSN7Sxe" resname="idp.sp.delete.deleted">
+        <source>idp.sp.delete.deleted</source>
+        <target>Service Provider removed.</target>
+      </trans-unit>
+      <trans-unit id="K64J5lA" resname="idp.sp.add.url_not_reachable">
+        <source>idp.sp.add.url_not_reachable</source>
+        <target>The given URL is not reachable.</target>
+      </trans-unit>
+      <trans-unit id="N0OvXym" resname="idp.sp.add.no_metadata">
+        <source>idp.sp.add.no_metadata</source>
+        <target>There is no SAML metadata file on the given URL.</target>
+      </trans-unit>
+      <trans-unit id="Em6fLqK" resname="idp.sp.add.invalid_url">
+        <source>idp.sp.add.invalid_url</source>
+        <target>It does not seem to be a valid URL.</target>
+      </trans-unit>
+      <trans-unit id="b9CQup0" resname="idp.sp.add.no_public_key.sign">
+        <source>idp.sp.add.no_public_key.sign</source>
+        <target>The given metadata does not contain a public key for signing.</target>
+      </trans-unit>
+      <trans-unit id="pcfpRDs" resname="idp.sp.add.no_public_key.enc">
+        <source>idp.sp.add.no_public_key.enc</source>
+        <target>The given metadata does not contain a public key for encrypting.</target>
+      </trans-unit>
+      <trans-unit id="90cT999" resname="idp.sp.add.added">
+        <source>idp.sp.add.added</source>
+        <target>Service Provider added.</target>
+      </trans-unit>
+      <trans-unit id="a4zUa0z" resname="idp.sp.add.already_exists">
+        <source>idp.sp.add.already_exists</source>
+        <target>This Service Provider has been already added.</target>
+      </trans-unit>
+      <trans-unit id="zVK2pP4" resname="idp.sp.add.already_known">
+        <source>idp.sp.add.already_known</source>
+        <target>Your Identity Provider already knows that Service Provider via %federation_name%</target>
       </trans-unit>
     </body>
   </file>

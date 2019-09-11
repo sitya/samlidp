@@ -7,6 +7,7 @@ use Port\Csv\CsvReader;
 use Port\Steps\StepAggregator as Workflow;
 
 use Port\Steps\Step\ValidatorStep;
+use Symfony\Component\Translation\DataCollectorTranslator;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\RecursiveValidator as Validator;
 
@@ -33,8 +34,9 @@ class UploadListener
     private $twig;
     private $doctrine;
     private $samlidp_hostname;
+    private $translator;
 
-    public function __construct(ObjectManager $om, Serializer $serializer, ValidatorInterface $validator, Router $router, Twig $twig, Mailer $mailer, Doctrine $doctrine, $samlidp_hostname)
+    public function __construct(ObjectManager $om, Serializer $serializer, ValidatorInterface $validator, Router $router, Twig $twig, Mailer $mailer, Doctrine $doctrine, $samlidp_hostname, DataCollectorTranslator $translator)
     {
         $this->om = $om;
         $this->serializer = $serializer;
@@ -44,6 +46,7 @@ class UploadListener
         $this->twig = $twig;
         $this->doctrine = $doctrine;
         $this->samlidp_hostname = $samlidp_hostname;
+        $this->translator = $translator;
     }
 
     public function onUpload(PostPersistEvent $event)
@@ -82,7 +85,7 @@ class UploadListener
                 $validatorStep->add('email',
                     new Assert\Email(
                         array(
-                            "message" => "The email is not a valid email.",
+                            "message" => $this->trans('invalid_email'),
                             "checkMX" => true
                             )
                     )
@@ -91,7 +94,7 @@ class UploadListener
                     new Assert\Choice(
                         array(
                             'choices' => array('add', 'update', 'delete'),
-                            'message' => 'Invalid action.',
+                            'message' => $this->trans('invalid_action'),
                             )
                     )
                 );
@@ -109,13 +112,13 @@ class UploadListener
                                 'alum',
                                 'library-walk-in'
                             ),
-                            'message' => 'Invalid affiliation.',
+                            'message' => $this->trans('invalid_affiliation'),
                             )
                     )
                 );
 
                 $workflow = new Workflow($reader);
-                $workflow->addWriter(new IdPUserWriter($idp, $this->om, $this->mailer, $this->router, $this->twig, $this->doctrine, $this->samlidp_hostname));
+                $workflow->addWriter(new IdPUserWriter($idp, $this->om, $this->mailer, $this->router, $this->twig, $this->doctrine, $this->samlidp_hostname, $this->translator));
                 $workflow->addStep($validatorStep);
 
                 $result = $workflow
@@ -169,5 +172,15 @@ class UploadListener
             $exceptions->next();
         }
         return $retarray;
+    }
+
+    /**
+     * @param $id
+     * @param array $placeholders
+     * @return string
+     */
+    private function trans($id, $placeholders = array())
+    {
+        return $this->translator->trans($id, $placeholders, 'upload');
     }
 }
