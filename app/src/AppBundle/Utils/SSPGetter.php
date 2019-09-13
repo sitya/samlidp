@@ -11,7 +11,7 @@ class SSPGetter
     protected $em;
     private $translator;
 
-    public function __construct(\Doctrine\ORM\EntityManager $em, $database_host, $database_name, $database_user, $database_password, $database_driver, $database_port, $samlidp_hostname, DataCollectorTranslator $translator)
+    public function __construct(\Doctrine\ORM\EntityManager $em, $database_host, $database_name, $database_user, $database_password, $database_driver, $database_port, $samlidp_hostname)
     {
         $this->em = $em;
         $this->database_host = $database_host;
@@ -21,7 +21,6 @@ class SSPGetter
         $this->database_password = $database_password;
         $this->database_type = preg_replace('/pdo_/', '', $database_driver);
         $this->samlidp_hostname = $samlidp_hostname;
-        $this->translator = $translator;
     }
 
     public function getSamlidpHostname()
@@ -64,7 +63,7 @@ class SSPGetter
         // Itt állítjuk össze az adott IdP-hez tartozó saml20-sp-remote.php listát.
         $idp = $this->em->getRepository('AppBundle:IdP')->findOneByHostname(str_replace('.' . $this->samlidp_hostname, '', $host));
         if (!$idp) {
-            throw new EntityNotFoundException($this->translator->trans('sspgetter.exception.sp_not_found'));
+            throw new EntityNotFoundException('No IdP found in the database.');
         }
         $metadata = array();
 

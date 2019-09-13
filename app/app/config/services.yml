@@ -15,7 +15,6 @@ services:
             - '%database_driver%'
             - '%database_port%'
             - '%samlidp_hostname%'
-            - '@translator'
 
     appbundle.twofactor.google:
         class: Google\Authenticator\GoogleAuthenticator
