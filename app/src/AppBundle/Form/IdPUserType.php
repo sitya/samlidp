@@ -24,7 +24,7 @@ class IdPUserType extends AbstractType
                 'givenName',
                 TextType::class,
                 array(
-                    'label' => 'First name',
+                    'label' => 'idp_user.givenname.label',
                     'attr' => array(
                         'class' => 'namePart'
                     )
@@ -34,7 +34,7 @@ class IdPUserType extends AbstractType
                 'surName',
                 TextType::class,
                 array(
-                    'label' => 'Last name',
+                    'label' => 'idp_user.surname.label',
                     'attr' => array(
                         'class' => 'namePart'
                     )
@@ -44,6 +44,7 @@ class IdPUserType extends AbstractType
                 'username',
                 TextType::class,
                 array(
+                    'label' => 'idp_user.username.label',
                     'required' => true
                 )
             )
@@ -51,6 +52,7 @@ class IdPUserType extends AbstractType
                 'email',
                 EmailType::class,
                 array(
+                    'label' => 'idp_user.email.label',
                     'required' => true
                 )
             )
@@ -58,6 +60,7 @@ class IdPUserType extends AbstractType
                 'displayName',
                 TextType::class,
                 array(
+                    'label' => 'idp_user.displayname.label',
                     'required' => true
                 )
             )
@@ -66,17 +69,17 @@ class IdPUserType extends AbstractType
                 ChoiceType::class,
                 array(
                     'choices' => array(
-                        'student' => 'student',
-                        'staff' => 'staff',
-                        'member' => 'member',
-                        'faculty' => 'faculty',
-                        'employee' => 'employee',
-                        'affiliate' => 'affiliate',
-                        'alum' => 'alum',
-                        'library-walk-in' => 'library-walk-in'
+                        'idp_user.affiliation.choices.student' => 'student',
+                        'idp_user.affiliation.choices.staff' => 'staff',
+                        'idp_user.affiliation.choices.member' => 'member',
+                        'idp_user.affiliation.choices.faculty' => 'faculty',
+                        'idp_user.affiliation.choices.employee' => 'employee',
+                        'idp_user.affiliation.choices.affiliate' => 'affiliate',
+                        'idp_user.affiliation.choices.alum' => 'alum',
+                        'idp_user.affiliation.choices.library-walk-in' => 'library-walk-in'
                     ),
-                    'label' => 'Affiliation',
-                    'placeholder' => '-- Please choose --',
+                    'label' => 'idp_user.affiliation.label',
+                    'placeholder' => 'idp_user.affiliation.placeholder',
                     'required' => true
                 )
             )
@@ -85,7 +88,7 @@ class IdPUserType extends AbstractType
                 EntityType::class,
                 array(
                     'class' => 'AppBundle:Scope',
-                    'label' => 'Scope',
+                    'label' => 'idp_user.scope.label',
                     'preferred_choices' => array($idp->getDefaultScope()),
                     'query_builder' => function (EntityRepository $er) use ($idp) {
                         return $er->createQueryBuilder('s')
@@ -107,7 +110,8 @@ class IdPUserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\IdPUser'
+            'data_class' => 'AppBundle\Entity\IdPUser',
+            'translation_domain' => 'idp_user',
         ));
     }
 

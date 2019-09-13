@@ -5,53 +5,57 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="e54094f0e733c12f39ce7bc18d48a99e" resname="Register New Identity Provider">
+      <trans-unit id="DH0efVF" resname="Register New Identity Provider">
         <source>Register New Identity Provider</source>
         <target>Register New Identity Provider</target>
       </trans-unit>
-      <trans-unit id="ca0d1e91eb7eb86972202891438a71e6" resname="massimport.title">
+      <trans-unit id="gW0VgyU" resname="massimport.title">
         <source>massimport.title</source>
         <target>__massimport.title</target>
       </trans-unit>
-      <trans-unit id="f749f373543ad69f016f79dde661e4d7" resname="massimport.processed">
+      <trans-unit id="cwx3p8F" resname="massimport.processed">
         <source>massimport.processed</source>
         <target>__massimport.processed</target>
       </trans-unit>
-      <trans-unit id="a1aee32cabd8e7b25a6f92d9bdf528f4" resname="back_to_the_list">
+      <trans-unit id="b02A1AE" resname="back_to_the_list">
         <source>back_to_the_list</source>
         <target>Back to the list</target>
       </trans-unit>
-      <trans-unit id="82957f5bacd80c21c3f5d9a3fe577e7c" resname="massimport.error_count">
+      <trans-unit id="MDWu26c" resname="massimport.error_count">
         <source>massimport.error_count</source>
         <target>__massimport.error_count</target>
       </trans-unit>
-      <trans-unit id="bdb7833c799f959f8333d8116733b1db" resname="massimport.not_processed">
+      <trans-unit id="LZ.UmuP" resname="massimport.not_processed">
         <source>massimport.not_processed</source>
         <target>__massimport.not_processed</target>
       </trans-unit>
-      <trans-unit id="136e6768caf4a243ea5129ac3f32dd98" resname="new.title">
+      <trans-unit id="1JN4HcS" resname="new.title">
         <source>new.title</source>
         <target>__new.title</target>
       </trans-unit>
-      <trans-unit id="494a97bfb955d383ce86fea83ec83c7d" resname="new.create_button">
+      <trans-unit id="QncJYTh" resname="new.create_button">
         <source>new.create_button</source>
         <target>__new.create_button</target>
       </trans-unit>
-      <trans-unit id="c4ee36b2b3c43f286be2808fe6d64294" resname="EasyAdmin">
+      <trans-unit id="rF_WZFu" resname="EasyAdmin">
         <source>EasyAdmin</source>
         <target>EasyAdmin</target>
       </trans-unit>
-      <trans-unit id="c87aacf5673fada1108c9f809d354311" resname="Sign out">
+      <trans-unit id="SPDT05f" resname="Sign out">
         <source>Sign out</source>
         <target>Sign out</target>
       </trans-unit>
-      <trans-unit id="b6d4223e60986fa4c9af77ee5f7149c5" resname="Sign in">
+      <trans-unit id="v9QCsvb" resname="Sign in">
         <source>Sign in</source>
         <target>Sign in</target>
       </trans-unit>
-      <trans-unit id="d9776f0775997b2e698c6975420b5c5d" resname="Sign up">
+      <trans-unit id="XiuOllA" resname="Sign up">
         <source>Sign up</source>
         <target>Sign up</target>
+      </trans-unit>
+      <trans-unit id="4tClSWj" resname="Delete">
+        <source>Delete</source>
+        <target>Delete</target>
       </trans-unit>
     </body>
   </file>
