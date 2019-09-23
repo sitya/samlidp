@@ -18,19 +18,6 @@ use Symfony\Component\Translation\DataCollectorTranslator;
  */
 class IdPUserSelfServiceController extends Controller
 {
-
-    /** @var DataCollectorTranslator */
-    private $translator;
-
-    /**
-     * IdPUserSelfServiceController constructor.
-     */
-    public function __construct()
-    {
-        $this->translator = $this->get('translator');
-    }
-
-
     /**
      * @Route("/editProfile")
      * @Template()
@@ -229,6 +216,6 @@ class IdPUserSelfServiceController extends Controller
      */
     private function trans($id, $placeholders = array())
     {
-        return $this->translator->trans($id, $placeholders, 'idp_user');
+        return $this->get('translator')->trans($id, $placeholders, 'idp_user');
     }
 }

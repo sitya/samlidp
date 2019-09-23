@@ -22,17 +22,6 @@ use Symfony\Component\Translation\DataCollectorTranslator;
  */
 class IdPUserController extends Controller
 {
-    /** @var DataCollectorTranslator */
-    private $translator;
-
-    /**
-     * IdPUserController constructor.
-     */
-    public function __construct()
-    {
-        $this->translator = $this->get('translator');
-    }
-
     /**
      * Lists all idPUser entities.
      *
@@ -304,6 +293,6 @@ class IdPUserController extends Controller
      */
     private function trans($id, $placeholders = array())
     {
-        return $this->translator->trans($id, $placeholders, 'idp_user');
+        return $this->get('translator')->trans($id, $placeholders, 'idp_user');
     }
 }
