@@ -1,14 +1,20 @@
-version: "2"
+version: "3.7"
 
 services:
   samli:
-    image: "https://yourregistry.com:samli/nren"
+    build:
+      context: .
+      dockerfile: Dockerfile    
+    image: samli/nren
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - /path/to/idp_logo:/app/web/images/idp_logo
+      - storage-data:/app/web/images/idp_logo
+      # - './conf/freeradius/schema.sql:/tmp/radius-schema.sql'
     restart: unless-stopped
+    depends_on:
+      - 'db'
     environment:
       - "SAMLIDP_HOSTNAME=example.eduid.africa"
       - "VAULT_PASS=secret"
@@ -29,4 +35,12 @@ services:
       - "LOGGLY_AUTH_TOKEN=fake" 
       - "LOGGLY_TAG=samli-ssp" 
       - "REMOTE_LOGSERVER_AND_PORT=host_or_ip:port" 
+    logging:
+      driver: "json-file"
+      #driver: "fluentd"
+      #options:
+      #  fluentd-address: 129.232.230.131:24224
+      #  tag: eduid.africa
 
+volumes:
+  storage-data:

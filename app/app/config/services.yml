@@ -16,6 +16,8 @@ services:
             - '%database_port%'
             - '%samlidp_hostname%'
 
+    appbundle.sha512salted_encoder:
+        class: AppBundle\Security\Sha512Salted    
     appbundle.twofactor.google:
         class: Google\Authenticator\GoogleAuthenticator
     appbundle.twofactor.google.provider:
