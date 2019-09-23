@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\Translation\DataCollectorTranslator;
 /**
  * @Route("/IdPUserSelfService")
  */
@@ -155,7 +156,7 @@ class IdPUserSelfServiceController extends Controller
         $em = $this->getDoctrine()->getManager();
         $idPUser = $em->getRepository('AppBundle:IdPUser')->findOneByConfirmationToken($token);
         if (! $idPUser) {
-            throw $this->createNotFoundException('Token not found.');
+            throw $this->createNotFoundException($this->trans('selfservice.token_404'));
         }
 
         $defaultData = array();
@@ -164,11 +165,15 @@ class IdPUserSelfServiceController extends Controller
                 'password',
                 RepeatedType::class, array(
                     'type' => PasswordType::class,
+                    //TODO translate
                     'invalid_message' => 'The password fields must match.',
                     'options' => array('attr' => array('class' => 'password-field')),
                     'required' => true,
+                    //TODO translate
                     'first_options' => array('label' => 'Password'),
-                    'second_options' => array('label' => 'Repeat Password')
+                    //TODO translate
+                    'second_options' => array('label' => 'Repeat Password'),
+                    'translation_domain' => 'idp_user',
                 )
             )
             ->add(
@@ -219,4 +224,13 @@ class IdPUserSelfServiceController extends Controller
             );
     }
 
+    /**
+     * @param $id
+     * @param $placeholders
+     * @return string
+     */
+    private function trans($id, $placeholders = array())
+    {
+        return $this->get('translator')->trans($id, $placeholders, 'idp_user');
+    }
 }

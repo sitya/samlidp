@@ -5,89 +5,125 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="1" resname="index.federation_list_title">
+      <trans-unit id="gU.Pcyo" resname="index.federation_list_title">
         <source>index.federation_list_title</source>
         <target>Federation list</target>
       </trans-unit>
-      <trans-unit id="2" resname="index.new_federation">
+      <trans-unit id="a2TuMS3" resname="index.new_federation">
         <source>index.new_federation</source>
         <target>New federation</target>
       </trans-unit>
-      <trans-unit id="3" resname="index.federation_list_name">
+      <trans-unit id="DZD5Qbf" resname="index.federation_list_name">
         <source>index.federation_list_name</source>
         <target>Name</target>
       </trans-unit>
-      <trans-unit id="4" resname="index.federation_list_slug">
+      <trans-unit id="10UzTxS" resname="index.federation_list_slug">
         <source>index.federation_list_slug</source>
         <target>Slug</target>
       </trans-unit>
-      <trans-unit id="5" resname="index.federation_list_federationurl">
+      <trans-unit id="a2sogjF" resname="index.federation_list_federationurl">
         <source>index.federation_list_federationurl</source>
         <target>Federation URL</target>
       </trans-unit>
-      <trans-unit id="6" resname="index.federation_list_lastchecked">
+      <trans-unit id="KjJb8FF" resname="index.federation_list_lastchecked">
         <source>index.federation_list_lastchecked</source>
         <target>Last checked</target>
       </trans-unit>
-      <trans-unit id="7" resname="index.federation_list_metadataurl">
+      <trans-unit id="GpzARkl" resname="index.federation_list_metadataurl">
         <source>index.federation_list_metadataurl</source>
         <target>Metadata URL</target>
       </trans-unit>
-      <trans-unit id="8" resname="index.federation_list_contactname">
+      <trans-unit id="tZ5DO49" resname="index.federation_list_contactname">
         <source>index.federation_list_contactname</source>
         <target>Contact name</target>
       </trans-unit>
-      <trans-unit id="9" resname="index.federation_list_contactemail">
+      <trans-unit id="NX23fBm" resname="index.federation_list_contactemail">
         <source>index.federation_list_contactemail</source>
         <target>Contact email</target>
       </trans-unit>
-      <trans-unit id="10" resname="index.federation_list_sps">
+      <trans-unit id="hXEHoWs" resname="index.federation_list_sps">
         <source>index.federation_list_sps</source>
         <target>SPs</target>
       </trans-unit>
-      <trans-unit id="cmid7jkdf" resname="index.federation_list_idps">
+      <trans-unit id="LFBE18p" resname="index.federation_list_idps">
         <source>index.federation_list_idps</source>
         <target>IdPs</target>
       </trans-unit>
-      <trans-unit id="11" resname="index.federation_list_edit">
+      <trans-unit id="uk0Ted1" resname="index.federation_list_edit">
         <source>index.federation_list_edit</source>
         <target>Edit</target>
       </trans-unit>
-      <trans-unit id="12" resname="index.federation_list_backtothelist">
+      <trans-unit id="9CoXsyt" resname="index.federation_list_backtothelist">
         <source>index.federation_list_backtothelist</source>
         <target>Back to the federation's list</target>
       </trans-unit>
-      <trans-unit id="13" resname="index.federation_list_federation">
+      <trans-unit id="XXOuKfd" resname="index.federation_list_federation">
         <source>index.federation_list_federation</source>
         <target>Federation</target>
       </trans-unit>
-      <trans-unit id="14" resname="index.federation_show_idps">
+      <trans-unit id="HTsr4YS" resname="index.federation_show_idps">
         <source>index.federation_show_idps</source>
         <target>Connected Identity Providers</target>
       </trans-unit>
-      <trans-unit id="15" resname="index.federation_show_idp_list_name">
+      <trans-unit id="jAchi5y" resname="index.federation_show_idp_list_name">
         <source>index.federation_show_idp_list_name</source>
         <target>IdP name</target>
       </trans-unit>
-      <trans-unit id="16" resname="index.federation_show_idp_list_owners">
+      <trans-unit id="HFdLuxf" resname="index.federation_show_idp_list_owners">
         <source>index.federation_show_idp_list_owners</source>
         <target>Owners</target>
       </trans-unit>
-      <trans-unit id="17" resname="index.federation_list_federation_creation">
+      <trans-unit id="6378Q.0" resname="index.federation_list_federation_creation">
         <source>index.federation_list_federation_creation</source>
         <target>Federation creation</target>
       </trans-unit>
-      <trans-unit id="18" resname="index.federation_create">
+      <trans-unit id="Lifh064" resname="index.federation_create">
         <source>index.federation_create</source>
         <target>Create</target>
       </trans-unit>
-      <trans-unit id="19" resname="index.federation_list_federation_edit">
-         <source>index.federation_list_federation_edit</source>
-         <target>Federation edit</target>
+      <trans-unit id="8wWWfg4" resname="index.federation_list_federation_edit">
+        <source>index.federation_list_federation_edit</source>
+        <target>Federation edit</target>
       </trans-unit>
-      <trans-unit id="20" resname="index.federation_save">
-         <source>index.federation_save</source>
-         <target>Save changes</target>
+      <trans-unit id="mIZJ1FY" resname="index.federation_save">
+        <source>index.federation_save</source>
+        <target>Save changes</target>
+      </trans-unit>
+      <trans-unit id="bYDzUTO" resname="index.federation_new_create_button">
+        <source>index.federation_new_create_button</source>
+        <target>Create new federation</target>
+      </trans-unit>
+      <trans-unit id="edit" resname="edit.federation.flash.success.message">
+        <source>edit.federation.flash.success.message</source>
+        <target>Federation updated successful.</target>
+      </trans-unit>
+      <trans-unit id="I_5sA1X" resname="federation.metadataurl.label">
+        <source>federation.metadataurl.label</source>
+        <target>Metadata URL</target>
+      </trans-unit>
+      <trans-unit id="5DhIsy8" resname="federation.name.label">
+        <source>federation.name.label</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="vj5aS6E" resname="federation.slug.label">
+        <source>federation.slug.label</source>
+        <target>Slug</target>
+      </trans-unit>
+      <trans-unit id="FE.0CeB" resname="federation.federationurl.label">
+        <source>federation.federationurl.label</source>
+        <target>Federation URL</target>
+      </trans-unit>
+      <trans-unit id="4ihR6QX" resname="federation.contactname.label">
+        <source>federation.contactname.label</source>
+        <target>Contact name</target>
+      </trans-unit>
+      <trans-unit id="apEF5FE" resname="federation.contactemail.label">
+        <source>federation.contactemail.label</source>
+        <target>Contact email</target>
+      </trans-unit>
+      <trans-unit id="iMxY27E" resname="federation.idps.label">
+        <source>federation.idps.label</source>
+        <target>Related IdPs</target>
       </trans-unit>
     </body>
   </file>

@@ -15,14 +15,16 @@ class RegistrationType extends AbstractType
             'givenName',
             TextType::class,
             array(
-                'label' => 'First name'
+                'label' => 'form.givenname.label',
+                'translation_domain' => 'FOSUserBundle',
             )
         )
         ->add(
             'sn',
             TextType::class,
             array(
-                'label' => 'Last name'
+                'label' => 'form.sn.label',
+                'translation_domain' => 'FOSUserBundle',
             )
         );
     }

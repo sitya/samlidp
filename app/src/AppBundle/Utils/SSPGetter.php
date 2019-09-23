@@ -3,10 +3,13 @@
 namespace AppBundle\Utils;
 
 use AppBundle\Entity\IdPAudit;
+use Doctrine\ORM\EntityNotFoundException;
+use Symfony\Component\Translation\DataCollectorTranslator;
 
 class SSPGetter
 {
     protected $em;
+    private $translator;
 
     public function __construct(\Doctrine\ORM\EntityManager $em, $database_host, $database_name, $database_user, $database_password, $database_driver, $database_port, $samlidp_hostname)
     {
@@ -60,8 +63,7 @@ class SSPGetter
         // Itt állítjuk össze az adott IdP-hez tartozó saml20-sp-remote.php listát.
         $idp = $this->em->getRepository('AppBundle:IdP')->findOneByHostname(str_replace('.' . $this->samlidp_hostname, '', $host));
         if (!$idp) {
-            // TODO: throw correct exception!
-            exit;
+            throw new EntityNotFoundException('No IdP found in the database.');
         }
         $metadata = array();
 
@@ -118,7 +120,7 @@ class SSPGetter
                     'redirect.sign' => true,
                     'assertion.encryption' => true,
                     'EntityAttributes' => array(
-                        'http://macedir.org/entity-category-support' => array('http://refeds.org/category/research-and-scholarship'),
+                        'http://macedir.org/entity-category-support' => array('http://refeds.org/category/research-and-scholarship', 'http://www.geant.net/uri/dataprotection-code-of-conduct/v1'),
                     ),
 
                     'name' => array(
@@ -210,7 +212,9 @@ class SSPGetter
                     'urn:oid:1.3.6.1.4.1.5923.1.1.1.9',
                     'urn:oid:1.3.6.1.4.1.5923.1.1.1.10',
                     'urn:oid:2.5.4.10',
-                    'urn:oid:1.3.6.1.4.1.25178.1.2.9'
+                    'urn:oid:1.3.6.1.4.1.25178.1.2.9',
+                    'urn:oasis:names:tc:SAML:attribute:pairwise-id',
+                    'urn:oasis:names:tc:SAML:attribute:subject-id'
                 ),
                 'name' => array(
                     'en' => 'attribute releasing tester',
