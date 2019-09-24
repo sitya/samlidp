@@ -111,18 +111,18 @@ oneup_uploader:
                 directory: "%kernel.root_dir%/../web/uploads/tmp/"
 oneup_flysystem:
     adapters:
-        appbundle.flysystem_adapter:
-            local:
-                directory: "%kernel.root_dir%/../web/images/idp_logo/"
-                lazy: ~ # boolean (default "false")
-                writeFlags: ~
-                linkHandling: ~
-                permissions: ~
 #        appbundle.flysystem_adapter:
-#            awss3v3:
-#                client: appbundle.s3_client
-#                bucket: '%s3client_bucket%'
-#                prefix: ~
+            # local:
+            #     directory: "%kernel.root_dir%/../web/images/idp_logo/"
+            #     lazy: ~ # boolean (default "false")
+            #     writeFlags: ~
+            #     linkHandling: ~
+            #     permissions: ~
+       appbundle.flysystem_adapter:
+           awss3v3:
+               client: appbundle.s3_client
+               bucket: '%s3client_bucket%'
+               prefix: ~
     filesystems:
         logos:
             adapter: appbundle.flysystem_adapter

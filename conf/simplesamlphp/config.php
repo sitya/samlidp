@@ -516,6 +516,12 @@ $config = array(
             'sourceAttribute' => 'username',
             'targetAttribute' => 'eduPersonPrincipalName',
         ),
+        13 => array(
+            'class' => 'core:ScopeAttribute',
+            'scopeAttribute' => 'scope',
+            'sourceAttribute' => 'username',
+            'targetAttribute' => 'subject-id',
+        ),
         14 => array(
             'class' => 'core:ScopeAttribute',
             'scopeAttribute' => 'scope',
@@ -533,7 +539,17 @@ $config = array(
             'attributename' => 'realm',
             'type' => 'saml20-idp-SSO',
         ),
-        61 => array(
+        62 => array(
+            'class' => 'core:TargetedID',
+            'nameId' => false,
+        ),
+        63 => array(
+            'class' => 'core:ScopeAttribute',
+            'scopeAttribute' => 'scope',
+            'sourceAttribute' => 'eduPersonTargetedID',
+            'targetAttribute' => 'pairwise-id',
+        ),
+        64 => array(
             'class' => 'core:TargetedID',
             'nameId' => true,
         ),

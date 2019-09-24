@@ -62,12 +62,12 @@ header('X-Frame-Options: SAMEORIGIN');
 			<div class="alert alert-danger"><?php echo $this->t('{errors:descr_'.$this->data['errorcode'].'}');?></div> 
 			<?php endif; ?>
             <div class="form-group">
-                <input type="text" name="username" class="form-control" placeholder="username or email address" required="true" value="<?php echo htmlspecialchars($this->data['username']); ?>">
+                <input type="text" name="username" id="username" class="form-control" placeholder="username or email address" required="true" value="<?php echo htmlspecialchars($this->data['username']); ?>">
             </div>
             <div class="form-group">
-                <input type="password" name="password" class="form-control" placeholder="password" required="">
+                <input type="password" name="password" id="password" class="form-control" placeholder="password" required="">
             </div>
-            <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+            <button id="submit" type="submit" class="btn btn-primary block full-width m-b">Login</button>
 
             <a href="https://<?php echo $samlidphostname; ?>/IdPUserSelfService/resetting/request/<?php echo $idp['hostname'];?>"><small>Forgot password?</small></a>
 			<?php foreach ($this->data['stateparams'] as $name => $value) {

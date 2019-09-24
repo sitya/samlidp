@@ -115,19 +115,8 @@ class sspmod_sqlauth_Auth_Source_SQL extends sspmod_core_Auth_UserPassBase
      *
      * @return array Associative array with the users attributes.
      */
-    protected function login($username, $password)
+    protected function login($username, $raw)
     {
-        //assert('is_string($username)');
-        //assert('is_string($password)');
-
-        $salted = $password;
-        $digest = hash('sha512', $password, true);
-
-        for ($i = 1; $i < 5000; ++$i) {
-            $digest = hash('sha512', $digest.$salted, true);
-        }
-        $password = base64_encode($digest);
-
         $loader = require '/app/vendor/autoload.php';
 
         AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
@@ -136,6 +125,10 @@ class sspmod_sqlauth_Auth_Source_SQL extends sspmod_core_Auth_UserPassBase
         $kernel->boot();
         $container = $kernel->getContainer();
         $sspgetter = $container->get('appbundle.sspgetter');
+
+        $salt = $sspgetter->getUserSalt($username);
+        $digested = openssl_digest($raw . $salt, 'sha512', TRUE);
+        $password = base64_encode($digested . $salt);
 
         $db = $this->connect();
 

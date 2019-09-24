@@ -5,165 +5,281 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="3b05ac4d704f01817d2526b39cb3e940" resname="index.idp_user_list_title">
+      <trans-unit id="QOsbLyV" resname="index.idp_user_list_title">
         <source>index.idp_user_list_title</source>
         <target><![CDATA[
           <strong>%idp%</strong>'s user list
           
         ]]></target>
       </trans-unit>
-      <trans-unit id="1d6ac9da2e1aac2db9ac9b17512d8a7f" resname="index.import_button">
+      <trans-unit id="lxfuUf1" resname="index.import_button">
         <source>index.import_button</source>
         <target>User import</target>
       </trans-unit>
-      <trans-unit id="068c692692ebafa6282ab85569b16aac" resname="index.new_user_button">
+      <trans-unit id="kd.LNhA" resname="index.new_user_button">
         <source>index.new_user_button</source>
         <target>New user</target>
       </trans-unit>
-      <trans-unit id="fcc3f6f19771b2bdd783277e198e015a" resname="index.header_username">
+      <trans-unit id="fU4LVGL" resname="index.header_username">
         <source>index.header_username</source>
         <target>Username</target>
       </trans-unit>
-      <trans-unit id="ea757e19287cd177f41ebc93b9646a7d" resname="index.header_email">
+      <trans-unit id="N6QKVsX" resname="index.header_email">
         <source>index.header_email</source>
         <target>Email</target>
       </trans-unit>
-      <trans-unit id="e768043c53911c87d9421619ea514b63" resname="index.header_displayname">
+      <trans-unit id="DgwMp2Q" resname="index.header_displayname">
         <source>index.header_displayname</source>
         <target>Display name</target>
       </trans-unit>
-      <trans-unit id="f3f46cb402c63168a7003cb1be0441b7" resname="index.header_surname">
+      <trans-unit id="SycTlGp" resname="index.header_surname">
         <source>index.header_surname</source>
         <target>Last name</target>
       </trans-unit>
-      <trans-unit id="dfce3b4f46a3dd32065ba9715f993283" resname="index.header_givenname">
+      <trans-unit id="VRExTd3" resname="index.header_givenname">
         <source>index.header_givenname</source>
         <target>First name</target>
       </trans-unit>
-      <trans-unit id="b51d47ee1d6d517cb5d9892d0857b99e" resname="index.header_affiliation">
+      <trans-unit id="8w2LZdY" resname="index.header_affiliation">
         <source>index.header_affiliation</source>
         <target>Affiliation</target>
       </trans-unit>
-      <trans-unit id="512bcc44d9e118503ab975c7c7e667d7" resname="index.header_scope">
+      <trans-unit id="baTU1Qa" resname="index.header_scope">
         <source>index.header_scope</source>
         <target>Scope</target>
       </trans-unit>
-      <trans-unit id="a07bdf244ab8d3ccfb5c82721b780e7d" resname="back_to_list_button">
+      <trans-unit id="ef8xHLP" resname="back_to_list_button">
         <source>back_to_list_button</source>
         <target>Back to the list</target>
       </trans-unit>
-      <trans-unit id="bed053284b7682adfde7a8af21c4ef93" resname="edit.save_changes_button">
+      <trans-unit id="AuqaDA7" resname="edit.save_changes_button">
         <source>edit.save_changes_button</source>
         <target>Save changes</target>
       </trans-unit>
-      <trans-unit id="082e3a9035b1dcc4f7d6cd107f29b22b" resname="edit.delete_button">
+      <trans-unit id="mZYy3A3" resname="edit.delete_button">
         <source>edit.delete_button</source>
         <target>Delete user</target>
       </trans-unit>
-      <trans-unit id="c7b086415384b249a11541b760082a1b" resname="edit.send_password_reset_button">
+      <trans-unit id="0psf10u" resname="edit.send_password_reset_button">
         <source>edit.send_password_reset_button</source>
         <target>Send password reset mail</target>
       </trans-unit>
-      <trans-unit id="3cffdbb8528a93e6dc87e19c007734af" resname="edit.title">
+      <trans-unit id="dkoZhPX" resname="edit.title">
         <source>edit.title</source>
         <target>Edit user</target>
       </trans-unit>
-      <trans-unit id="59be422f2da3295f820cf2ce9ba22477" resname="initpasswordreset.title">
+      <trans-unit id="GrgW43a" resname="initpasswordreset.title">
         <source>initpasswordreset.title</source>
         <target><![CDATA[
           Send password reset token to user <strong>%user%</strong>
         ]]></target>
       </trans-unit>
-      <trans-unit id="14b221f401e1edd34cc24e7350f16b30" resname="initpasswordreset.back_to_user_button">
+      <trans-unit id="iuQLgqp" resname="initpasswordreset.back_to_user_button">
         <source>initpasswordreset.back_to_user_button</source>
         <target>Back to the user</target>
       </trans-unit>
-      <trans-unit id="507f2b4be80f4e3d1747c42109f0592b" resname="initpasswordreset.send_button">
+      <trans-unit id="CMrdFWr" resname="initpasswordreset.send_button">
         <source>initpasswordreset.send_button</source>
         <target>Send</target>
       </trans-unit>
-      <trans-unit id="ca0d1e91eb7eb86972202891438a71e6" resname="massimport.title">
+      <trans-unit id="gW0VgyU" resname="massimport.title">
         <source>massimport.title</source>
         <target>CSV import</target>
       </trans-unit>
-      <trans-unit id="f749f373543ad69f016f79dde661e4d7" resname="massimport.processed">
+      <trans-unit id="cwx3p8F" resname="massimport.processed">
         <source>massimport.processed</source>
         <target>rows successful processed. Great job.</target>
       </trans-unit>
-      <trans-unit id="82957f5bacd80c21c3f5d9a3fe577e7c" resname="massimport.error_count">
+      <trans-unit id="MDWu26c" resname="massimport.error_count">
         <source>massimport.error_count</source>
         <target>Error count:</target>
       </trans-unit>
-      <trans-unit id="bdb7833c799f959f8333d8116733b1db" resname="massimport.not_processed">
+      <trans-unit id="LZ.UmuP" resname="massimport.not_processed">
         <source>massimport.not_processed</source>
         <target>These lines were not processed.</target>
       </trans-unit>
-      <trans-unit id="136e6768caf4a243ea5129ac3f32dd98" resname="new.title">
+      <trans-unit id="1JN4HcS" resname="new.title">
         <source>new.title</source>
         <target><![CDATA[
           New user in <strong>%idp%</strong>
           
         ]]></target>
       </trans-unit>
-      <trans-unit id="494a97bfb955d383ce86fea83ec83c7d" resname="new.create_button">
+      <trans-unit id="QncJYTh" resname="new.create_button">
         <source>new.create_button</source>
         <target>Create user</target>
       </trans-unit>
-      <trans-unit id="8dca1f069c7c6eab7236369fb82c2cfd" resname="edit.send_password_reset_button_and_recover">
+      <trans-unit id="gFKb4P6" resname="edit.send_password_reset_button_and_recover">
         <source>edit.send_password_reset_button_and_recover</source>
         <target>Send password reset mail and reactivate the user</target>
       </trans-unit>
-      <trans-unit id="d8b14cc39c718ab4605ee6c645c0ff3d" resname="edit.inactivate">
+      <trans-unit id="RPTv8.J" resname="edit.inactivate">
         <source>edit.inactivate</source>
         <target>Inactivate user</target>
       </trans-unit>
-      <trans-unit id="9963ec82b1dbe317f531e2b218d2224b" resname="edit.modal_delete_confirm_title">
+      <trans-unit id="e3YGN.v" resname="edit.modal_delete_confirm_title">
         <source>edit.modal_delete_confirm_title</source>
         <target>Confirm delete user</target>
       </trans-unit>
-      <trans-unit id="9d026f3ee678430172679b034ab81ca8" resname="edit.modal_delete_confirm_text">
+      <trans-unit id="oUe2uCq" resname="edit.modal_delete_confirm_text">
         <source>edit.modal_delete_confirm_text</source>
         <target>Remove all data about this user? This can not be undone.</target>
       </trans-unit>
-      <trans-unit id="2f934843536f4e0f54a2c246f48ac436" resname="list.cancel">
+      <trans-unit id="Y18sbkU" resname="list.cancel">
         <source>list.cancel</source>
         <target>Cancel</target>
       </trans-unit>
-      <trans-unit id="c5e0b815867eedd1f27f41369ce163c6" resname="index.download_button">
+      <trans-unit id="jiLeMT3" resname="index.download_button">
         <source>index.download_button</source>
         <target>Download all data in CVS format</target>
       </trans-unit>
-      <trans-unit id="df870e7eef48ad912f162e310550d2ee" resname="massimport.description_title">
+      <trans-unit id="Hd8L31L" resname="massimport.description_title">
         <source>massimport.description_title</source>
         <target>Good to know</target>
       </trans-unit>
-      <trans-unit id="744fada63f01e8fac24f5dbda39a6052" resname="massimport.description_text">
+      <trans-unit id="Ee_198y" resname="massimport.description_text">
         <source>massimport.description_text</source>
-        <target><![CDATA[            
+        <target><![CDATA[
           <ul>
                 <li>It is easier if you download the CSV containing all your active users first, make changes in this file then upload it again.</li>
                 <li>You cannot set a password for a user. When you register or activate a user, a token will be sent to the user by email where he or she can set their password.</li>
             </ul>
           ]]></target>
       </trans-unit>
-      <trans-unit id="f357cb03bc488a9a7ae911ebd134010c" resname="index.download_template_button">
+      <trans-unit id="1Yt2z5m" resname="index.download_template_button">
         <source>index.download_template_button</source>
         <target>Download CSV template</target>
       </trans-unit>
-      <trans-unit id="f1a18374416643233e302df020b7d4a3" resname="edit.modal_initpasswordreset_title">
+      <trans-unit id="i8W7bCS" resname="edit.modal_initpasswordreset_title">
         <source>edit.modal_initpasswordreset_title</source>
         <target>Send password reset mail</target>
       </trans-unit>
-      <trans-unit id="7442923fe4750cedb0096b32e075bc6e" resname="edit.modal_initpasswordreset_text">
+      <trans-unit id="n9AsLFF" resname="edit.modal_initpasswordreset_text">
         <source>edit.modal_initpasswordreset_text</source>
         <target><![CDATA[
           The user has been received password reset mail at <strong>%date%</strong>.<br>
           Do you want to send again?
           ]]></target>
       </trans-unit>
-      <trans-unit id="0390417f32199638ed73acdbc432fb5b" resname="edit.initpasswordreset_button">
+      <trans-unit id="6qcJUk_" resname="edit.initpasswordreset_button">
         <source>edit.initpasswordreset_button</source>
         <target>Send again</target>
+      </trans-unit>
+      <trans-unit id="T2BpFk9" resname="idp_user.givenname.label">
+        <source>idp_user.givenname.label</source>
+        <target>First name</target>
+      </trans-unit>
+      <trans-unit id="QtrxZz3" resname="idp_user.surname.label">
+        <source>idp_user.surname.label</source>
+        <target>Last name</target>
+      </trans-unit>
+      <trans-unit id="HyQg8xV" resname="idp_user.username.label">
+        <source>idp_user.username.label</source>
+        <target>Username</target>
+      </trans-unit>
+      <trans-unit id="xd3ITF." resname="idp_user.email.label">
+        <source>idp_user.email.label</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="lvVlV2N" resname="idp_user.displayname.label">
+        <source>idp_user.displayname.label</source>
+        <target>Display name</target>
+      </trans-unit>
+      <trans-unit id="VuNpb73" resname="idp_user.affiliation.label">
+        <source>idp_user.affiliation.label</source>
+        <target>Affiliation</target>
+      </trans-unit>
+      <trans-unit id="OQtQzHf" resname="idp_user.affiliation.placeholder">
+        <source>idp_user.affiliation.placeholder</source>
+        <target>-- Please choose --</target>
+      </trans-unit>
+      <trans-unit id="UfdQ78e" resname="idp_user.scope.label">
+        <source>idp_user.scope.label</source>
+        <target>Scope</target>
+      </trans-unit>
+      <trans-unit id="JK8dAtO" resname="idp_user.affiliation.choices.student">
+        <source>idp_user.affiliation.choices.student</source>
+        <target>student</target>
+      </trans-unit>
+      <trans-unit id="CCZSt7M" resname="idp_user.affiliation.choices.staff">
+        <source>idp_user.affiliation.choices.staff</source>
+        <target>staff</target>
+      </trans-unit>
+      <trans-unit id="1tu.Vym" resname="idp_user.affiliation.choices.member">
+        <source>idp_user.affiliation.choices.member</source>
+        <target>member</target>
+      </trans-unit>
+      <trans-unit id="8Dfe9JH" resname="idp_user.affiliation.choices.faculty">
+        <source>idp_user.affiliation.choices.faculty</source>
+        <target>faculty</target>
+      </trans-unit>
+      <trans-unit id="tADJE9H" resname="idp_user.affiliation.choices.employee">
+        <source>idp_user.affiliation.choices.employee</source>
+        <target>employee</target>
+      </trans-unit>
+      <trans-unit id="iwAr2Rw" resname="idp_user.affiliation.choices.affiliate">
+        <source>idp_user.affiliation.choices.affiliate</source>
+        <target>affiliate</target>
+      </trans-unit>
+      <trans-unit id="pu3q5RP" resname="idp_user.affiliation.choices.alum">
+        <source>idp_user.affiliation.choices.alum</source>
+        <target>alum</target>
+      </trans-unit>
+      <trans-unit id="NHAaFzq" resname="idp_user.affiliation.choices.library-walk-in">
+        <source>idp_user.affiliation.choices.library-walk-in</source>
+        <target>library-walk-in</target>
+      </trans-unit>
+      <trans-unit id="lsKdY6w" resname="item_writer.already_exists">
+        <source>item_writer.already_exists</source>
+        <target>Can not add user, it is already exists.</target>
+      </trans-unit>
+      <trans-unit id="QWqqw_5" resname="item_writer.404">
+        <source>item_writer.404</source>
+        <target>There is no user with this username.</target>
+      </trans-unit>
+      <trans-unit id="WEaA9La" resname="item_writer.cannot_delete">
+        <source>item_writer.cannot_delete</source>
+        <target>Can not delete user, it is not exists.</target>
+      </trans-unit>
+      <trans-unit id="Wcs95vm" resname="item_writer.invalid_action">
+        <source>item_writer.invalid_action</source>
+        <target>Invalid action: %action%.</target>
+      </trans-unit>
+      <trans-unit id="XLFmzRj" resname="item_writer.invalid_scope">
+        <source>item_writer.invalid_scope</source>
+        <target>Invalid scope: %scope%.</target>
+      </trans-unit>
+      <trans-unit id="bMw9tSf" resname="item_writer.enabled_blank">
+        <source>item_writer.enabled_blank</source>
+        <target>You must set if user is enabled or not.</target>
+      </trans-unit>
+      <trans-unit id="vSimhwB" resname="item_writer.email_exists">
+        <source>item_writer.email_exists</source>
+        <target>Email is already taken.</target>
+      </trans-unit>
+      <trans-unit id="_ROCTff" resname="controller.user_created">
+        <source>controller.user_created</source>
+        <target>User created successful.</target>
+      </trans-unit>
+      <trans-unit id="gqHRwep" resname="controller.user_inactivated">
+        <source>controller.user_inactivated</source>
+        <target>User  inactivated successful.</target>
+      </trans-unit>
+      <trans-unit id="UGmX7d2" resname="controller.user_updated">
+        <source>controller.user_updated</source>
+        <target>User updated successful.</target>
+      </trans-unit>
+      <trans-unit id="bowxVb_" resname="controller.user_deleted">
+        <source>controller.user_deleted</source>
+        <target>User deleted successful.</target>
+      </trans-unit>
+      <trans-unit id="3qpltoR" resname="controller.password_reset_mail_sent">
+        <source>controller.password_reset_mail_sent</source>
+        <target>Password reset mail sent successful.</target>
+      </trans-unit>
+      <trans-unit id="ZcEHOSq" resname="selfservice.token_404">
+        <source>selfservice.token_404</source>
+        <target>Token not found.</target>
       </trans-unit>
     </body>
   </file>

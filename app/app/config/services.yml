@@ -6,8 +6,18 @@ parameters:
 services:
     appbundle.sspgetter:
         class: AppBundle\Utils\SSPGetter
-        arguments: ['@doctrine.orm.entity_manager','%database_host%','%database_name%','%database_user%','%database_password%', '%database_driver%', '%database_port%', '%samlidp_hostname%']
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '%database_host%'
+            - '%database_name%'
+            - '%database_user%'
+            - '%database_password%'
+            - '%database_driver%'
+            - '%database_port%'
+            - '%samlidp_hostname%'
 
+    appbundle.sha512salted_encoder:
+        class: AppBundle\Security\Sha512Salted    
     appbundle.twofactor.google:
         class: Google\Authenticator\GoogleAuthenticator
     appbundle.twofactor.google.provider:
@@ -54,7 +64,7 @@ services:
     # logo and csv uploader
     appbundle.upload_listener:
         class: AppBundle\EventListener\UploadListener
-        arguments: ["@doctrine.orm.entity_manager", "@serializer", "@validator", "@router", "@twig", "@mailer", "@doctrine", "%samlidp_hostname%"]
+        arguments: ["@doctrine.orm.entity_manager", "@serializer", "@validator", "@router", "@twig", "@mailer", "@doctrine", "%samlidp_hostname%", "@translator"]
         tags:
             - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
 
@@ -68,3 +78,9 @@ services:
                 credentials:
                     key: "%s3client_key%"
                     secret: "%s3client_secret%"
+
+    appbundle.command.create.user:
+        class: AppBundle\Command\CreateUserCommand
+        arguments: ["@fos_user.user_manager"]
+        tags:
+            - {name: console.command}

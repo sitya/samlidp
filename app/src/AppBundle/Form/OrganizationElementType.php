@@ -6,6 +6,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class OrganizationElementType
+ * @package AppBundle\Form
+ * @todo is this in use?
+ */
 class OrganizationElementType extends AbstractType
 {
     /**

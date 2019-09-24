@@ -4,10 +4,9 @@ imports:
 monolog:
     handlers:
         main:
-            type:  loggly
-            level: error
-            token: '%loggly_access_token%'
-            tag: samli-prod
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            level: info
         nested:
             type:  stream
             path:  "%kernel.logs_dir%/%kernel.environment%.log"

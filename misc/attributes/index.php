@@ -32,7 +32,9 @@ function attributeMapOid2Name($attributes)
             'urn:oid:2.5.4.4' => 'sn',
             'urn:oid:2.5.4.42' => 'givenName',
             'urn:oid:1.3.6.1.4.1.25178.1.2.9'    => 'schacHomeOrganization',
-            'urn:oid:2.5.4.10'                   => 'o'
+            'urn:oid:2.5.4.10'                   => 'o',
+            'urn:oasis:names:tc:SAML:attribute:pairwise-id' => 'pairwise-id',
+            'urn:oasis:names:tc:SAML:attribute:subject-id' => 'subject-id'
         );
     $ret = array();
     foreach ($attributes as $oid => $value) {
