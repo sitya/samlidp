@@ -26,10 +26,11 @@ ADD misc/themesamlidpio /app/vendor/simplesamlphp/simplesamlphp/modules/themesam
 ADD misc/SQL.php /app/vendor/simplesamlphp/simplesamlphp/modules/sqlauth/lib/Auth/Source/SQL.php
 ADD misc/attributes/* /var/www/html/
 ADD conf/simplesamlphp/enable /app/vendor/simplesamlphp/simplesamlphp/modules/sqlauth/enable
+ADD conf/simplesamlphp/enable /app/vendor/simplesamlphp/simplesamlphp/modules/consent/enable
 
 # rsyslog stuff
 ADD conf/rsyslog/rsyslog.conf /etc/
-ADD conf/rsyslog/10-simplesamlphp.conf /etc/rsyslog.d/
+ADD conf/rsyslog/logs-eduteams-org.crt /etc/ssl/certs/syslog-ca.crt
 ADD misc/rsyslog-start.sh /rsyslog-start.sh
 ADD misc/samlidp-start.sh /samlidp-start.sh
 
