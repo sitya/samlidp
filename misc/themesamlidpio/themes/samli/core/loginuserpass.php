@@ -67,7 +67,7 @@ header('X-Frame-Options: SAMEORIGIN');
             <div class="form-group">
                 <input type="password" name="password" class="form-control" placeholder="password" required="">
             </div>
-            <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+            <button type="submit" class="btn btn-primary block full-width m-b" id="submit">Login</button>
 
             <a href="https://<?php echo $samlidphostname; ?>/IdPUserSelfService/resetting/request/<?php echo $idp['hostname'];?>"><small>Forgot password?</small></a>
 			<?php foreach ($this->data['stateparams'] as $name => $value) {
