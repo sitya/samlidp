@@ -121,6 +121,7 @@ class SSPGetter
                     'assertion.encryption' => true,
                     'EntityAttributes' => array(
                         'http://macedir.org/entity-category-support' => array('http://refeds.org/category/research-and-scholarship', 'http://www.geant.net/uri/dataprotection-code-of-conduct/v1'),
+                        'urn:oasis:names:tc:SAML:attribute:assurance-certification' => array('https://refeds.org/sirtfi')
                     ),
 
                     'name' => array(
@@ -144,6 +145,16 @@ class SSPGetter
                         'surName' => $contact->getSn(),
                         'givenName' => $contact->getGivenName(),
                         'emailAddress' => 'mailto:' . $contact->getEmail(),
+                    );
+                    $result[$idp->getEntityId($this->samlidp_hostname)]['contacts'][] = array(
+                        'contactType' => 'other',
+                        'surName' => $contact->getSn(),
+                        'givenName' => $contact->getGivenName(),
+                        'emailAddress' => 'mailto:' . $contact->getEmail(),
+                        'attributes'        => [
+                            'xmlns:remd'        => 'http://refeds.org/metadata',
+                            'remd:contactType'  => 'http://refeds.org/metadata/contactType/security',
+                        ],
                     );
                 }
 
