@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Utils\IdPUserHelper;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\Translation\DataCollectorTranslator;
 
 /**
  * Idpuser controller.
@@ -73,7 +74,7 @@ class IdPUserController extends Controller
 
             IdPUserHelper::sendPasswordResetToken($idPUser, $token, $this->get('router'), $this->get('twig'), $this->get('mailer'), $this->getParameter('mailer_sender'), 'sendPasswordCreateToken');
 
-            $this->get('session')->getFlashBag()->add('success', 'User created successful.');
+            $this->get('session')->getFlashBag()->add('success', $this->trans('controller.user_created'));
 
             return $this->redirectToRoute('idpuser_index', array('id' => $idp->getId()));
         }
@@ -104,7 +105,7 @@ class IdPUserController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'User updated successful.');
+            $this->get('session')->getFlashBag()->add('success', $this->trans('controller.user_updated'));
 
             return $this->redirectToRoute('idpuser_edit', array('id' => $idPUser->getId()));
         }
@@ -132,7 +133,7 @@ class IdPUserController extends Controller
         $idPUser->setEnabled(false);
         $em->persist($idPUser);
         $em->flush($idPUser);
-        $this->get('session')->getFlashBag()->add('success', 'User inactivated successful.');
+        $this->get('session')->getFlashBag()->add('success', $this->trans('controller.user_inactivated'));
 
         return $this->redirectToRoute('idpuser_index', array('id' => $idp->getId()));
     }
@@ -154,7 +155,7 @@ class IdPUserController extends Controller
         $idPUser->saltUser();
         $em->persist($idPUser);
         $em->flush($idPUser);
-        $this->get('session')->getFlashBag()->add('success', 'User deleted successful.');
+        $this->get('session')->getFlashBag()->add('success', $this->trans('controller.user_deleted'));
 
         return $this->redirectToRoute('idpuser_index', array('id' => $idp->getId()));
     }
@@ -214,7 +215,7 @@ class IdPUserController extends Controller
 
         $em->persist($idpuser);
         $em->flush();
-        $this->get('session')->getFlashBag()->add('success', 'Password reset mail sent successful.');
+        $this->get('session')->getFlashBag()->add('success', $this->trans('controller.password_reset_mail_sent'));
 
         IdPUserHelper::sendPasswordResetToken($idpuser, $token, $this->get('router'), $this->get('twig'), $this->get('mailer'), $this->getParameter('mailer_sender'), 'sendPasswordResetToken');
 
@@ -283,5 +284,15 @@ class IdPUserController extends Controller
         $response->headers->set('Content-Disposition', 'attachment; filename="samlidp-'.$idp->getHostname().'-users-export-'.date('Y-m-d').'.csv"');
 
         return $response;
+    }
+
+    /**
+     * @param $id
+     * @param $placeholders
+     * @return string
+     */
+    private function trans($id, $placeholders = array())
+    {
+        return $this->get('translator')->trans($id, $placeholders, 'idp_user');
     }
 }

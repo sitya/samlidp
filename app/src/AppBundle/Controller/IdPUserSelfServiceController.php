@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\Translation\DataCollectorTranslator;
 /**
  * @Route("/IdPUserSelfService")
  */
@@ -154,7 +156,7 @@ class IdPUserSelfServiceController extends Controller
         $em = $this->getDoctrine()->getManager();
         $idPUser = $em->getRepository('AppBundle:IdPUser')->findOneByConfirmationToken($token);
         if (! $idPUser) {
-            throw $this->createNotFoundException('Token not found.');
+            throw $this->createNotFoundException($this->trans('selfservice.token_404'));
         }
 
         $defaultData = array();
@@ -163,11 +165,15 @@ class IdPUserSelfServiceController extends Controller
                 'password',
                 RepeatedType::class, array(
                     'type' => PasswordType::class,
+                    //TODO translate
                     'invalid_message' => 'The password fields must match.',
                     'options' => array('attr' => array('class' => 'password-field')),
                     'required' => true,
+                    //TODO translate
                     'first_options' => array('label' => 'Password'),
-                    'second_options' => array('label' => 'Repeat Password')
+                    //TODO translate
+                    'second_options' => array('label' => 'Repeat Password'),
+                    'translation_domain' => 'idp_user',
                 )
             )
             ->add(
@@ -185,9 +191,24 @@ class IdPUserSelfServiceController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $encoder = $this->container->get('security.password_encoder');
-            $encoded = $encoder->encodePassword($idPUser, $data['password']);
+            // $encoder = $this->container->get('security.password_encoder');
+            // $encoded = $encoder->encodePassword($idPUser, $data['password'], $salt);
+            $encoder = $this->container->get('appbundle.sha512salted_encoder');
+            $salt = $idPUser->getRandomString();
+            $encoded = $encoder->encodePassword($data['password'], $salt);
+            
+            $idPUser->setSalt($salt);
             $idPUser->setPassword($encoded);
+
+            // Convert the password from UTF8 to UTF16 (little endian)
+            $ntml_input=iconv('UTF-8','UTF-16LE',$data['password']);
+            // Encrypt it with the MD4 hash
+            $md4_hash=hash('md4',$ntml_input);
+            // Make it uppercase, not necessary, but it's common to do so with NTLM hashes
+            $ntml_hash=strtoupper($md4_hash);
+
+            $idPUser->setPasswordNtml($ntml_hash);
+
             $idPUser->setEnabled(true);
             
             $idPUser->setConfirmationToken(false);
@@ -203,4 +224,13 @@ class IdPUserSelfServiceController extends Controller
             );
     }
 
+    /**
+     * @param $id
+     * @param $placeholders
+     * @return string
+     */
+    private function trans($id, $placeholders = array())
+    {
+        return $this->get('translator')->trans($id, $placeholders, 'idp_user');
+    }
 }

@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Federation controller.
@@ -78,6 +79,9 @@ class FederationController extends Controller
      *
      * @Route("/{id}/edit", name="federation_edit")
      * @Method({"GET", "POST"})
+     * @param Request $request
+     * @param Federation $federation
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, Federation $federation)
     {
@@ -85,8 +89,9 @@ class FederationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $translator = $this->get('translator');
             $this->getDoctrine()->getManager()->flush();
-            $this->get('session')->getFlashBag()->add('success', 'Federation updated successful.');
+            $this->get('session')->getFlashBag()->add('success', $translator->trans('edit.federation.flash.success.message', array(), 'federation'));
             return $this->redirectToRoute('federation_edit', array('id' => $federation->getId()));
         }
 

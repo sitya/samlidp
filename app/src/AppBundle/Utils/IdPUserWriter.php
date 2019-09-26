@@ -9,6 +9,8 @@ use AppBundle\Entity\IdP;
 use AppBundle\Entity\IdPUser;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
+use Symfony\Component\Translation\DataCollectorTranslator;
+use Twig\Environment;
 
 /**
  *
@@ -37,8 +39,9 @@ class IdPUserWriter implements Writer
     private $twig;
     private $doctrine;
     private $samlidp_hostname;
+    private $translator;
 
-    public function __construct(IdP $idp, EntityManager $em, \Swift_Mailer $mailer, Router $router, \Twig_Environment $twig, Doctrine $doctrine, $samlidp_hostname)
+    public function __construct(IdP $idp, EntityManager $em, \Swift_Mailer $mailer, Router $router, Environment $twig, Doctrine $doctrine, $samlidp_hostname, DataCollectorTranslator $translator)
     {
         $this->idp = $idp;
         $this->em = $em;
@@ -47,6 +50,7 @@ class IdPUserWriter implements Writer
         $this->twig = $twig;
         $this->doctrine = $doctrine;
         $this->samlidp_hostname = $samlidp_hostname;
+        $this->translator = $translator;
     }
 
     /**
@@ -61,6 +65,7 @@ class IdPUserWriter implements Writer
      * Write one data item
      *
      * @param array $item The data item with converted values
+     * @throws Exception
      */
     public function writeItem(array $item)
     {
@@ -75,7 +80,7 @@ class IdPUserWriter implements Writer
         switch ($item['action']) {
             case 'add':
                 if ($idpuser) {
-                    throw new Exception("Can not add user, it is already exists.", 1);
+                    throw new Exception($this->trans('item_writer.already_exists'), 1);
                 } else {
                     $this->validateEmailDuplum($item['email']);
                     $this->add($item, $idpuser);
@@ -83,20 +88,20 @@ class IdPUserWriter implements Writer
                 break;
             case 'update':
                 if (!$idpuser) {
-                    throw new Exception("There is no user with this username.", 1);
+                    throw new Exception($this->trans('item_writer.404'), 1);
                 }
                 $this->validateEmailDuplum($item['email'], $idpuser->getId());
                 $this->update($item, $idpuser);
                 break;
             case 'delete':
                 if (!$idpuser) {
-                    throw new Exception("Can not delete user, it is not exists.", 1);
+                    throw new Exception($this->trans('item_writer.cannot_delete'), 1);
                 }
                 $this->delete($idpuser);
                 break;
 
             default:
-                throw new Exception("Invalid action: " . $item['action'], 1);
+            throw new Exception($this->trans('item_writer.invalid_action', array("%action%" => $item['action'])), 1);
                 break;
         }
     }
@@ -154,11 +159,11 @@ class IdPUserWriter implements Writer
         $scope = $this->idp->getScopeByValue($item['scope'], $samliScope, $this->samlidp_hostname);
 
         if (!$scope) {
-            throw new Exception('Invalid scope ' . $item['scope'] . '.');
+            throw new Exception($this->trans('item_writer.invalid_scope', array('%scope%' => $item['scope'])));
         };
 
         if (!isset($item['enabled'])) {
-            throw new Exception('You must set if user is enabled or not.');
+            throw new Exception($this->trans('item_writer.enabled_blank'));
         }
         $enabled = ($item['enabled'] == 'true') ? true : false;
 
@@ -191,9 +196,19 @@ class IdPUserWriter implements Writer
                 continue;
             }
             if (!$idp_user_id || $idp_user_id != $existingUser->getId()) { // ne hozzuk létre az új felhasználót, vagy nem önmaga, ezért duplum.
-                throw new Exception("Email is already taken.");
+                throw new Exception($this->trans('item_writer.email_exists'));
             }
         }
         return true;
+    }
+
+    /**
+     * @param $id
+     * @param array $placeholders
+     * @return mixed
+     */
+    private function trans($id, $placeholders = array())
+    {
+        return $this->translator->trans($id, $placeholders, 'idp_user');
     }
 }

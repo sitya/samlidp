@@ -1,7 +1,8 @@
 security:
     encoders:
         AppBundle\Entity\User: sha512
-        AppBundle\Entity\IdPUser: sha512
+        AppBundle\Entity\IdPUser:
+            id: appbundle.sha512salted_encoder
 
     role_hierarchy:
         ROLE_SUPER_ADMIN: ROLE_ADMIN

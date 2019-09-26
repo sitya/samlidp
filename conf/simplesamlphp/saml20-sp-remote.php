@@ -8,7 +8,7 @@ $loader = require '/app/vendor/autoload.php';
 
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 
-$kernel = new AppKernel('dev', true);
+$kernel = new AppKernel('prod', true);
 $kernel->boot();
 $container = $kernel->getContainer();
 $sspgetter = $container->get('appbundle.sspgetter');
@@ -36,7 +36,9 @@ $metadata['https://attributes.'.$sspgetter->getSamlidpHostname().'/module.php/sa
         'urn:oid:1.3.6.1.4.1.5923.1.1.1.9',
         'urn:oid:1.3.6.1.4.1.5923.1.1.1.10',
         'urn:oid:1.3.6.1.4.1.25178.1.2.9',
-        'urn:oid:2.5.4.10'
+        'urn:oid:2.5.4.10',
+        'urn:oasis:names:tc:SAML:attribute:pairwise-id',
+        'urn:oasis:names:tc:SAML:attribute:subject-id'
   ),
   'name' => array(
       'en' => $sspgetter->getSamlidpHostname().' - attribute releasing tester',

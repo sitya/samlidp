@@ -2,16 +2,9 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Form\OrganizationElementType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class IdPWizardType extends AbstractType
@@ -27,11 +20,11 @@ class IdPWizardType extends AbstractType
                 'hostname',
                 TextType::class,
                 array(
-                    'label' => 'Short identifier',
+                    'label' => 'idp.wizard.hostname.label',
                     'required' => true,
                     'attr' => array(
                         'class' => 'form-control col-xs-4',
-                        'placeholder' => 'Choose a short name for your IdP. It can contain letters and numbers.',
+                        'placeholder' => 'idp.wizard.hostname.placeholder',
                         'aria-describedby' => 'basic-addon3'
                     )
                 )
@@ -45,7 +38,8 @@ class IdPWizardType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\IdP'
+            'data_class' => 'AppBundle\Entity\IdP',
+            'translation_domain' => 'idp',
         ));
     }
 }

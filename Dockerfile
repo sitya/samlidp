@@ -26,6 +26,7 @@ ADD misc/themesamlidpio /app/vendor/simplesamlphp/simplesamlphp/modules/themesam
 ADD misc/SQL.php /app/vendor/simplesamlphp/simplesamlphp/modules/sqlauth/lib/Auth/Source/SQL.php
 ADD misc/attributes/* /var/www/html/
 ADD conf/simplesamlphp/enable /app/vendor/simplesamlphp/simplesamlphp/modules/sqlauth/enable
+ADD conf/simplesamlphp/enable /app/vendor/simplesamlphp/simplesamlphp/modules/consent/enable
 
 # rsyslog stuff
 ADD conf/rsyslog/rsyslog.conf /etc/

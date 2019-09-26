@@ -1,0 +1,46 @@
+version: "3.7"
+
+services:
+  samli:
+    build:
+      context: .
+      dockerfile: Dockerfile    
+    image: samli/nren
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - storage-data:/app/web/images/idp_logo
+      # - './conf/freeradius/schema.sql:/tmp/radius-schema.sql'
+    restart: unless-stopped
+    depends_on:
+      - 'db'
+    environment:
+      - "SAMLIDP_HOSTNAME=example.eduid.africa"
+      - "VAULT_PASS=secret"
+      - "DATABASE_HOST=db.example.net"
+      - "DATABASE_PORT=5432" 
+      - "DATABASE_DRIVER=pdo_pgsql"
+      - "DATABASE_VERSION=10"
+      - "DATABASE_NAME=symfony" 
+      - "DATABASE_USER=symfony" 
+      - "DATABASE_PASSWORD=secret"
+      - "MAILER_HOST=127.0.0.1" 
+      - "MAILER_PORT=25"
+      - "MAILER_ENCRYPTION=ssl"
+      - "MAILER_USER=user" 
+      - "MAILER_PASSWORD=password"
+      - "MAILER_SENDER=noreply@example.org"
+      - "ROLLBAR_ACCESS_TOKEN=fake" 
+      - "LOGGLY_AUTH_TOKEN=fake" 
+      - "LOGGLY_TAG=samli-ssp" 
+      - "REMOTE_LOGSERVER_AND_PORT=host_or_ip:port" 
+    logging:
+      driver: "json-file"
+      #driver: "fluentd"
+      #options:
+      #  fluentd-address: 129.232.230.131:24224
+      #  tag: eduid.africa
+
+volumes:
+  storage-data:

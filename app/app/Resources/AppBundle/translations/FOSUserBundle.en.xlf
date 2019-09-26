@@ -5,95 +5,95 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="b20e666bcd94c576d7af6860c5f575c9" resname="group.edit.submit">
+      <trans-unit id="zUyAH.U" resname="group.edit.submit">
         <source>group.edit.submit</source>
         <target>Update group</target>
       </trans-unit>
-      <trans-unit id="43ccaeb12b8fc43fc43bbe431ebc4d5b" resname="group.show.name">
+      <trans-unit id="gbd_oyy" resname="group.show.name">
         <source>group.show.name</source>
         <target>Group name</target>
       </trans-unit>
-      <trans-unit id="f0f751815fac86046152c9df1e19340b" resname="group.new.submit">
+      <trans-unit id="q9PlPqt" resname="group.new.submit">
         <source>group.new.submit</source>
         <target>Create group</target>
       </trans-unit>
-      <trans-unit id="3105b749fe115f7be13506d39fa3687c" resname="group.flash.updated">
+      <trans-unit id="W8JrORM" resname="group.flash.updated">
         <source>group.flash.updated</source>
         <target>The group has been updated.</target>
       </trans-unit>
-      <trans-unit id="815366fd85703c9baf30a6ee56850000" resname="group.flash.created">
+      <trans-unit id="qApK0Ss" resname="group.flash.created">
         <source>group.flash.created</source>
         <target>The group has been created.</target>
       </trans-unit>
-      <trans-unit id="c0435a0d97306986b3b186e82d95bec7" resname="group.flash.deleted">
+      <trans-unit id="62IBurx" resname="group.flash.deleted">
         <source>group.flash.deleted</source>
         <target>The group has been deleted.</target>
       </trans-unit>
-      <trans-unit id="accaadbea56cdf27b83766bc084ef60e" resname="security.login.username">
+      <trans-unit id="cMU.0rQ" resname="security.login.username">
         <source>security.login.username</source>
         <target>Username</target>
       </trans-unit>
-      <trans-unit id="3e6fda7a3e4805b55f02fb7d4732182e" resname="security.login.password">
+      <trans-unit id="N_kLMwm" resname="security.login.password">
         <source>security.login.password</source>
         <target>Password</target>
       </trans-unit>
-      <trans-unit id="7f118f11a96ed11aa0b91cbc414aff9e" resname="security.login.remember_me">
+      <trans-unit id="8DSptbg" resname="security.login.remember_me">
         <source>security.login.remember_me</source>
         <target>Remember me</target>
       </trans-unit>
-      <trans-unit id="eab2445b91e08139c983aed41704f73b" resname="security.login.submit">
+      <trans-unit id="tuAV77Z" resname="security.login.submit">
         <source>security.login.submit</source>
         <target>Sign in</target>
       </trans-unit>
-      <trans-unit id="d6f3e86ba7bd13321ce875c6cd892746" resname="profile.show.username">
+      <trans-unit id="7g9SaRk" resname="profile.show.username">
         <source>profile.show.username</source>
         <target>Username</target>
       </trans-unit>
-      <trans-unit id="90b02f0053ee65575333a2d14675cac8" resname="profile.show.email">
+      <trans-unit id="AaZaMf7" resname="profile.show.email">
         <source>profile.show.email</source>
         <target>Email</target>
       </trans-unit>
-      <trans-unit id="62dd5b80e69908635237bb1cac15470b" resname="profile.edit.submit">
+      <trans-unit id="ci5Tbzf" resname="profile.edit.submit">
         <source>profile.edit.submit</source>
         <target>Update</target>
       </trans-unit>
-      <trans-unit id="2584c165ac095f1dbc6f33d19c826beb" resname="profile.flash.updated">
+      <trans-unit id="C2lNaG." resname="profile.flash.updated">
         <source>profile.flash.updated</source>
         <target>The profile has been updated.</target>
       </trans-unit>
-      <trans-unit id="f7441d6fc3ca6f9e711033e201c9c272" resname="change_password.submit">
+      <trans-unit id="agwdlwc" resname="change_password.submit">
         <source>change_password.submit</source>
         <target>Change password</target>
       </trans-unit>
-      <trans-unit id="00e22c80f9a7803c6d81dd0ac12587cd" resname="change_password.flash.success">
+      <trans-unit id="SFo6Y3." resname="change_password.flash.success">
         <source>change_password.flash.success</source>
         <target>The password has been changed.</target>
       </trans-unit>
-      <trans-unit id="e9ade8c73d8a8ea7b6f53956dc36608b" resname="registration.check_email">
+      <trans-unit id=".ndupSK" resname="registration.check_email">
         <source>registration.check_email</source>
         <target>An email has been sent to %email%. It contains an activation link, you must click it to activate your account.</target>
       </trans-unit>
-      <trans-unit id="bb2651b3e78f1ff513c944f3209a3730" resname="registration.confirmed">
+      <trans-unit id="B.ZozIs" resname="registration.confirmed">
         <source>registration.confirmed</source>
         <target>Congrats %username%, your account is now activated.</target>
       </trans-unit>
-      <trans-unit id="fb66cf456ffdbe3e3d15d7ec70a48ba3" resname="registration.back">
+      <trans-unit id="_wd.d62" resname="registration.back">
         <source>registration.back</source>
         <target>Back to the originating page.</target>
       </trans-unit>
-      <trans-unit id="f71197a4e184b581df9cb4fc27955b79" resname="registration.submit">
+      <trans-unit id="hmX3IJA" resname="registration.submit">
         <source>registration.submit</source>
         <target>Sign me up</target>
       </trans-unit>
-      <trans-unit id="a64c430f42e93e9e77b7188837e25701" resname="registration.flash.user_created">
+      <trans-unit id="by9ThPc" resname="registration.flash.user_created">
         <source>registration.flash.user_created</source>
         <target>The user has been created successfully.</target>
       </trans-unit>
-      <trans-unit id="90997929bcfdafefc75086643afea54d" resname="registration.email.subject">
+      <trans-unit id="N.aTMve" resname="registration.email.subject">
         <source>registration.email.subject</source>
         <target>Welcome %username%!</target>
       </trans-unit>
-      <trans-unit id="9671dfcb489e04d7ece6c484bf2d92d9" resname="registration.email.message">
+      <trans-unit id="hN23SFM" resname="registration.email.message">
         <source>registration.email.message</source>
         <target>Hello %username%!
 
@@ -105,7 +105,7 @@ Regards,
 the samlidp team.
 </target>
       </trans-unit>
-      <trans-unit id="7781d3db711029b94329c0e79e4c2e88" resname="resetting.check_email">
+      <trans-unit id="_cY.wHP" resname="resetting.check_email">
         <source>resetting.check_email</source>
         <target>An email has been sent. It contains a link on which you must click to reset your password.
 Note: You can only request a new password within %tokenLifetime% hours.
@@ -113,27 +113,27 @@ Note: You can only request a new password within %tokenLifetime% hours.
 If you don't receive this email, please check your spam folder.
 </target>
       </trans-unit>
-      <trans-unit id="21e53e555f5b4785ecc485d7646e0b15" resname="resetting.request.username">
+      <trans-unit id="f5J.GZt" resname="resetting.request.username">
         <source>resetting.request.username</source>
         <target>Username or email address</target>
       </trans-unit>
-      <trans-unit id="ed196ca52af9245d737b4320c30a00c5" resname="resetting.request.submit">
+      <trans-unit id="55aST1i" resname="resetting.request.submit">
         <source>resetting.request.submit</source>
         <target>Reset password</target>
       </trans-unit>
-      <trans-unit id="3f39dd085ae5b618d806836a094b5e66" resname="resetting.reset.submit">
+      <trans-unit id="KsNOzZz" resname="resetting.reset.submit">
         <source>resetting.reset.submit</source>
         <target>Change password</target>
       </trans-unit>
-      <trans-unit id="464068cdc0d8696f8a1b398795f5b439" resname="resetting.flash.success">
+      <trans-unit id="TUD.2.O" resname="resetting.flash.success">
         <source>resetting.flash.success</source>
         <target>The password has been reset successfully.</target>
       </trans-unit>
-      <trans-unit id="24ef36794ef0bffa786074f748d57525" resname="resetting.email.subject">
+      <trans-unit id="Redv4tu" resname="resetting.email.subject">
         <source>resetting.email.subject</source>
         <target>Reset Password</target>
       </trans-unit>
-      <trans-unit id="f96be8411b3b48e5a82ee13dd33afeb4" resname="resetting.email.message">
+      <trans-unit id="Lm8o8Qg" resname="resetting.email.message">
         <source>resetting.email.message</source>
         <target>Hello %username%!
 
@@ -143,80 +143,88 @@ Regards,
 the samlidp team.
 </target>
       </trans-unit>
-      <trans-unit id="8cb8613420d290c215803d3d560b33b6" resname="layout.logout">
+      <trans-unit id="7oF7jXj" resname="layout.logout">
         <source>layout.logout</source>
         <target>Sign out</target>
       </trans-unit>
-      <trans-unit id="af6ea03982f84cbc9acb9e0784f674fc" resname="layout.login">
+      <trans-unit id="J.8npBV" resname="layout.login">
         <source>layout.login</source>
         <target>Log in</target>
       </trans-unit>
-      <trans-unit id="c5f381db6e7b9180a6280cbc3530f925" resname="layout.register">
+      <trans-unit id="sLu8MAv" resname="layout.register">
         <source>layout.register</source>
         <target>Sign up</target>
       </trans-unit>
-      <trans-unit id="e07858f7111314133c6d9630eba3b27f" resname="layout.logged_in_as">
+      <trans-unit id="BW_lWYD" resname="layout.logged_in_as">
         <source>layout.logged_in_as</source>
         <target>Signed in as %username%</target>
       </trans-unit>
-      <trans-unit id="3d32bf72fdab607aa220f2d5dcced9b8" resname="form.group_name">
+      <trans-unit id="v1EdMjG" resname="form.group_name">
         <source>form.group_name</source>
         <target>Group name</target>
       </trans-unit>
-      <trans-unit id="9dbb4e93be23acd47c214cd7e1030121" resname="form.username">
+      <trans-unit id="B0VCgO_" resname="form.username">
         <source>form.username</source>
         <target>Username</target>
       </trans-unit>
-      <trans-unit id="01b234fe1a185c3a9f3804f284fcc8e2" resname="form.email">
+      <trans-unit id="3IGOm9D" resname="form.email">
         <source>form.email</source>
         <target>Email</target>
       </trans-unit>
-      <trans-unit id="f6f737b1db5cf079d0ff35fc261539ef" resname="form.current_password">
+      <trans-unit id="IY9XZs0" resname="form.current_password">
         <source>form.current_password</source>
         <target>Current password</target>
       </trans-unit>
-      <trans-unit id="5351aae16cf99cb2a1cd701770608927" resname="form.password">
+      <trans-unit id="yjqmSBK" resname="form.password">
         <source>form.password</source>
         <target>Password</target>
       </trans-unit>
-      <trans-unit id="dd602f68a209e7ad43d255223c273229" resname="form.password_confirmation">
+      <trans-unit id="Y4Q7qvl" resname="form.password_confirmation">
         <source>form.password_confirmation</source>
         <target>Repeat password</target>
       </trans-unit>
-      <trans-unit id="2242b37196fff5023552376fbb3c62ff" resname="form.new_password">
+      <trans-unit id="JTbuLK0" resname="form.new_password">
         <source>form.new_password</source>
         <target>New password</target>
       </trans-unit>
-      <trans-unit id="f0f733a6b67cc3a9a32c9c633ecf1775" resname="form.new_password_confirmation">
+      <trans-unit id="hdTL88S" resname="form.new_password_confirmation">
         <source>form.new_password_confirmation</source>
         <target>Repeat new password</target>
       </trans-unit>
-      <trans-unit id="8458bad978f4fd6d6c7f8ec2ec0824b4" resname="Forgot password?">
+      <trans-unit id="MMHY0_k" resname="Forgot password?">
         <source>Forgot password?</source>
         <target>__Forgot password?</target>
       </trans-unit>
-      <trans-unit id="7f7a764180e3b23e4892de1f10c45de9" resname="resetting.request.invalid_idp">
+      <trans-unit id="3B3ZEh2" resname="resetting.request.invalid_idp">
         <source>resetting.request.invalid_idp</source>
         <target>IdP %idp% not found</target>
       </trans-unit>
-      <trans-unit id="d4b3f2f6064d2d5ea3a55e8cff298191" resname="resetting.request.invalid_username">
+      <trans-unit id="o83gKqa" resname="resetting.request.invalid_username">
         <source>resetting.request.invalid_username</source>
         <target>Username or email address not found</target>
       </trans-unit>
-      <trans-unit id="fd497ccbdc3522dda6db6b97e361c0c2" resname="resetting.request.mail_sent">
+      <trans-unit id="5bRvwX8" resname="resetting.request.mail_sent">
         <source>resetting.request.mail_sent</source>
         <target>Mail is sent.</target>
       </trans-unit>
-      <trans-unit id="0e59e9dec01f4757be7f8100052698c7" resname="resetting.request.title">
+      <trans-unit id="JxUaezc" resname="resetting.request.title">
         <source>resetting.request.title</source>
         <target>Reset your password</target>
       </trans-unit>
-      <trans-unit id="9696f622b129876f269b8048ea11371d" resname="resetting.request.for_idp">
+      <trans-unit id="D_FkK7J" resname="resetting.request.for_idp">
         <source>resetting.request.for_idp</source>
         <target><![CDATA[
         for idp: <strong>%idp%</strong>
         ]]></target>
       </trans-unit>
+        <trans-unit id="form.givenname.label" resname="form.givenname.label">
+            <source>form.givenname.label</source>
+            <target>First name</target>
+        </trans-unit>
+        <trans-unit id="form.sn.label" resname="form.sn.label">
+            <source>form.sn.label</source>
+            <target>Last name</target>
+        </trans-unit>
     </body>
   </file>
 </xliff>

@@ -25,7 +25,7 @@ class IdPEditType extends AbstractType
                 TextType::class,
                 array(
                     'mapped' => false,
-                    'label' => 'Organization name',
+                    'label' => 'idp.edit.instituteName.label',
                     'attr' => array(
                         'class' => 'input-sm'
                     ),
@@ -37,7 +37,7 @@ class IdPEditType extends AbstractType
                 UrlType::class,
                 array(
                     'mapped' => false,
-                    'label' => 'Organization URL',
+                    'label' => 'idp.edit.instituteUrl.label',
                     'attr' => array(
                         'class' => 'input-sm'
                     ),
@@ -53,7 +53,8 @@ class IdPEditType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\IdP'
+            'data_class' => 'AppBundle\Entity\IdP',
+            'translation_domain' => 'idp',
         ));
     }
 }
