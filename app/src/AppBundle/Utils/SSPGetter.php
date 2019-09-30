@@ -181,15 +181,20 @@ class SSPGetter
 
     public function getUserSalt($username)
     {
-        # now it handles only if username is email, but not if it comes without @scope
-        // $idpUser = $this->em->getRepository('AppBundle:IdPUser')->findOneByEmail($username);
+        $idp = $this->em->getRepository('AppBundle:IdP')->findOneByHostname(str_replace('.' . $this->samlidp_hostname, '', $_SERVER['HTTP_HOST']));
+        if (!$idp) {
+            throw new EntityNotFoundException('No IdP found in the database.');
+        }
+
         if (preg_match('/@/', $username)) {
             $idpUser = $this->em->getRepository('AppBundle:IdPUser')->findOneByEmail($username);
         } else {
-            $idpUser = $this->em->getRepository('AppBundle:IdPUser')->findOneByUsername($username);
-        }    
+            $idpUser = $this->em->getRepository('AppBundle:IdPUser')->findOneBy(
+                array('username' => $username, 'IdP' => $idp)
+            );
+        }
         # for production use here could come some error handling
-        return $idpUser->getSalt();      
+        return $idpUser->getSalt();
     }
 
     public function getAuthsources()

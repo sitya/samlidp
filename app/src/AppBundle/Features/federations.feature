@@ -38,8 +38,8 @@ Feature: Admin the fedetarions
     And I fill in the following:
       | Name           | test                         |
       | Slug           | test                         |
-      | Federation url | http://test.org              |
-      | Metadata url   | http://test.org/metadata.xml |
+      | Federation URL | http://test.org              |
+      | Metadata URL   | http://test.org/metadata.xml |
       | Contact name   | test                         |
       | Contact email  | test@test.org                |
     And I press "Create"
