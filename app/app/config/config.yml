@@ -46,16 +46,21 @@ twig:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   "%env(DATABASE_DRIVER)%"
-        server_version: "%env(DATABASE_VERSION)%"
-        host:     '%env(DATABASE_HOST)%'
-        port:     '%env(DATABASE_PORT)%'
-        dbname:   '%env(DATABASE_NAME)%'
-        user:     '%env(DATABASE_USER)%'
-        password: '%env(DATABASE_PASSWORD)%'
-        charset:  UTF8
-        mapping_types:
-            enum: string
+#        driver:   "%env(DATABASE_DRIVER)%"
+#        server_version: "%env(DATABASE_VERSION)%"
+#        host:     '%env(DATABASE_HOST)%'
+#        port:     '%env(DATABASE_PORT)%'
+#        dbname:   '%env(DATABASE_NAME)%'
+#        user:     '%env(DATABASE_USER)%'
+#        password: '%env(DATABASE_PASSWORD)%'
+#        charset:  UTF8
+#        mapping_types:
+#            enum: string
+        driver: pdo_sqlite
+        user: ''
+        password: ''
+        path: /data/samlidp.sqlite
+
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"

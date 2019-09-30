@@ -1,9 +1,11 @@
 #!/bin/bash
 
 sed -i -e "s/REMOTE_LOGSERVER_AND_PORT/@@$REMOTE_LOGSERVER_AND_PORT/" /etc/rsyslog.conf && \
-/app/bin/console d:s:u -f && \
-/app/bin/console samli:createDomainOne && \
-/rsyslog-start.sh
+    /app/bin/console doctrine:schema:update -f && \
+    /app/bin/console cache:clear && \
+    /app/bin/console samli:createDomainOne && \
+    /rsyslog-start.sh
+    #/app/bin/console doctrine:schema:update -f && \
 
 if [ ! -z "$SAMLIDP_RUNNING_MODE" ]; then
   if [ "$SAMLIDP_RUNNING_MODE" = "frontend" ]; then

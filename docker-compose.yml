@@ -1,33 +1,51 @@
-version: "2"
+version: "3"
+
+networks:
+  samlidp:
+
 
 services:
   samli:
-    image: "https://yourregistry.com:samli/nren"
+    image: "samli/nren"
     ports:
       - "80:80"
       - "443:443"
+    networks:
+      - samlidp
     volumes:
-      - /path/to/idp_logo:/app/web/images/idp_logo
+      #- /path/to/idp_logo:/app/web/images/idp_logo
+      # - /samlidp.sqlite:/samlidp.sqlite
+      - /samlidp-data:/data
+      - /samlidp-data/config:/app/app/config/
     restart: unless-stopped
     environment:
       - "SAMLIDP_RUNNING_MODE=frontend"
-      - "SAMLIDP_HOSTNAME=example.eduid.africa"
-      - "VAULT_PASS=secret"
-      - "DATABASE_HOST=db.example.net"
-      - "DATABASE_PORT=5432"
-      - "DATABASE_DRIVER=pdo_pgsql"
-      - "DATABASE_VERSION=10"
-      - "DATABASE_NAME=symfony"
-      - "DATABASE_USER=symfony"
-      - "DATABASE_PASSWORD=secret"
-      - "MAILER_HOST=127.0.0.1"
-      - "MAILER_PORT=25"
-      - "MAILER_ENCRYPTION=ssl"
-      - "MAILER_USER=user"
-      - "MAILER_PASSWORD=password"
-      - "MAILER_SENDER=noreply@example.org"
+      - "SAMLIDP_HOSTNAME=localidp"
+      - "VAULT_PASS=pass"
+      - "DATABASE_DRIVER=pdo_sqlite"
+      #- "DATABASE_USER=symfony"
+      #- "DATABASE_PASSWORD=secret"
+      - "DATABASE_PATH=%kernel.project_dir%/../app/sqlite.db"
+      - "MAILER_HOST=smtp"
+      - "MAILER_PORT=1025"
+      #- "MAILER_PORT=1025"
+      #- "MAILER_ENCRYPTION=~"
+      - "MAILER_USER="
+      - "MAILER_PASSWORD="
+      - "MAILER_SENDER=tothp@sztaki.hu"
       - "ROLLBAR_ACCESS_TOKEN=fake"
       - "LOGGLY_AUTH_TOKEN=fake"
       - "LOGGLY_TAG=samli-ssp"
       - "REMOTE_LOGSERVER_AND_PORT=host_or_ip:port"
+    depends_on:
+      - smtp
 
+  smtp:
+    image: mailhog/mailhog:latest
+    ports:
+      - "127.0.0.1:8025:8025"
+      - "1025:1025"
+    networks:
+      - samlidp
+#        aliases:
+#          - smtp

@@ -1,6 +1,6 @@
 FROM richarvey/nginx-php-fpm:1.7.1
 
-RUN apk update && apk add openssl rsyslog rsyslog-tls php7-pdo_pgsql postgresql-dev  && rm -rf /var/cache/apk/*
+RUN apk update && apk add openssl rsyslog rsyslog-tls php7-pdo_pgsql postgresql-dev && rm -rf /var/cache/apk/*
 
 ADD conf/credentials/wildcard_certificate.crt conf/credentials/wildcard_certificate.key.enc /etc/pki/
 ADD app/composer.json /app/
@@ -39,5 +39,7 @@ ADD conf/backend-crontab /var/spool/cron/crontabs/root
 
 RUN echo "error_reporting = E_ALL & ~E_NOTICE & ~E_WARNING" >> /usr/local/etc/php-fpm.conf
 RUN echo "error_reporting = E_ALL & ~E_NOTICE & ~E_WARNING" >> /usr/local/etc/php/conf.d/php.ini
+
+WORKDIR /app
 
 CMD ["/samlidp-start.sh"]

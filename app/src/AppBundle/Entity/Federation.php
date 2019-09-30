@@ -91,9 +91,12 @@ class Federation
 
     /**
      * @ORM\ManyToMany(targetEntity="IdP",inversedBy="federationsContaining")
-     * @ORM\JoinTable(name="federation_containing_idp")
+     * @ORM\JoinTable(name="federation_containing_idp",
+     *      joinColumns={@ORM\JoinColumn(name="federation_id", referencedColumnName="id")},
+     *       inverseJoinColumns={@ORM\JoinColumn(name="idp_id", referencedColumnName="id")}
+     * )
      */
-    private $idpsContained;
+    protected $idpsContained;
 
     /**
      * Constructor
@@ -449,3 +452,5 @@ class Federation
         return $this->lastChecked;
     }
 }
+
+// TODO: getter, setter,

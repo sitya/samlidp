@@ -120,9 +120,12 @@ class IdP
 
     /*
      * Federations whose metadata contains this IdP
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection $federationsContaining
+     *
      * @ORM\ManyToMany(targetEntity="Federation", mappedBy="idpsContained")
      */
-    private $federationsContaining;
+    protected $federationsContaining;
 
     /**
      * Constructor.
@@ -794,3 +797,5 @@ class IdP
         return $count;
     }
 }
+
+// getter, setter

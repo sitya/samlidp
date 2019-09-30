@@ -27,7 +27,7 @@ class ParseFederationsCommand extends ContainerAwareCommand
 
         foreach ($federations as $federation) {
             $modified = $notmodified = $failed = 0;
-            if ($federation->getLastChecked()->diff(new \DateTime())->days > 1) {
+            if ($federation->getLastChecked()->diff(new \DateTime())->days > -100) {
                 $federation->setLastChecked(new \DateTime());
 
                 // will be populated again based on the metadata
@@ -43,6 +43,8 @@ class ParseFederationsCommand extends ContainerAwareCommand
                     } catch (Exception $e) {
                         // TODO: error handling
                     }
+
+                    $output->writeln("\n\tMetadata URL: " .$federation->getMetadataurl());
 
                     $doc = \SAML2\DOMDocumentFactory::fromString($xmlData);
                     $entities = \SimpleSAML\Metadata\SAMLParser::parseDescriptorsElement($doc->documentElement);
@@ -62,6 +64,7 @@ class ParseFederationsCommand extends ContainerAwareCommand
                     $progress->start();
 
                     foreach ($entities as $entity) {
+                        $output->writeln("\n\t\tEntityId: " . $entity->getEntityId());
                         $m = $entity->getMetadata20SP();
                         if ($m != 0) {
                             $sp = $em->getRepository('AppBundle:Entity')->findOneByEntityid($entity->getEntityId());
@@ -100,25 +103,37 @@ class ParseFederationsCommand extends ContainerAwareCommand
                                     . preg_quote('/saml2/idp/metadata.php', '/')
                                     . '/';
 
+                            $output->writeln("\n\t\tpattern: " . $pattern);
                             $match_ok = preg_match(
                                 $pattern,
                                 $entity->getEntityId(),
                                 $matches
                             );
                             if ($match_ok === 1) {
+                                $output->writeln('server:' . $_SERVER['SAMLIDP_HOSTNAME']);
+                                $output->writeln('matches:' . print_r($matches, TRUE));
 
                                 $samlidp_hostname = $_SERVER['SAMLIDP_HOSTNAME'];
 
                                 if ($matches[2] === $samlidp_hostname) {
+                                    $output->writeln("\n\t\tMATCH, adding: ");
                                     $idp = $em->getRepository('AppBundle:IdP')->findOneByHostname($matches[1]);
+                                    #$output->writeln('matches:' . print_r($idp, TRUE));
 
-                                    //$idp->addFederationContaining($federation);
+                                    $output->writeln('before:' . gettype($idp->getFederationsContaining()));
+                                    $output->writeln('before:' . print_r($idp->getFederationsContaining(), TRUE));
+                                    #$idp->addFederationContaining($federation);
                                     $federation->addIdpContained($idp);
+                                    $output->writeln('before:' . gettype($idp->getFederationsContaining()));
+                                    //$output->writeln('before:' . print_r($idp->getFederationsContaining(), TRUE));
 
                                     $em->persist($idp);
                                     $em->flush($idp);
                                     $em->persist($federation);
                                     $em->flush($federation);
+                                    #$output->writeln('before:' . count($idp->getFederationsContaining()));
+                                    #$output->writeln('after:' . count($idp->getFederationsContaining()));
+                                    #$output->writeln('after:' . count($idp->getFederationsContaining()));
                                 }
                             }
                         }
