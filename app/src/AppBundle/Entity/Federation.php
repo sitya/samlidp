@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -450,6 +452,24 @@ class Federation
             return new \DateTime("-2 days");
         }
         return $this->lastChecked;
+    }
+
+    public function addIdpsContained(IdP $idpsContained): self
+    {
+        if (!$this->idpsContained->contains($idpsContained)) {
+            $this->idpsContained[] = $idpsContained;
+        }
+
+        return $this;
+    }
+
+    public function removeIdpsContained(IdP $idpsContained): self
+    {
+        if ($this->idpsContained->contains($idpsContained)) {
+            $this->idpsContained->removeElement($idpsContained);
+        }
+
+        return $this;
     }
 }
 

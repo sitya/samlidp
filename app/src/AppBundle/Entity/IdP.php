@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -140,6 +142,7 @@ class IdP
         $this->federations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->federationsContaining = new \Doctrine\Common\Collections\ArrayCollection();
         $this->entities = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->IdPUsers = new ArrayCollection();
     }
 
     public function __toString()
