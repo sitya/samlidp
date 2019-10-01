@@ -116,6 +116,7 @@ class IdP
 
     /**
      * Metadata from these federations will be loaded.
+     *
      * @ORM\ManyToMany(targetEntity="Federation", mappedBy="idps")
      */
     private $federations;
@@ -126,6 +127,10 @@ class IdP
      * @var \Doctrine\Common\Collections\ArrayCollection $federationsContaining
      *
      * @ORM\ManyToMany(targetEntity="Federation", mappedBy="idpsContained")
+     * @ORM\JoinTable(name="federation_containing_idp",
+     *      joinColumns={@ORM\JoinColumn(name="idp_id", referencedColumnName="id")},
+     *       inverseJoinColumns={@ORM\JoinColumn(name="federation_id", referencedColumnName="id")}
+     *       )
      */
     protected $federationsContaining;
 
