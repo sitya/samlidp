@@ -57,7 +57,8 @@
         "league/flysystem-aws-s3-v3": "^1.0",
         "hanfrey/sparkpost-bundle": "dev-master",
         "symfony/web-server-bundle": "^3.4",
-        "simplesamlphp/saml2": "3.3.11"
+        "simplesamlphp/saml2": "3.3.11",
+        "symfony/maker-bundle": "^1.13"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

@@ -126,11 +126,7 @@ class IdP
      *
      * @var \Doctrine\Common\Collections\ArrayCollection $federationsContaining
      *
-     * @ORM\ManyToMany(targetEntity="Federation", mappedBy="idpsContained")
-     * @ORM\JoinTable(name="federation_containing_idp",
-     *      joinColumns={@ORM\JoinColumn(name="idp_id", referencedColumnName="id")},
-     *       inverseJoinColumns={@ORM\JoinColumn(name="federation_id", referencedColumnName="id")}
-     *       )
+     * @ORM\ManyToMany(targetEntity="Federation", mappedBy="idpsContained", fetch="EAGER")
      */
     protected $federationsContaining;
 
@@ -804,6 +800,26 @@ class IdP
         }
         return $count;
     }
+
+
+    public function addFederationsContaining(IdP $federationsContaining): self
+    {
+        if (!$this->federationsContaining->contains($federationsContaining)) {
+            $this->federationsContaining[] = $federationsContaining;
+        }
+
+        return $this;
+    }
+
+    public function removeFederationsContaining(IdP $federationsContaining): self
+    {
+        if ($this->federationsContaining->contains($federationsContaining)) {
+            $this->federationsContaining->removeElement($federationsContaining);
+        }
+
+        return $this;
+    }
+
 }
 
 // getter, setter

@@ -92,11 +92,11 @@ class Federation
     private $idps;
 
     /**
-     * @ORM\ManyToMany(targetEntity="IdP",inversedBy="federationsContaining")
+     * @ORM\ManyToMany(targetEntity="IdP", inversedBy="federationsContaining", fetch="EAGER")
      * @ORM\JoinTable(name="federation_containing_idp",
      *      joinColumns={@ORM\JoinColumn(name="federation_id", referencedColumnName="id")},
-     *       inverseJoinColumns={@ORM\JoinColumn(name="idp_id", referencedColumnName="id")}
-     * )
+     *      inverseJoinColumns={@ORM\JoinColumn(name="idp_id", referencedColumnName="id")}
+     *      )
      */
     protected $idpsContained;
 

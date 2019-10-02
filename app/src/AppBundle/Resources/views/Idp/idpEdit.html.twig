@@ -204,6 +204,7 @@
                                     <input type="checkbox" {% if idp in fed.idps %}checked{% endif %} class="onoffswitch-checkbox fedlistswitch" id="{{ fed.slug }}">
                                     <label class="onoffswitch-label" for="{{ fed.slug }}"><span class="onoffswitch-inner"></span><span class="onoffswitch-switch"></span></label>
                                 </div></div>
+                                {{ idp.federationsContaining is null }}
                                 {% if fed in idp.federationsContaining %}
                                     <span class="label label-primary">
                                         <i class="fa fa-check-circle"></i>
@@ -215,6 +216,7 @@
                                         Not in federation
                                     </span>
                                 {% endif %}
+                                {{ fed.idpsContained is null }}
                                 {% if idp in fed.idpsContained %}
                                     <span class="label label-primary">
                                         <i class="fa fa-check-circle"></i>
