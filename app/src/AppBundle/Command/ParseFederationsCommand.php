@@ -29,6 +29,10 @@ class ParseFederationsCommand extends ContainerAwareCommand
             $modified = $notmodified = $failed = 0;
             if ($federation->getLastChecked()->diff(new \DateTime())->days > 1) {
                 $federation->setLastChecked(new \DateTime());
+
+                // will be populated again based on the metadata
+                $federation->clearIdpsContained();
+
                 $em->persist($federation);
                 $em->flush($federation);
                 $output->writeln("\n<info> * ".$federation->getName().' -- downloading metadata from '.$federation->getMetadataurl().'</info>');
@@ -46,7 +50,7 @@ class ParseFederationsCommand extends ContainerAwareCommand
                     foreach ($entities as $key => $entity) {
                         $ifSp = $entity->getMetadata20SP();
                         if ($ifSp == 0) {
-                            unset($entities[$key]);
+                            #unset($entities[$key]);
                         }
                     }
 
@@ -59,7 +63,7 @@ class ParseFederationsCommand extends ContainerAwareCommand
 
                     foreach ($entities as $entity) {
                         $m = $entity->getMetadata20SP();
-                        if (count($m) > 0) {
+                        if ($m != 0) {
                             $sp = $em->getRepository('AppBundle:Entity')->findOneByEntityid($entity->getEntityId());
                             unset($m['entityDescriptor']);
                             unset($m['expire']);
@@ -82,7 +86,44 @@ class ParseFederationsCommand extends ContainerAwareCommand
                             }
                             $progress->advance();
                         }
+
+                        $m = $entity->getMetadata20IdP();
+                        if ($m !== null && count($m) > 0) {
+                            // check if IdP is inside this samlidp instance
+                            //$sp = $em->getRepository('AppBundle:Entity')->findOneByEntityid($entity->getEntityId());
+                            //
+                            $pattern = '/'
+                                    . preg_quote('https://', '/')
+                                    . '([[:alnum:]\-]+)'
+                                    . preg_quote('.')
+                                    . '(.+)'
+                                    . preg_quote('/saml2/idp/metadata.php', '/')
+                                    . '/';
+
+                            $match_ok = preg_match(
+                                $pattern,
+                                $entity->getEntityId(),
+                                $matches
+                            );
+                            if ($match_ok === 1) {
+
+                                $samlidp_hostname = $_SERVER['SAMLIDP_HOSTNAME'];
+
+                                if ($matches[2] === $samlidp_hostname) {
+                                    $idp = $em->getRepository('AppBundle:IdP')->findOneByHostname($matches[1]);
+
+                                    //$idp->addFederationContaining($federation);
+                                    $federation->addIdpContained($idp);
+
+                                    $em->persist($idp);
+                                    $em->flush($idp);
+                                    $em->persist($federation);
+                                    $em->flush($federation);
+                                }
+                            }
+                        }
                     }
+                    $em->flush();
                     $progress->finish();
                     $output->writeln("\n\t<comment>added or changed: ".$modified."</comment>\n\t<info>updated, but not changed: ".$notmodified."</info>");
                 }

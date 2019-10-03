@@ -90,12 +90,19 @@ class Federation
     private $idps;
 
     /**
+     * @ORM\ManyToMany(targetEntity="IdP",inversedBy="federationsContaining")
+     * @ORM\JoinTable(name="federation_containing_idp")
+     */
+    private $idpsContained;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->entities = new \Doctrine\Common\Collections\ArrayCollection();
         $this->idps = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->idpsContained = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function __toString()
@@ -347,6 +354,48 @@ class Federation
     public function getIdps()
     {
         return $this->idps;
+    }
+
+    /**
+     * Add idpContained
+     *
+     * @param \AppBundle\Entity\IdP $idpContained
+     *
+     * @return Federation
+     */
+    public function addIdpContained(\AppBundle\Entity\IdP $idpContained)
+    {
+        $this->idpsContained[] = $idpContained;
+
+        return $this;
+    }
+
+    /**
+     * Remove idpContained
+     *
+     * @param \AppBundle\Entity\IdP $idpContained
+     */
+    public function removeIdpContained(\AppBundle\Entity\IdP $idpContained)
+    {
+        $this->idpsContained->removeElement($idpContained);
+    }
+
+    /**
+     * Get idpsContained
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdpsContained()
+    {
+        return $this->idpsContained;
+    }
+
+    /**
+     * Clear idpsContained
+     */
+    public function clearIdpsContained()
+    {
+        $this->idpsContained->clear();
     }
 
     /**
