@@ -24,7 +24,8 @@ class IdPEditType extends AbstractType
                 CollectionType::class, [
                     'label' => 'idp.edit.organizationNames.label',
                     'entry_type' => OrganizationNameType::class,
-                    'entry_options' => ['label' => 'idp.edit.instituteName.label'],
+                    'entry_options' => ['label' => false],
+//                    'entry_options' => ['label' => 'idp.edit.instituteName.label'],
                     'required' => true,
                     'mapped' => false,
                     'allow_add' => true,
@@ -34,7 +35,8 @@ class IdPEditType extends AbstractType
                 CollectionType::class, [
                     'label' => 'idp.edit.organizationInformationURLs.label',
                     'entry_type' => OrganizationInformationURLType::class,
-                    'entry_options' => ['label' => 'idp.edit.instituteUrl.label'],
+                    'entry_options' => ['label' => false],
+                    // 'entry_options' => ['label' => 'idp.edit.instituteUrl.label'],
                     'required' => true,
                     'mapped' => false,
                     'allow_add' => true,

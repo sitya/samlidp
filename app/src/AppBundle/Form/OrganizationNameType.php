@@ -22,9 +22,11 @@ class OrganizationNameType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('lang', LanguageType::class)
+            ->add('lang', LanguageType::class, [
+                'label' => 'language.label',
+            ])
             ->add('value', TextType::class, [
-                'label' => 'institute.name'
+                'label' => 'institute.name.label',
             ])
             ->add('type', HiddenType::class, [
                 'data' => 'Name',

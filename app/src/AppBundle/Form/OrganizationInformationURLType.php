@@ -22,8 +22,12 @@ class OrganizationInformationURLType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('lang', LanguageType::class)
-            ->add('value', UrlType::class)
+            ->add('lang', LanguageType::class, [
+                'label' => 'language.label',
+            ])
+            ->add('value', UrlType::class, [
+                'label' => 'institute.url.label',
+            ])
             ->add('type', HiddenType::class, [
                 'data' => 'InformationURL',
             ])

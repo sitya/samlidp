@@ -131,6 +131,11 @@ class IdpController extends AppController
             throw $this->createAccessDeniedException();
         }
 
+        $create = false;
+        if (empty($idp->getInstituteName())) {
+            $create = true;
+        }
+
         // check and refresh uploaded logo to local webdir
         $logo_filename = $idp->getLogo();
         $logo_path = $this->get('kernel')->getRootDir().'/../web/images/idp_logo/';
@@ -223,9 +228,9 @@ class IdpController extends AppController
                 $em->flush();
 
                 $message = $this->trans('edit.idp_updated_successful');
-//            if ($create) {
-//                $message = $this->trans('edit.create_step_second_success');
-//            }
+                if ($create) {
+                    $message = $this->trans('edit.create_step_second_success');
+                }
                 $this->get('session')->getFlashBag()->add('success', $message);
 
                 return $this->redirect($this->generateUrl('app_idp_idpedit', array('id' => $idp->getId())).'#domaindiv');
@@ -1158,7 +1163,7 @@ class IdpController extends AppController
             }
             $currentLang = $organizationElement->getLang();
             if (in_array($currentLang, $langs) && $form->isSubmitted()) {
-                $form->get('organizationInformationURLs')->addError(new FormError('edit.validate.organizationInformationURLs.notUniqueLang'));
+                $form->get('organizationInformationURLs')->addError(new FormError($this->trans('edit.validate.organizationInformationURLs.notUniqueLang')));
             }
             $langs[] = $currentLang;
         }
