@@ -20,30 +20,26 @@ class IdPEditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'instituteName',
-                TextType::class,
-                array(
+            ->add('organizationNames',
+                CollectionType::class, [
+                    'label' => 'idp.edit.organizationNames.label',
+                    'entry_type' => OrganizationNameType::class,
+                    'entry_options' => ['label' => 'idp.edit.instituteName.label'],
+                    'required' => true,
                     'mapped' => false,
-                    'label' => 'idp.edit.instituteName.label',
-                    'attr' => array(
-                        'class' => 'input-sm'
-                    ),
-                    'required' => true
-                )
-            )
-            ->add(
-                'instituteUrl',
-                UrlType::class,
-                array(
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                ])
+            ->add('organizationInformationURLs',
+                CollectionType::class, [
+                    'label' => 'idp.edit.organizationInformationURLs.label',
+                    'entry_type' => OrganizationInformationURLType::class,
+                    'entry_options' => ['label' => 'idp.edit.instituteUrl.label'],
+                    'required' => true,
                     'mapped' => false,
-                    'label' => 'idp.edit.instituteUrl.label',
-                    'attr' => array(
-                        'class' => 'input-sm'
-                    ),
-                    'required' => true
-                )
-            )
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                ])
         ;
     }
 

@@ -93,7 +93,7 @@ class IdP
     private $idpAudits;
 
     /**
-     * @ORM\OneToMany(targetEntity="OrganizationElement", mappedBy="idp",cascade={"remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="OrganizationElement", mappedBy="idp",cascade={"remove", "persist"}, orphanRemoval=true)
      */
     private $organizationElements;
 
@@ -396,6 +396,30 @@ class IdP
                 return $elem->getValue();
             }
         }
+    }
+
+    public function hasRequiredInstituteName()
+    {
+        /** @var OrganizationElement $elem */
+        foreach ($this->getOrganizationElements() as $elem) {
+            if ($elem->getType() == 'Name' && $elem->getLang() == 'en') {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function hasRequiredInstituteUrl()
+    {
+        /** @var OrganizationElement $elem */
+        foreach ($this->getOrganizationElements() as $elem) {
+            if ($elem->getType() == 'InformationURL' && $elem->getLang() == 'en') {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function getInstituteUrl()
