@@ -1,0 +1,49 @@
+{% extends "@FOSUser/layout.html.twig" %}
+{% block fos_user_content %}
+    {% trans_default_domain 'twofactor' %}
+
+    <h1 class="m-b-lg">{{ 'index.header'|trans }}</h1>
+
+
+    <div class="col-sm-6 b-r p-w-lg">
+        <h2>{{ 'index.webauthn_header'|trans }}</h2>
+        {% if fido_tokens|length %}
+            {{ 'index.webauthn_enabled'|trans }}
+            <div class="form-group">
+                <a href="{{ path('app_webauthn_delete') }}" class="btn btn-danger pull-right">{{ 'index.delete'|trans }}</a>
+            </div>
+        {% else %}
+        <div class="form-group">
+            <a href="{{ path("app_webauthn_register") }}" class="btn btn-primary pull-right">{{ 'index.register'|trans }}</a>
+        </div>
+        {% endif %}
+    </div>
+    <div class="col-sm-6 p-w-lg">
+        <h2>{{ 'index.totp_header'|trans }}</h2>
+
+        {% if app.user.isTotpAuthenticationEnabled %}
+            {{ 'index.totp_enabled'|trans }}
+            <div class="form-group">
+                <a href="{{ path('app_totp_delete') }}" class="btn btn-danger pull-right">{{ 'index.delete'|trans }}</a>
+            </div>
+        {% else %}
+        <div class="form-group">
+            <a href="{{ path('app_totp_register') }}" class="btn btn-primary pull-right">{{ 'index.register'|trans }}</a>
+        </div>
+        {% endif %}
+
+    </div>
+
+
+    {% if error is defined and error %}
+        <div class="alert alert-danger alert-dismissible">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
+
+    <div class="clearfix"></div>
+
+{% endblock %}

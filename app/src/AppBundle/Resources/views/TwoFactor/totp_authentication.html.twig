@@ -1,0 +1,58 @@
+{% extends "@FOSUser/layout.html.twig" %}
+{% block fos_user_content %}
+    {% trans_default_domain 'twofactor' %}
+
+    <h1>{{ 'totp.authentication.header'|trans }}</h1>
+    <div class="col-sm-6 b-r p-w-lg">
+        <form class="form-horizontal" action="{{ path("2fa_login_check") }}" method="post">
+
+            {% if isCsrfProtectionEnabled %}
+                <input type="hidden" name="{{ csrfParameterName }}" value="{{ csrf_token(csrfTokenId) }}">
+            {% endif %}
+
+            <form role="form">
+                <div class="form-group {% if authenticationError %}has-error{% endif %}">
+                    <label>{{ "auth_code"|trans({}, 'SchebTwoFactorBundle') }} {{ twoFactorProvider }}</label>
+                    <input class="form-control" required="required"
+                           id="_auth_code" type="text" autocomplete="off"
+                           name="{{ authCodeParameterName }}"/>
+                    {% if authenticationError %}
+                        <span class="has-error">{{ authenticationError|trans(authenticationErrorData, 'SchebTwoFactorBundle') }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <input class="btn btn-primary btn pull-right" type="submit"
+                           value="{{ "login"|trans({}, 'SchebTwoFactorBundle') }}"/>
+
+                    {% if displayTrustedOption %}
+                        <label for="_trusted">
+                            <input class="p-w-xs" id="_trusted" type="checkbox"
+                                   name="{{ trustedParameterName }}"/> {{ "trusted"|trans({}, 'SchebTwoFactorBundle') }}
+                        </label>
+                    {% endif %}
+
+
+                </div>
+            </form>
+        </form>
+    </div>
+    {# Let the user select the authentication method #}
+    <div class="col-sm-6 p-w-sm"><h3>{{ "choose_provider"|trans({}, 'SchebTwoFactorBundle') }}</h3>
+        <ul class="list-unstyled">
+            {% for provider in availableTwoFactorProviders %}
+                <li>
+                    <a href="{{ path("2fa_login", {"preferProvider": provider}) }}">{{ provider }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <hr>
+    <div class="text-center b-t p-sm col-md-12 m-t-lg" style="border-top: 1px solid #aaa">
+        {# The logout link gives the user a way out if they can't complete two-factor authentication #}
+        <a href="{{ logoutPath }}"
+           class="btn btn-outline btn-default pull-left">{{ "cancel"|trans({}, 'SchebTwoFactorBundle') }}</a>
+    </div>
+    <div class="clearfix"></div>
+
+{% endblock %}

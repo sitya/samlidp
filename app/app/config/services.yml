@@ -16,30 +16,6 @@ services:
             - '%database_port%'
             - '%samlidp_hostname%'
 
-    appbundle.sha512salted_encoder:
-        class: AppBundle\Security\Sha512Salted    
-    appbundle.twofactor.google:
-        class: Google\Authenticator\GoogleAuthenticator
-    appbundle.twofactor.google.provider:
-        class: AppBundle\Security\TwoFactor\Google\Helper
-        arguments:
-            - '%samlidp_hostname%'
-            - '@appbundle.twofactor.google'
-    appbundle.twofactor.google.interactive_login_listener:
-        class: AppBundle\Security\TwoFactor\Google\InteractiveLoginListener
-        arguments: ['@appbundle.twofactor.google.provider']
-        tags:
-          - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
-    appbundle.twofactor.google.request_listener:
-        class: AppBundle\Security\TwoFactor\Google\RequestListener
-        arguments:
-          - '@appbundle.twofactor.google.provider'
-          - '@security.token_storage'
-          - '@templating'
-          - '@router'
-        tags:
-          - { name: kernel.event_listener, event: kernel.request, method: onCoreRequest, priority: -1 }
-
     # appbundle.idpuser_authenticator:
     #    class: AppBundle\Security\IdPUserAuthenticator
 
@@ -79,8 +55,39 @@ services:
                     key: "%s3client_key%"
                     secret: "%s3client_secret%"
 
+
+    appbundle.webauthn_credentialstore:
+        class: AppBundle\Security\CredentialStore
+        arguments: ["@doctrine.orm.entity_manager"]
+
+    appbundle.two_factor.provider.webauthn:
+        class: AppBundle\Security\TwoFactor\WebauthnTwoFactorProvider
+        tags:
+          - { name: scheb_two_factor.provider, alias: webauthn }
+        arguments:
+            - "@appbundle.two_factor.security.webauthn.form_renderer"
+            - "@request_stack"
+            - "@madwizard_webauthn.manager"
+        public: true
+
+    appbundle.two_factor.security.webauthn.form_renderer:
+        class: AppBundle\Security\TwoFactor\WebauthnTwoFactorFormRenderer
+        arguments:
+            - "@twig"
+            - "@doctrine.orm.entity_manager"
+            - "@madwizard_webauthn.manager"
+            - "@security.token_storage"
+            - "@router"
+
+    appbundle.twig.extension.sha1:
+        class: AppBundle\Twig\AppExtension
+        tags:
+            - {name: twig.extension}
+        public: true
+
     appbundle.command.create.user:
         class: AppBundle\Command\CreateUserCommand
         arguments: ["@fos_user.user_manager"]
         tags:
             - {name: console.command}
+            

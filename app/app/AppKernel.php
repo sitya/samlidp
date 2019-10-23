@@ -1,5 +1,4 @@
 <?php
-
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
@@ -24,6 +23,9 @@ class AppKernel extends Kernel
             new Oneup\FlysystemBundle\OneupFlysystemBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Staffim\RollbarBundle\StaffimRollbarBundle(),
+            new MadWizard\WebAuthnBundle\MadWizardWebAuthnBundle(),
+            new Scheb\TwoFactorBundle\SchebTwoFactorBundle(),
+            new Endroid\QrCodeBundle\EndroidQrCodeBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

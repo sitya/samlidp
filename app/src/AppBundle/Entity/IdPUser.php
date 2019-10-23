@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 /**
- * IdPUser.
+ * IdPUser. Users whom authenticated by IdPs.
  *
  * @ORM\Table(name="idp_internal_mysql_user", uniqueConstraints={
  *     @ORM\UniqueConstraint(name="username_uniq", columns={"username", "idp_id"}),

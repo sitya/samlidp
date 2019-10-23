@@ -1,14 +1,19 @@
 <?php
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use MadWizard\WebAuthn\Format\ByteBuffer;
+use Scheb\TwoFactorBundle\Model\Totp\TotpConfiguration;
+use Scheb\TwoFactorBundle\Model\Totp\TotpConfigurationInterface;
+use Scheb\TwoFactorBundle\Model\Totp\TwoFactorInterface;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\Table(name="fos_user")
  */
-class User extends BaseUser
+class User extends BaseUser implements TwoFactorInterface
 {
     /**
      * @ORM\Id
@@ -40,6 +45,27 @@ class User extends BaseUser
      * @ORM\Column(type="string", length=16, nullable=true)
      */
     private $googleAuthenticatorCode = null;
+
+    /**
+     * @ORM\OneToMany(targetEntity="WebauthnCredential", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $webauthnCredentials;
+
+    /**
+     * @ORM\Column(name="totpSecret", type="string", nullable=true)
+     */
+    private $totpSecret;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $userHandleBase64Url;
+
+    public function __construct()
+    {
+        $this->webauthnCredentials = new ArrayCollection();
+    }
+
 
     /**
      * Add idP
@@ -173,5 +199,84 @@ class User extends BaseUser
     public function getGoogleAuthenticatorCode()
     {
         return $this->googleAuthenticatorCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWebauthnCredentials()
+    {
+        return $this->webauthnCredentials;
+    }
+
+    /**
+     * @param mixed $webauthnCredentials
+     */
+    public function setWebauthnCredentials($webauthnCredentials): void
+    {
+        $this->webauthnCredentials = $webauthnCredentials;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserHandleBase64Url()
+    {
+        return $this->userHandleBase64Url;
+    }
+
+    /**
+     * @param mixed $totpSecret
+     */
+    public function setTotpSecret($totpSecret): void
+    {
+        $this->totpSecret = $totpSecret;
+    }
+
+    /**
+     * @param $usernameCanonical
+     * @return BaseUser
+     */
+    public function setUsernameCanonical($usernameCanonical)
+    {
+        $this->setUserHandleBase64Url($usernameCanonical);
+        return parent::setUsernameCanonical($usernameCanonical);
+    }
+
+
+    // Implement twofactorinterface methods
+
+    /**
+     * @return bool
+     */
+    public function isTotpAuthenticationEnabled(): bool
+    {
+        return $this->totpSecret ? true : false;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTotpAuthenticationUsername(): string
+    {
+        return $this->username;
+    }
+
+    /**
+     * @return TotpConfigurationInterface
+     */
+    public function getTotpAuthenticationConfiguration(): TotpConfigurationInterface
+    {
+        // You could persist the other configuration options in the user entity to make it individual per user.
+        return new TotpConfiguration($this->totpSecret, TotpConfiguration::ALGORITHM_SHA1, 30, 6);
+    }
+
+    /**
+     * @param $usernameCanonical
+     */
+    private function setUserHandleBase64Url($usernameCanonical): void
+    {
+        $userHandle = ByteBuffer::fromHex(sha1($usernameCanonical));
+        $this->userHandleBase64Url = $userHandle->getBase64Url();
     }
 }
