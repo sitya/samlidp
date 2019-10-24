@@ -3,8 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -118,6 +118,12 @@ class IdP
     private $federations;
 
     /**
+     * @var
+     * @ORM\OneToMany(targetEntity="ApiToken", mappedBy="idp")
+     */
+    private $apiTokens;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -129,6 +135,7 @@ class IdP
         $this->domains = new \Doctrine\Common\Collections\ArrayCollection();
         $this->federations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->entities = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->apiTokens = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function __toString()
@@ -750,5 +757,42 @@ class IdP
             }
         }
         return $count;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getApiTokens()
+    {
+        return $this->apiTokens;
+    }
+
+    /**
+     * @param mixed $apiTokens
+     */
+    public function setApiTokens($apiTokens): void
+    {
+        $this->apiTokens = $apiTokens;
+    }
+
+    public function hasApiToken(ApiToken $apiToken)
+    {
+        return in_array($apiToken, $this->apiTokens);
+    }
+
+    public function addApiToken(ApiToken $apiToken)
+    {
+        if ($this->hasApiToken($apiToken)) {
+            throw new \InvalidArgumentException('Token already exists.');
+        }
+        $this->apiTokens->add($apiToken);
+    }
+
+    public function removeApiToken(ApiToken $apiToken)
+    {
+        if (!$this->hasApiToken($apiToken)) {
+            throw new \InvalidArgumentException('Token not exists.');
+        }
+        $this->apiTokens->removeElement($apiToken);
     }
 }

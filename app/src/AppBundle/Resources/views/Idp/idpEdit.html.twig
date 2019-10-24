@@ -180,7 +180,46 @@
 
                 <div class="clearfix"></div>
 
+            <div id="apiTokens">
                 <div class="form-group">
+                    <div class="col-md-4"><h2 class="pull-right">{{ "edit.apitokens"|trans|raw }}</h2></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8 col-md-offset-4">
+                        {% if idp.apiTokens|length == 0 %}
+                            <p>{{ "edit.apitokens_text"|trans|raw }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8 col-md-offset-4">
+                        <div class="apitokenCollection">
+                            {% for apitokenform in apitokenforms %}
+                                {{ form(apitokenform) }}
+                                <a href="{{ path('idp_apitoken_delete', {id: apitokenform.vars.value.id}) }}" class="btn btn-danger btn-xs pull-right m-b">{{ 'edit.apitoken_delete_label'|trans|raw }}</a>
+                                <div class="clearfix"></div>
+                            {% endfor %}
+                        </div>
+                        <div id="newApiToken" class="collapse">
+                            {{ form(newapitokenform) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="form-group" style="margin-top: 0.5em;">
+                    <div class="col-sm-8 col-sm-offset-4">
+                        <a class="btn btn-success btn-xs pull-right button-add-apitoken" data-toggle="collapse" data-target="#newApiToken"><i class="fa fa-plus"></i> {{ "edit.apitoken_add"|trans|raw }}</a>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-8 col-md-offset-4 pull-right hr-line-dashed"></div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="form-group">
                     <div class="col-md-4"><h2 class="pull-right">{{ "edit.federation"|trans|raw }}</h2><div class="clearfix"></div><p class="pull-right"><a href="{{ path('app_default_docs')}}" target="_blank">{{ "edit.federation_more_docs"|trans|raw }}</a></p></div>
                 </div>
                 <div class="row">
@@ -630,6 +669,37 @@
             badge.html(scopedusers);
         }
 
+        /** apitokens **/
+        $(document).ready(function() {
+            let regenerate_random = $('.regenerate-random');
+            regenerate_random.each(function( index ) {
+                $(this).wrap('<div class="input-group"></div>');
+                $(this).after('<span class="input-group-addon"><i class="fa fa-refresh regenerate-random-button"></i></span>')
+            });
+            let toggle_password = $('.toggle-password');
+            toggle_password.each(function( index ) {
+                $(this).attr('type', 'password');
+                $(this).closest('.input-group').append('<span class="input-group-addon"><i class="fa fa-eye toggle-password-button"></i></span>')
+            });
+        });
+
+        $(document).on('click', '.toggle-password-button', function(event) {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            let input = $($(this).closest('.input-group').find('input'));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+
+        $(document).on('click', '.regenerate-random-button', function(event) {
+            let input = $($(this).closest('.input-group').find('input'));
+            let randomlength = input.data('random-length');
+            let random = generateRandom(randomlength);
+            input.val(random);
+        });
+
         new Clipboard('#verify-button, #metadata-button');
 
         $(document).on('click', '#spaddbutton', function(event) {
@@ -810,6 +880,17 @@
             }
             //$('#sp-settings').modal('toggle');
          });
+
+
+        function generateRandom(length = 32) {
+            let result           = '';
+            let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let charactersLength = characters.length;
+            for ( let i = 0; i < length; i++ ) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
 
     </script>
 {% endblock %}

@@ -2,27 +2,28 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\ApiToken;
+use AppBundle\Entity\Domain;
+use AppBundle\Entity\Entity;
 use AppBundle\Entity\IdP;
 use AppBundle\Entity\OrganizationElement;
-use AppBundle\Entity\Domain;
 use AppBundle\Entity\Scope;
-use AppBundle\Entity\Entity;
+use AppBundle\Form\ApiTokenType;
 use AppBundle\Form\IdPEditType;
 use AppBundle\Form\IdPWizardType;
 use Doctrine\ORM\EntityManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use phpseclib\Crypt\RSA;
 use phpseclib\File\X509;
-use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Translation\DataCollectorTranslator;
 
 /**
@@ -208,11 +209,30 @@ class IdpController extends AppController
 
         $deleteForm = $this->createDeleteForm($id);
 
+        $newApiToken = new ApiToken();
+        $newApiToken->setIdp($idp);
+
+        $newapitokenform = $this->createForm(ApiTokenType::class, $newApiToken,  [
+            'action' => $this->generateUrl('idp_apitoken'),
+            'method' => 'POST',
+        ]);
+
+        $apiTokenFormsViews = [];
+        /** @var ApiToken $apiToken */
+        foreach ($idp->getApiTokens() as $apiToken) {
+            $apiTokenFormsViews[] = $this->createForm(ApiTokenType::class, $apiToken,  [
+                'action' => $this->generateUrl('idp_apitoken'),
+                'method' => 'POST',
+            ])->createView();
+        }
+
         return $this->render($this->getTemplateBundleName() . ':Idp:idpEdit.html.twig', array(
             'idp' => $idp,
             'form' => $form->createView(),
             'federations' => $federations,
             'delete_form' => $deleteForm->createView(),
+            'newapitokenform' => $newapitokenform->createView(),
+            'apitokenforms' => $apiTokenFormsViews,
         ));
     }
 
@@ -1053,6 +1073,50 @@ class IdpController extends AppController
     }
 
     /**
+     * @Route("/apitoken", name="idp_apitoken")
+     * @Method("POST")
+     **/
+    public function apiToken(Request $request)
+    {
+        $apiToken = new ApiToken();
+        $form = $this->createForm(ApiTokenType::class, $apiToken);
+        $form->handleRequest($request);
+
+        $idp = $apiToken->getIdp();
+        $idp->validateAccess($this->getUser());
+
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($apiToken);
+                $em->flush();
+                $this->get('session')->getFlashBag()->add('success', $this->trans('idp.apitoken.add.success'));
+            } else {
+                $this->get('session')->getFlashBag()->add('error', $this->trans('idp.apitoken.add.error'));
+            }
+        }
+
+        return $this->redirect($this->generateUrl('app_idp_idpedit', array('id' => $idp->getId())).'#apiTokens');
+    }
+
+    /**
+     * @Route("/apitokendelete/{id}", name="idp_apitoken_delete")
+     * @Method("GET")
+     **/
+    public function apiTokenDelete(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $apiToken = $em->getRepository(ApiToken::class)->find($id);
+        $idp = $apiToken->getIdp();
+        $idp->validateAccess($this->getUser());
+        $em->remove($apiToken);
+        $em->flush();
+        $this->get('session')->getFlashBag()->add('success', $this->trans('idp.apitoken.delete.success'));
+
+        return $this->redirect($this->generateUrl('app_idp_idpedit', array('id' => $idp->getId())).'#apiTokens');
+    }
+
+/**
      * Translate from "idp" domain
      * @param $id
      * @param array $placeholders
