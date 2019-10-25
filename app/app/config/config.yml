@@ -109,6 +109,12 @@ oneup_uploader:
             frontend: dropzone
             storage:
                 directory: "%kernel.root_dir%/../web/uploads/tmp/"
+        massimport_from_api:
+            frontend: custom
+            custom_frontend:
+                class: AppBundle\Controller\ApiUserUploadController
+                name: massimport_from_api
+
 oneup_flysystem:
     adapters:
         appbundle.flysystem_adapter:

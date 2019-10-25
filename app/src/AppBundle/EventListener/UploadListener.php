@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\EventListener;
 
+use AppBundle\Entity\IdP;
 use Doctrine\Common\Persistence\ObjectManager;
 use Oneup\UploaderBundle\Event\PostPersistEvent;
 use Port\Csv\CsvReader;
@@ -51,18 +52,26 @@ class UploadListener
 
     public function onUpload(PostPersistEvent $event)
     {
+        $config = $event->getConfig();
+        if ($event->getRequest()->get('idpId')){
+            $idp_id = $event->getRequest()->get('idpId');
+        } elseif (array_key_exists("idpId", $config)) {
+            $idp_id = $config['idpId'];
+        } else {
+            throw new \InvalidArgumentException("IdP id not found in upload event");
+        }
+        /** @var IdP $idp */
+        $idp = $this->om->getRepository('AppBundle:IdP')->find($idp_id);
+
         switch ($event->getType()) {
             case 'idplogos':
                 //TODO owner validation
-                $idp = $this->om->getRepository('AppBundle:IdP')->find($event->getRequest()->get('idpId'));
                 $idp->setLogo($event->getFile()->getPath());
                 $this->om->persist($idp);
                 $this->om->flush();
                 break;
 
             case 'massimport':
-                $idp = $this->om->getRepository('AppBundle:IdP')->find($event->getRequest()->get('idpId'));
-                
                 //TODO owner validation
 
                 $fileObject = new \SplFileObject($event->getFile()->getRealPath());
@@ -138,6 +147,7 @@ class UploadListener
                 break;
             
             default:
+                throw new \UnexpectedValueException("Unexpected event type: ".$event->getType());
                 break;
         }
     }
