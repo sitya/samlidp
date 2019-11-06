@@ -2,25 +2,20 @@
 namespace AppBundle\EventListener;
 
 use AppBundle\Entity\IdP;
+use AppBundle\Utils\IdPUserWriter;
+use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 use Doctrine\Common\Persistence\ObjectManager;
+use JMS\Serializer\Serializer;
 use Oneup\UploaderBundle\Event\PostPersistEvent;
 use Port\Csv\CsvReader;
-use Port\Steps\StepAggregator as Workflow;
-
 use Port\Steps\Step\ValidatorStep;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validator\RecursiveValidator as Validator;
-
-use AppBundle\Utils\IdPUserWriter;
-use JMS\Serializer\Serializer;
-
+use Port\Steps\StepAggregator as Workflow;
 use Swift_Mailer as Mailer;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Twig_Environment as Twig;
-
-use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 
 class UploadListener
 {
@@ -36,8 +31,20 @@ class UploadListener
     private $doctrine;
     private $samlidp_hostname;
     private $translator;
+    private $mailer_sender;
 
-    public function __construct(ObjectManager $om, Serializer $serializer, ValidatorInterface $validator, Router $router, Twig $twig, Mailer $mailer, Doctrine $doctrine, $samlidp_hostname, Translator $translator)
+    public function __construct(
+        ObjectManager $om,
+        Serializer $serializer,
+        ValidatorInterface $validator,
+        Router $router,
+        Twig $twig,
+        Mailer $mailer,
+        Doctrine $doctrine,
+        $samlidp_hostname,
+        Translator $translator,
+        $mailer_sender
+    )
     {
         $this->om = $om;
         $this->serializer = $serializer;
@@ -48,6 +55,7 @@ class UploadListener
         $this->doctrine = $doctrine;
         $this->samlidp_hostname = $samlidp_hostname;
         $this->translator = $translator;
+        $this->mailer_sender = $mailer_sender;
     }
 
     public function onUpload(PostPersistEvent $event)
@@ -127,7 +135,7 @@ class UploadListener
                 );
 
                 $workflow = new Workflow($reader);
-                $workflow->addWriter(new IdPUserWriter($idp, $this->om, $this->mailer, $this->router, $this->twig, $this->doctrine, $this->samlidp_hostname, $this->translator));
+                $workflow->addWriter(new IdPUserWriter($idp, $this->om, $this->mailer, $this->router, $this->twig, $this->doctrine, $this->samlidp_hostname, $this->translator, $this->mailer_sender));
                 $workflow->addStep($validatorStep);
 
                 $result = $workflow

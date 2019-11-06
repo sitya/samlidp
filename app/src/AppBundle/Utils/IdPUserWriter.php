@@ -40,8 +40,9 @@ class IdPUserWriter implements Writer
     private $doctrine;
     private $samlidp_hostname;
     private $translator;
+    private $mailer_sender;
 
-    public function __construct(IdP $idp, EntityManager $em, \Swift_Mailer $mailer, Router $router, Environment $twig, Doctrine $doctrine, $samlidp_hostname, Translator $translator)
+    public function __construct(IdP $idp, EntityManager $em, \Swift_Mailer $mailer, Router $router, Environment $twig, Doctrine $doctrine, $samlidp_hostname, Translator $translator, $mailer_sender)
     {
         $this->idp = $idp;
         $this->em = $em;
@@ -51,6 +52,7 @@ class IdPUserWriter implements Writer
         $this->doctrine = $doctrine;
         $this->samlidp_hostname = $samlidp_hostname;
         $this->translator = $translator;
+        $this->mailer_sender = $mailer_sender;
     }
 
     /**
@@ -137,9 +139,8 @@ class IdPUserWriter implements Writer
         $idpuser->setConfirmationToken($token);
         try {
             $this->em->persist($idpuser);
-            $this->em->flush();
-            IdPUserHelper::sendPasswordResetToken($idpuser, $token, $this->router, $this->twig, $this->mailer, $this->getParameter('mailer_sender'), 'sendPasswordCreateToken');
-
+            $this->em->flush($idpuser);
+            IdPUserHelper::sendPasswordResetToken($idpuser, $token, $this->router, $this->twig, $this->mailer, $this->mailer_sender, 'sendPasswordCreateToken');
         } catch (\Exception $e) {
             throw new Exception($e);
         }
