@@ -514,6 +514,38 @@
         <source>idp.sp.add.already_known</source>
         <target>Your Identity Provider already knows that Service Provider via %federation_name%</target>
       </trans-unit>
+      <trans-unit id="LkhEhJm" resname="edit.apitokens">
+        <source>edit.apitokens</source>
+        <target>API tokens</target>
+      </trans-unit>
+      <trans-unit id="1s0XCc2" resname="edit.apitoken-name-label">
+        <source>edit.apitoken-name-label</source>
+        <target>Token name</target>
+      </trans-unit>
+      <trans-unit id="mlRO7hB" resname="edit.apitoken_clientid_label">
+        <source>edit.apitoken_clientid_label</source>
+        <target>Client ID</target>
+      </trans-unit>
+      <trans-unit id="Mp8rYE_" resname="edit.apitoken_secret_label">
+        <source>edit.apitoken_secret_label</source>
+        <target>Secret</target>
+      </trans-unit>
+      <trans-unit id="m8zoxIt" resname="edit.apitoken_submit_label">
+        <source>edit.apitoken_submit_label</source>
+        <target>Submit</target>
+      </trans-unit>
+      <trans-unit id="M16Jkxh" resname="edit.apitoken_delete_label">
+        <source>edit.apitoken_delete_label</source>
+        <target>Delete</target>
+      </trans-unit>
+      <trans-unit id="dqQF1Kw" resname="edit.apitoken_add">
+        <source>edit.apitoken_add</source>
+        <target>Add new API token</target>
+      </trans-unit>
+      <trans-unit id="0eJVpOm" resname="edit.apitokens_text">
+        <source>edit.apitokens_text</source>
+        <target>__edit.apitokens_text</target>
+      </trans-unit>
       <trans-unit id="0Wd9pix" resname="idp.edit.organizationNames.label">
         <source>idp.edit.organizationNames.label</source>
         <target>Organization name</target>

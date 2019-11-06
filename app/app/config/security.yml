@@ -14,11 +14,23 @@ security:
             entity:
                 class: AppBundle:IdPUser
                 property: username
+        apitoken_provider:
+            entity:
+                class: AppBundle:ApiToken
+                property: clientId
+
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        api:
+            pattern: ^/api/
+            guard:
+                authenticators:
+                    - appbundle.tokenauthenticator
+                provider: apitoken_provider
+            stateless: true
         main:
             pattern: ^/
             form_login:
@@ -34,3 +46,4 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_SUPER_ADMIN }
         - { path: ^/easy_admin/, role: ROLE_SUPER_ADMIN }
+        - { path: ^/api, role: ROLE_API }
