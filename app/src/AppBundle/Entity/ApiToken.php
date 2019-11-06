@@ -49,6 +49,11 @@ class ApiToken implements UserInterface
      */
     private $idp;
 
+    public function __toString()
+    {
+        return $this->displayName;
+    }
+
     /**
      * Get id.
      *
