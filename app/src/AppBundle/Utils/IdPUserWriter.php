@@ -9,7 +9,7 @@ use AppBundle\Entity\IdP;
 use AppBundle\Entity\IdPUser;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
-use Symfony\Component\Translation\DataCollectorTranslator;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Twig\Environment;
 
 /**
@@ -41,7 +41,7 @@ class IdPUserWriter implements Writer
     private $samlidp_hostname;
     private $translator;
 
-    public function __construct(IdP $idp, EntityManager $em, \Swift_Mailer $mailer, Router $router, Environment $twig, Doctrine $doctrine, $samlidp_hostname, DataCollectorTranslator $translator)
+    public function __construct(IdP $idp, EntityManager $em, \Swift_Mailer $mailer, Router $router, Environment $twig, Doctrine $doctrine, $samlidp_hostname, Translator $translator)
     {
         $this->idp = $idp;
         $this->em = $em;

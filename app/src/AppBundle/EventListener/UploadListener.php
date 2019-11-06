@@ -8,7 +8,7 @@ use Port\Csv\CsvReader;
 use Port\Steps\StepAggregator as Workflow;
 
 use Port\Steps\Step\ValidatorStep;
-use Symfony\Component\Translation\DataCollectorTranslator;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\RecursiveValidator as Validator;
 
@@ -37,7 +37,7 @@ class UploadListener
     private $samlidp_hostname;
     private $translator;
 
-    public function __construct(ObjectManager $om, Serializer $serializer, ValidatorInterface $validator, Router $router, Twig $twig, Mailer $mailer, Doctrine $doctrine, $samlidp_hostname, DataCollectorTranslator $translator)
+    public function __construct(ObjectManager $om, Serializer $serializer, ValidatorInterface $validator, Router $router, Twig $twig, Mailer $mailer, Doctrine $doctrine, $samlidp_hostname, Translator $translator)
     {
         $this->om = $om;
         $this->serializer = $serializer;
