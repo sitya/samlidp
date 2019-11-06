@@ -24,7 +24,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
      */
     public function supports(Request $request)
     {
-        return $request->headers->has('X-AUTH-TOKEN') && $request->headers->has('X-AUTH-CLIENT_ID');
+        return $request->headers->has('X-AUTH-TOKEN') && $request->headers->has('X-AUTH-CLIENT-ID');
     }
 
     /**
@@ -35,7 +35,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     {
         return [
             'token' => $request->headers->get('X-AUTH-TOKEN'),
-            'clientId' => $request->headers->get('X-AUTH-CLIENT_ID'),
+            'clientId' => $request->headers->get('X-AUTH-CLIENT-ID'),
         ];
     }
 
@@ -87,8 +87,8 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         if (!$request->headers->has('X-AUTH-TOKEN')){
             $reason .= " X-AUTH-TOKEN header is missing.";
         }
-        if (!$request->headers->has('X-AUTH-CLIENT_ID')){
-            $reason .= " X-AUTH-CLIENT_ID header is missing.";
+        if (!$request->headers->has('X-AUTH-CLIENT-ID')){
+            $reason .= " X-AUTH-CLIENT-ID header is missing.";
         }
         $data = [
             // you might translate this message
