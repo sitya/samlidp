@@ -120,7 +120,7 @@ class IdPUserWriter implements Writer
     {
         $this->setProperties($idpuser, $item);
         try {
-            $this->em->flush();
+            $this->em->flush($idpuser);
         } catch (\Exception $e) {
             throw new Exception($e);
         }
@@ -151,7 +151,7 @@ class IdPUserWriter implements Writer
         $idpuser->setDeleted(true);
         $idpuser->saltUser();
         $this->em->persist($idpuser);
-        $this->em->flush();
+        $this->em->flush($idpuser);
     }
 
     private function setProperties(IdPUser $idpuser, $item)
