@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3397ddf75e553dd4001488c3bccf2755",
+    "content-hash": "0ac5f1e1f895514a30823d3160f23464",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -2396,12 +2396,12 @@
             "version": "v4.6.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/oscarotero/Gettext.git",
+                "url": "https://github.com/php-gettext/Gettext.git",
                 "reference": "93176b272d61fb58a9767be71c50d19149cb1e48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oscarotero/Gettext/zipball/93176b272d61fb58a9767be71c50d19149cb1e48",
+                "url": "https://api.github.com/repos/php-gettext/Gettext/zipball/93176b272d61fb58a9767be71c50d19149cb1e48",
                 "reference": "93176b272d61fb58a9767be71c50d19149cb1e48",
                 "shasum": ""
             },
@@ -2860,7 +2860,7 @@
                 "sparkpost",
                 "symfony"
             ],
-            "time": "2017-05-18 17:44:43"
+            "time": "2017-05-18T17:44:43+00:00"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -2955,6 +2955,7 @@
                 "translation",
                 "twig"
             ],
+            "abandoned": "simplesamlphp/twig-configurable-i18n",
             "time": "2018-10-10T09:12:46+00:00"
         },
         {
@@ -3779,7 +3780,7 @@
                     "email": "shelburt02@gmail.com"
                 },
                 {
-                    "name": "Théo FIDRY",
+                    "name": "Théo Fidry",
                     "email": "theo.fidry@gmail.com"
                 }
             ],
@@ -4781,16 +4782,16 @@
         },
         {
             "name": "robrichards/xmlseclibs",
-            "version": "3.0.3",
+            "version": "3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/robrichards/xmlseclibs.git",
-                "reference": "406c68ac9124db033d079284b719958b829cb830"
+                "reference": "0a53d3c3aa87564910cae4ed01416441d3ae0db5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/robrichards/xmlseclibs/zipball/406c68ac9124db033d079284b719958b829cb830",
-                "reference": "406c68ac9124db033d079284b719958b829cb830",
+                "url": "https://api.github.com/repos/robrichards/xmlseclibs/zipball/0a53d3c3aa87564910cae4ed01416441d3ae0db5",
+                "reference": "0a53d3c3aa87564910cae4ed01416441d3ae0db5",
                 "shasum": ""
             },
             "require": {
@@ -4815,7 +4816,7 @@
                 "xml",
                 "xmldsig"
             ],
-            "time": "2018-11-15T11:59:02+00:00"
+            "time": "2019-11-05T11:44:22+00:00"
         },
         {
             "name": "rollbar/rollbar",
@@ -7291,7 +7292,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "7.2.*"
+        "php": "7.3.*"
     },
     "platform-dev": []
 }
