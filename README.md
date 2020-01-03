@@ -23,10 +23,21 @@ Using this service is free, but donations are welcome and will go towards furthe
 
 1. Clone this repository
 1. Grab your wildcard certificate from your CA, use `wildcard_certificate.key/wildcard_certificate.crt` names for them.
-1. Encrypt the key: `openssl aes256 -md sha256 -a -salt -k $VAULT_PASS -in wildcard_certificate.key -out wildcard_certificate.key.enc`
-then put the certificate and the encrypted key into `conf/credentials` folder. You will need this `$VAULT_PASS` for starting the app, so save it. Depending your CA but you may have to merge the certificatechain into `wildcard_certificate.crt`.
-1. Configure storage service in `app/app/config/config.yml` and logging service in `app/app/config/config_prod.yml`. There are lots of [Monolog handlers](https://github.com/Seldaek/monolog/tree/master/src/Monolog/Handler) you can use directly.
-1. Generate a self-signed certificate for the attribute release checking service, which will be deployed to `attributes.$SAMLIDP_HOSTNAME`. `cd conf/credentials && openssl req -new -newkey rsa:2048 -x509 -days 3652 -nodes -out attributes.$SAMLIDP_HOSTNAME.crt -keyout attributes.$SAMLIDP_HOSTNAME.key`. Important: value of `CN` must be `$SAMLIDP_HOSTNAME`. In case the attribute release checking service page fails to open and you get an error `Unable to load private key from file "/app/vendor/simplesamlphp/simplesamlphp/cert/attributes.$SAMLIDP_HOSTNAME` make sure the key file has appropriate read permissions and build the image again.
+1. Encrypt the key:
+   `openssl aes256 -md sha256 -a -salt -k $VAULT_PASS -in wildcard_certificate.key -out wildcard_certificate.key.enc`
+   then put the certificate and the encrypted key into
+   `conf/credentials` folder. You will need this `$VAULT_PASS` for
+   starting the app, so save it. Depending your CA but you may have to
+   merge the certificatechain into `wildcard_certificate.crt`.
+1. Configure storage service in `app/app/config/config.yml` and logging service in `app/app/config/config_prod.yml`.
+   There are lots of [Monolog handlers](https://github.com/Seldaek/monolog/tree/master/src/Monolog/Handler) you can use directly.
+1. Generate a self-signed certificate for the attribute release checking service, which will be deployed to `attributes.$SAMLIDP_HOSTNAME`.
+   `cd conf/credentials && openssl req -new -newkey rsa:2048 -x509 -days 3652 -nodes -out attributes.$SAMLIDP_HOSTNAME.crt -keyout attributes.$SAMLIDP_HOSTNAME.key`.
+   **Important:** value of `CN` must be `$SAMLIDP_HOSTNAME`.
+   In case the attribute release checking service page fails to open and you get an error
+   `Unable to load private key from file "/app/vendor/simplesamlphp/simplesamlphp/cert/attributes.$SAMLIDP_HOSTNAME`
+   make sure the key file has appropriate read permissions and build the
+   image again.
 1. Build the image: `docker build -t samli/nren .`
 1. Edit `docker-compose.yml`, fill the values environment variables. (See details below)
 1. Start the service: `docker-compose up`
@@ -42,29 +53,27 @@ then put the certificate and the encrypted key into `conf/credentials` folder. Y
 
 ### Parameters
 
-| Parameter | Description |
-|-----------|-------------|
-| `SAMLIDP_RUNNING_MODE` | `frontend` or `backend`. Backend does the metadata processing of the handled federations. Frontend does everything else. **Required** |
-| `SAMLIDP_HOSTNAME` | FQDN for your samlidp instance. **Required** |
-| `VAULT_PASS` | Encryption key for samlidp secret variables. At the moment used for encrypt/decrypt key of the wildcard certificate.  **Required** |
-| `DATABASE_HOST` | The database server IP address. **Required** |
-| `DATABASE_PORT` | The database server port. (3306 for mysql, 5432 for postgresql) **Required** |
-| `DATABASE_DRIVER` | The database type. Tested with: `pdo_mysql`, `pdo_pgsql`. **Required**|
-| `DATABASE_VERSION` | The database version. **Required** |
-| `DATABASE_NAME` | The database database name. **Required** |
-| `DATABASE_USER` | The database database user. **Required** |
-| `DATABASE_PASSWORD` | The database database password.  **Required** |
-| `MAILER_HOST` | SMTP server host **Required**|
-| `MAILER_PORT` | SMTP server port **Required**|
-| `ENCRYPTION` | SMTP encryption (tls, ssl) **Required**|
-| `MAILER_USER` | SMTP username **Required**|
-| `MAILER_PASSWORD` | SMTP password **Required**|
-| `MAILER_SENDER` | From address for mails sent by the app **Required**|
-| `ROLLBAR_ACCESS_TOKEN` | Access token for rollbar.com. If you like to examine the potential exceptions. *Optional*|
-| `S3_KEY` | S3 access key. Needed if you use S3 backend for storing logos.  *Optional*|
-| `S3_SECRET` | S3 secret key *Optional*|
-| `S3_REGIO` | S3 regio *Optional*|
-| `S3_BUCKET` | S3 bucket *Optional*|
-| `REMOTE_LOGSERVER_AND_PORT` | Remote syslog `@@host:port` for TCP, `@host:port` for UDP *Optional*|
-
-
+| Parameter                   | Description                                                                                                                           |
+| -----------                 | -------------                                                                                                                         |
+| `SAMLIDP_RUNNING_MODE`      | `frontend` or `backend`. Backend does the metadata processing of the handled federations. Frontend does everything else. **Required** |
+| `SAMLIDP_HOSTNAME`          | FQDN for your samlidp instance. **Required**                                                                                          |
+| `VAULT_PASS`                | Encryption key for samlidp secret variables. At the moment used for encrypt/decrypt key of the wildcard certificate.  **Required**    |
+| `DATABASE_HOST`             | The database server IP address. **Required**                                                                                          |
+| `DATABASE_PORT`             | The database server port. (3306 for mysql, 5432 for postgresql) **Required**                                                          |
+| `DATABASE_DRIVER`           | The database type. Tested with: `pdo_mysql`, `pdo_pgsql`. **Required**                                                                |
+| `DATABASE_VERSION`          | The database version. **Required**                                                                                                    |
+| `DATABASE_NAME`             | The database database name. **Required**                                                                                              |
+| `DATABASE_USER`             | The database database user. **Required**                                                                                              |
+| `DATABASE_PASSWORD`         | The database database password.  **Required**                                                                                         |
+| `MAILER_HOST`               | SMTP server host **Required**                                                                                                         |
+| `MAILER_PORT`               | SMTP server port **Required**                                                                                                         |
+| `MAILER_ENCRYPTION`         | SMTP encryption (tls, ssl) **Required**                                                                                               |
+| `MAILER_USER`               | SMTP username **Required**                                                                                                            |
+| `MAILER_PASSWORD`           | SMTP password **Required**                                                                                                            |
+| `MAILER_SENDER`             | From address for mails sent by the app **Required**                                                                                   |
+| `ROLLBAR_ACCESS_TOKEN`      | Access token for rollbar.com. If you like to examine the potential exceptions. *Optional*                                             |
+| `S3_KEY`                    | S3 access key. Needed if you use S3 backend for storing logos.  *Optional*                                                            |
+| `S3_SECRET`                 | S3 secret key *Optional*                                                                                                              |
+| `S3_REGIO`                  | S3 regio *Optional*                                                                                                                   |
+| `S3_BUCKET`                 | S3 bucket *Optional*                                                                                                                  |
+| `REMOTE_LOGSERVER_AND_PORT` | Remote syslog `@@host:port` for TCP, `@host:port` for UDP *Optional*                                                                  |

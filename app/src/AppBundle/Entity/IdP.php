@@ -167,9 +167,9 @@ class IdP
             } else {
                 $samlidp_hostname = substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.')+1);
             }
-            
+
         }
-                
+
         return 'https://'.$this->getHostname().'.' . $samlidp_hostname . '/saml2/idp/metadata.php';
     }
 
@@ -563,7 +563,7 @@ class IdP
             } else {
                 $samlidp_hostname = substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.')+1);
             }
-            
+
         }
         foreach ($this->getScopeObjects() as $scope) {
             $domain = $scope->getDomain();
@@ -607,7 +607,7 @@ class IdP
             } else {
                 $samlidp_hostname = substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.')+1);
             }
-            
+
         }
 
         if (empty($this->defaultScope)) {
