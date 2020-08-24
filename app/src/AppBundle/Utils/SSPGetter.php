@@ -205,7 +205,11 @@ class SSPGetter
             );
         }
         # for production use here could come some error handling
-        return $idpUser->getSalt();
+        if (is_null($idpUser)){
+                return null;
+        } else {
+                return $idpUser->getSalt();
+        }
     }
 
     public function getAuthsources()

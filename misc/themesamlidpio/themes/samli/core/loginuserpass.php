@@ -16,7 +16,7 @@ $loader = require '/app/vendor/autoload.php';
 
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 
-$kernel = new AppKernel('dev', true);
+$kernel = new AppKernel('prod', true);
 $kernel->boot();
 $container = $kernel->getContainer();
 $sspgetter = $container->get('appbundle.sspgetter');
