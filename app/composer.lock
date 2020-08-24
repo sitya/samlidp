@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3397ddf75e553dd4001488c3bccf2755",
+    "content-hash": "0ac5f1e1f895514a30823d3160f23464",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -514,6 +514,7 @@
             ],
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
             "homepage": "https://github.com/container-interop/container-interop",
+            "abandoned": "psr/container",
             "time": "2017-02-14T19:40:03+00:00"
         },
         {
@@ -2396,12 +2397,12 @@
             "version": "v4.6.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/oscarotero/Gettext.git",
+                "url": "https://github.com/php-gettext/Gettext.git",
                 "reference": "93176b272d61fb58a9767be71c50d19149cb1e48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oscarotero/Gettext/zipball/93176b272d61fb58a9767be71c50d19149cb1e48",
+                "url": "https://api.github.com/repos/php-gettext/Gettext/zipball/93176b272d61fb58a9767be71c50d19149cb1e48",
                 "reference": "93176b272d61fb58a9767be71c50d19149cb1e48",
                 "shasum": ""
             },
@@ -2458,12 +2459,12 @@
             "version": "2.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mlocati/cldr-to-gettext-plural-rules.git",
+                "url": "https://github.com/php-gettext/Languages.git",
                 "reference": "78db2d17933f0765a102f368a6663f057162ddbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mlocati/cldr-to-gettext-plural-rules/zipball/78db2d17933f0765a102f368a6663f057162ddbd",
+                "url": "https://api.github.com/repos/php-gettext/Languages/zipball/78db2d17933f0765a102f368a6663f057162ddbd",
                 "reference": "78db2d17933f0765a102f368a6663f057162ddbd",
                 "shasum": ""
             },
@@ -2860,7 +2861,7 @@
                 "sparkpost",
                 "symfony"
             ],
-            "time": "2017-05-18 17:44:43"
+            "time": "2017-05-18T17:44:43+00:00"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -2955,6 +2956,7 @@
                 "translation",
                 "twig"
             ],
+            "abandoned": "simplesamlphp/twig-configurable-i18n",
             "time": "2018-10-10T09:12:46+00:00"
         },
         {
@@ -3779,7 +3781,7 @@
                     "email": "shelburt02@gmail.com"
                 },
                 {
-                    "name": "Théo FIDRY",
+                    "name": "Théo Fidry",
                     "email": "theo.fidry@gmail.com"
                 }
             ],
@@ -3881,17 +3883,17 @@
         },
         {
             "name": "oneup/uploader-bundle",
-            "version": "1.9.2",
+            "version": "1.9.3",
             "target-dir": "Oneup/UploaderBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/1up-lab/OneupUploaderBundle.git",
-                "reference": "a32bc98019abfd51531d08cc79be19f849d87b84"
+                "reference": "d59fcd2e5f675ee83c53965e16d21a942e90a9ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/1up-lab/OneupUploaderBundle/zipball/a32bc98019abfd51531d08cc79be19f849d87b84",
-                "reference": "a32bc98019abfd51531d08cc79be19f849d87b84",
+                "url": "https://api.github.com/repos/1up-lab/OneupUploaderBundle/zipball/d59fcd2e5f675ee83c53965e16d21a942e90a9ef",
+                "reference": "d59fcd2e5f675ee83c53965e16d21a942e90a9ef",
                 "shasum": ""
             },
             "require": {
@@ -3952,19 +3954,19 @@
                 "plupload",
                 "upload"
             ],
-            "time": "2017-12-18T12:41:59+00:00"
+            "time": "2020-02-04T10:37:36+00:00"
         },
         {
             "name": "pagerfanta/pagerfanta",
             "version": "v2.1.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/whiteoctober/Pagerfanta.git",
+                "url": "https://github.com/BabDev/Pagerfanta.git",
                 "reference": "45a85ad426316ae37f2d007022e5b4c95bc3aef4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/whiteoctober/Pagerfanta/zipball/45a85ad426316ae37f2d007022e5b4c95bc3aef4",
+                "url": "https://api.github.com/repos/BabDev/Pagerfanta/zipball/45a85ad426316ae37f2d007022e5b4c95bc3aef4",
                 "reference": "45a85ad426316ae37f2d007022e5b4c95bc3aef4",
                 "shasum": ""
             },
@@ -4020,6 +4022,12 @@
                 "pagination",
                 "paginator",
                 "paging"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/mbabker",
+                    "type": "github"
+                }
             ],
             "time": "2019-04-02T08:50:39+00:00"
         },
@@ -4965,6 +4973,7 @@
                 "configuration",
                 "distribution"
             ],
+            "abandoned": true,
             "time": "2018-12-14T17:36:15+00:00"
         },
         {
@@ -5209,12 +5218,12 @@
             ],
             "authors": [
                 {
-                    "name": "Olav Morken",
-                    "email": "olav.morken@uninett.no"
-                },
-                {
                     "name": "Andreas Åkre Solberg",
                     "email": "andreas.solberg@uninett.no"
+                },
+                {
+                    "name": "Olav Morken",
+                    "email": "olav.morken@uninett.no"
                 },
                 {
                     "name": "Jaime Perez",
@@ -5383,6 +5392,7 @@
             "keywords": [
                 "rollbar"
             ],
+            "abandoned": true,
             "time": "2016-04-12T10:12:15+00:00"
         },
         {
@@ -6745,6 +6755,7 @@
                 "psr",
                 "psr-7"
             ],
+            "abandoned": "laminas/laminas-diactoros",
             "time": "2018-09-05T19:29:37+00:00"
         }
     ],
@@ -7211,6 +7222,7 @@
                 }
             ],
             "description": "This bundle generates code for you",
+            "abandoned": "symfony/maker-bundle",
             "time": "2017-12-07T15:36:41+00:00"
         },
         {
@@ -7291,7 +7303,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "7.2.*"
+        "php": "7.3.*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
