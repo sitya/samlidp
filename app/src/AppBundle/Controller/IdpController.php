@@ -2,27 +2,28 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\ApiToken;
+use AppBundle\Entity\Domain;
+use AppBundle\Entity\Entity;
 use AppBundle\Entity\IdP;
 use AppBundle\Entity\OrganizationElement;
-use AppBundle\Entity\Domain;
 use AppBundle\Entity\Scope;
-use AppBundle\Entity\Entity;
+use AppBundle\Form\ApiTokenType;
 use AppBundle\Form\IdPEditType;
 use AppBundle\Form\IdPWizardType;
 use Doctrine\ORM\EntityManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use phpseclib\Crypt\RSA;
 use phpseclib\File\X509;
-use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Translation\DataCollectorTranslator;
 
 /**
@@ -121,6 +122,8 @@ class IdpController extends AppController
     public function idpEditAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
+        /** @var IdP $idp */
         $idp = $em->getRepository('AppBundle:IdP')->find($id);
         if (!$idp) {
             throw $this->createNotFoundException($this->trans('edit.404.exception'));
@@ -146,73 +149,125 @@ class IdpController extends AppController
 
         $form = $this->createForm(IdPEditType::class, $idp);
 
-        $instituteName = new OrganizationElement();
-        $instituteName->setType('Name');
-        $instituteName->setLang('en');
-        $instituteName->setIdP($idp);
+        if (! $idp->hasRequiredInstituteName()) {
+            $instituteName = $this->generateRequiredInstituteName($idp);
+            $idp->addOrganizationElement($instituteName);
+        }
+        if (! $idp->hasRequiredInstituteUrl()) {
+            $instituteUrl = $this->generateRequiredInstituteUrl($idp);
+            $idp->addOrganizationElement($instituteUrl);
+        }
 
-        $instituteUrl = new OrganizationElement();
-        $instituteUrl->setType('InformationUrl');
-        $instituteUrl->setLang('en');
-        $instituteUrl->setIdP($idp);
-
+        $organizationNames = [];
+        $organizationInformationURLs = [];
         foreach ($idp->getOrganizationElements() as $oe) {
-            if ($oe->getType() == 'Name') {
-                $form->get('instituteName')->setData($oe->getValue());
-                $instituteName = $oe;
-            }
-            if ($oe->getType() == 'InformationUrl') {
-                $form->get('instituteUrl')->setData($oe->getValue());
-                $instituteUrl = $oe;
+            switch ($oe->getType()) {
+                case 'Name':
+                    $organizationNames[] = $oe;
+                    break;
+                case 'InformationURL':
+                    $organizationInformationURLs[] = $oe;
+                    break;
+                default:
+                    //throw new \UnexpectedValueException('unexpected organizationElement type: '.$oe->getType());
+                    break;
             }
         }
+        $form->get('organizationNames')->setData($organizationNames);
+        $form->get('organizationInformationURLs')->setData($organizationInformationURLs);
 
         $form->handleRequest($request);
 
-        if (empty($form->get('instituteName')->getData()) && $form->isSubmitted()) {
-            $error_message = $this->trans('edit.validate.organizationname.notblank');
-            $formerror = new FormError($error_message);
-            $form->get('instituteName')->addError($formerror);
+        if ($form->isSubmitted()) {
+
+            $this->validateOrganizationElements($form);
+
+            if ($form->isValid()) {
+
+                /*
+                 * remove removed elements,
+                 * add new elements
+                 */
+
+                $idpsOrganizationNames = [];
+                $formOrganizationNames = $form->get('organizationNames')->getData();
+                $idpsOrganizationInformationURLs = [];
+                $formOrganizationInformationURLs = $form->get('organizationInformationURLs')->getData();
+                foreach ($idp->getOrganizationElements() as $organizationElement) {
+                    switch ($organizationElement->getType()){
+                        case "Name":
+                            $idpsOrganizationNames[] = $organizationElement;
+                            break;
+                        case "InformationURL":
+                            $idpsOrganizationInformationURLs[] = $organizationElement;
+                            break;
+                    }
+                }
+
+                $toRemoveOrganizationNames = array_diff($idpsOrganizationNames, $formOrganizationNames);
+                $toAddOrganizationNames = array_diff($formOrganizationNames, $idpsOrganizationNames);
+
+                foreach ($toRemoveOrganizationNames as $toRemoveOrganizationName) {
+                    $idp->removeOrganizationElement($toRemoveOrganizationName);
+                }
+                foreach ($toAddOrganizationNames as $toAddOrganizationName) {
+                    $idp->addOrganizationElement($toAddOrganizationName);
+                }
+
+                $toRemoveOrganizationInformationURLs = array_diff($idpsOrganizationInformationURLs, $formOrganizationInformationURLs);
+                $toAddOrganizationInformationURLs = array_diff($formOrganizationInformationURLs, $idpsOrganizationInformationURLs);
+
+                foreach ($toRemoveOrganizationInformationURLs as $toRemoveOrganizationInformationURL) {
+                    $idp->removeOrganizationElement($toRemoveOrganizationInformationURL);
+                }
+                foreach ($toAddOrganizationInformationURLs as $toAddOrganizationInformationURL) {
+                    $idp->addOrganizationElement($toAddOrganizationInformationURL);
+                }
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($idp);
+                $em->flush();
+
+                $message = $this->trans('edit.idp_updated_successful');
+                if ($create) {
+                    $message = $this->trans('edit.create_step_second_success');
+                }
+                $this->get('session')->getFlashBag()->add('success', $message);
+
+                return $this->redirect($this->generateUrl('app_idp_idpedit', array('id' => $idp->getId())).'#domaindiv');
+            }
+
         }
 
-        if (empty($form->get('instituteUrl')->getData()) && $form->isSubmitted()) {
-            $error_message = $this->trans('edit.validate.organizationurl.notblank');
-            $formerror = new FormError($error_message);
-            $form->get('instituteUrl')->addError($formerror);
-        }
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('instituteName') != $instituteName->getValue()) {
-                $instituteName->setValue($form->get('instituteName')->getData());
-                $em->persist($instituteName);
-            }
-            if ($form->get('instituteUrl') != $instituteUrl->getValue()) {
-                $instituteUrl->setValue($form->get('instituteUrl')->getData());
-                $em->persist($instituteUrl);
-            }
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($idp);
-            $em->flush();
-
-            $message = $this->trans('edit.idp_updated_successful');
-            if ($create) {
-                $message = $this->trans('edit.create_step_second_success');
-            }
-            $this->get('session')->getFlashBag()->add('success', $message);
-
-            return $this->redirect($this->generateUrl('app_idp_idpedit', array('id' => $idp->getId())).'#domaindiv');
-        }
 
         $federations = $em->getRepository('AppBundle:Federation')->findBy(array(), array('name' => 'ASC'));
 
         $deleteForm = $this->createDeleteForm($id);
+
+        $newApiToken = new ApiToken();
+        $newApiToken->setIdp($idp);
+
+        $newapitokenform = $this->createForm(ApiTokenType::class, $newApiToken,  [
+            'action' => $this->generateUrl('idp_apitoken'),
+            'method' => 'POST',
+        ]);
+
+        $apiTokenFormsViews = [];
+        /** @var ApiToken $apiToken */
+        foreach ($idp->getApiTokens() as $apiToken) {
+            $apiTokenFormsViews[] = $this->createForm(ApiTokenType::class, $apiToken,  [
+                'action' => $this->generateUrl('idp_apitoken'),
+                'method' => 'POST',
+            ])->createView();
+        }
 
         return $this->render($this->getTemplateBundleName() . ':Idp:idpEdit.html.twig', array(
             'idp' => $idp,
             'form' => $form->createView(),
             'federations' => $federations,
             'delete_form' => $deleteForm->createView(),
+            'newapitokenform' => $newapitokenform->createView(),
+            'apitokenforms' => $apiTokenFormsViews,
         ));
     }
 
@@ -1053,6 +1108,78 @@ class IdpController extends AppController
     }
 
     /**
+     * @Route("/apitoken", name="idp_apitoken")
+     * @Method("POST")
+     **/
+    public function apiToken(Request $request)
+    {
+        $apiToken = new ApiToken();
+        $form = $this->createForm(ApiTokenType::class, $apiToken);
+        $form->handleRequest($request);
+
+        $idp = $apiToken->getIdp();
+        $idp->validateAccess($this->getUser());
+
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($apiToken);
+                $em->flush();
+                $this->get('session')->getFlashBag()->add('success', $this->trans('idp.apitoken.add.success'));
+            } else {
+                $this->get('session')->getFlashBag()->add('error', $this->trans('idp.apitoken.add.error'));
+            }
+        }
+
+        return $this->redirect($this->generateUrl('app_idp_idpedit', array('id' => $idp->getId())).'#apiTokens');
+    }
+
+    /**
+     * @Route("/apitokendelete/{id}", name="idp_apitoken_delete")
+     * @Method("GET")
+     **/
+    public function apiTokenDelete(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $apiToken = $em->getRepository(ApiToken::class)->find($id);
+        $idp = $apiToken->getIdp();
+        $idp->validateAccess($this->getUser());
+        $em->remove($apiToken);
+        $em->flush();
+        $this->get('session')->getFlashBag()->add('success', $this->trans('idp.apitoken.delete.success'));
+
+        return $this->redirect($this->generateUrl('app_idp_idpedit', array('id' => $idp->getId())).'#apiTokens');
+    }
+
+    /**
+     * @param IdP $idp
+     * @return OrganizationElement
+     */
+    private function generateRequiredInstituteName(IdP $idp)
+    {
+        $instituteName = new OrganizationElement();
+        $instituteName->setType('Name');
+        $instituteName->setLang('en');
+        $instituteName->setIdP($idp);
+
+        return $instituteName;
+    }
+
+    /**
+     * @param IdP $idp
+     * @return OrganizationElement
+     */
+    private function generateRequiredInstituteUrl(IdP $idp)
+    {
+        $instituteUrl = new OrganizationElement();
+        $instituteUrl->setType('InformationURL');
+        $instituteUrl->setLang('en');
+        $instituteUrl->setIdP($idp);
+
+        return $instituteUrl;
+    }
+
+    /**
      * Translate from "idp" domain
      * @param $id
      * @param array $placeholders
@@ -1063,5 +1190,50 @@ class IdpController extends AppController
         /** @var DataCollectorTranslator $translator */
         $translator = $this->get('translator');
         return $translator->trans($id, $placeholders, 'idp');
+    }
+
+    /**
+     * @param \Symfony\Component\Form\FormInterface $form
+     */
+    private function validateOrganizationElements(\Symfony\Component\Form\FormInterface &$form)
+    {
+        /**
+         * Validate to:
+         * dont duplicate lang
+         * "en" is required both.
+         * has to have value
+         */
+
+        $langs = [];
+        /** @var OrganizationElement $organizationElement */
+        foreach ($form->get('organizationNames')->getData() as $organizationElement) {
+            if (empty($organizationElement->getValue())) {
+                $form->get('organizationNames')->addError(new FormError($this->trans('edit.validate.organizationNames.notblank')));
+            }
+            $currentLang = $organizationElement->getLang();
+            if (in_array($currentLang, $langs) && $form->isSubmitted()) {
+                $form->get('organizationNames')->addError(new FormError($this->trans('edit.validate.organizationNames.notUniqueLang')));
+            }
+            $langs[] = $currentLang;
+        }
+        if (!in_array('en', $langs)) {
+            $form->get('organizationNames')->addError(new FormError($this->trans('edit.validate.organizationNames.notEnLang')));
+        }
+        $langs = [];
+        /** @var OrganizationElement $organizationElement */
+        foreach ($form->get('organizationInformationURLs')->getData() as $organizationElement) {
+            if (empty($organizationElement->getValue())) {
+                $form->get('organizationNames')->addError(new FormError($this->trans('edit.validate.organizationUrls.notblank')));
+            }
+            $currentLang = $organizationElement->getLang();
+            if (in_array($currentLang, $langs) && $form->isSubmitted()) {
+                $form->get('organizationInformationURLs')->addError(new FormError($this->trans('edit.validate.organizationInformationURLs.notUniqueLang')));
+            }
+            $langs[] = $currentLang;
+        }
+        if (!in_array('en', $langs)) {
+            $form->get('organizationNames')->addError(new FormError($this->trans('edit.validate.organizationUrls.notEnLang')));
+        }
+
     }
 }

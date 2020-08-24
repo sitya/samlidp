@@ -514,6 +514,94 @@
         <source>idp.sp.add.already_known</source>
         <target>Your Identity Provider already knows that Service Provider via %federation_name%</target>
       </trans-unit>
+      <trans-unit id="LkhEhJm" resname="edit.apitokens">
+        <source>edit.apitokens</source>
+        <target>API tokens</target>
+      </trans-unit>
+      <trans-unit id="1s0XCc2" resname="edit.apitoken-name-label">
+        <source>edit.apitoken-name-label</source>
+        <target>Token name</target>
+      </trans-unit>
+      <trans-unit id="mlRO7hB" resname="edit.apitoken_clientid_label">
+        <source>edit.apitoken_clientid_label</source>
+        <target>Client ID</target>
+      </trans-unit>
+      <trans-unit id="Mp8rYE_" resname="edit.apitoken_secret_label">
+        <source>edit.apitoken_secret_label</source>
+        <target>Secret</target>
+      </trans-unit>
+      <trans-unit id="m8zoxIt" resname="edit.apitoken_submit_label">
+        <source>edit.apitoken_submit_label</source>
+        <target>Submit</target>
+      </trans-unit>
+      <trans-unit id="M16Jkxh" resname="edit.apitoken_delete_label">
+        <source>edit.apitoken_delete_label</source>
+        <target>Delete</target>
+      </trans-unit>
+      <trans-unit id="dqQF1Kw" resname="edit.apitoken_add">
+        <source>edit.apitoken_add</source>
+        <target>Add new API token</target>
+      </trans-unit>
+      <trans-unit id="0eJVpOm" resname="edit.apitokens_text">
+        <source>edit.apitokens_text</source>
+        <target>__edit.apitokens_text</target>
+      </trans-unit>
+      <trans-unit id="0Wd9pix" resname="idp.edit.organizationNames.label">
+        <source>idp.edit.organizationNames.label</source>
+        <target>Organization name</target>
+      </trans-unit>
+      <trans-unit id="yAc3Gi4" resname="language.label">
+        <source>language.label</source>
+        <target>Language</target>
+      </trans-unit>
+      <trans-unit id="uu1lOwv" resname="institute.name.label">
+        <source>institute.name.label</source>
+        <target>Organization name</target>
+      </trans-unit>
+      <trans-unit id="gLu7N8r" resname="idp.edit.organizationInformationURLs.label">
+        <source>idp.edit.organizationInformationURLs.label</source>
+        <target>Organization URL</target>
+      </trans-unit>
+      <trans-unit id="Gm.V1Dk" resname="institute.url.label">
+        <source>institute.url.label</source>
+        <target>Organization URL</target>
+      </trans-unit>
+      <trans-unit id="r63R1PU" resname="add.organizationName.button">
+        <source>add.organizationName.button</source>
+        <target>Add new language name</target>
+      </trans-unit>
+      <trans-unit id="0iqNUnN" resname="add.organizationURL.button">
+        <source>add.organizationURL.button</source>
+        <target>Add new language URL</target>
+      </trans-unit>
+      <trans-unit id="aanrx2z" resname="delete.organizationElement.button">
+        <source>delete.organizationElement.button</source>
+        <target>Remove</target>
+      </trans-unit>
+      <trans-unit id="kZHMy7P" resname="edit.validate.organizationUrls.notblank">
+        <source>edit.validate.organizationUrls.notblank</source>
+        <target>The organization URL is empty.</target>
+      </trans-unit>
+      <trans-unit id="sFvnPxn" resname="edit.validate.organizationNames.notblank">
+        <source>edit.validate.organizationNames.notblank</source>
+        <target>The organization name is empty.</target>
+      </trans-unit>
+      <trans-unit id="3CBz_Ej" resname="edit.validate.organizationNames.notUniqueLang">
+        <source>edit.validate.organizationNames.notUniqueLang</source>
+        <target>The language of organization name must be unique.</target>
+      </trans-unit>
+      <trans-unit id="Zb84cVF" resname="edit.validate.organizationInformationURLs.notUniqueLang">
+        <source>edit.validate.organizationInformationURLs.notUniqueLang</source>
+        <target>The language organization URL must be unique.</target>
+      </trans-unit>
+      <trans-unit id="ZfURJFH" resname="edit.validate.organizationNames.notEnLang">
+        <source>edit.validate.organizationNames.notEnLang</source>
+        <target>The english organization name is mandatory.</target>
+      </trans-unit>
+      <trans-unit id="0.AEZPj" resname="edit.validate.organizationUrls.notEnLang">
+        <source>edit.validate.organizationUrls.notEnLang</source>
+        <target>The english organization URL is mandatory.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

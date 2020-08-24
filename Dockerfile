@@ -12,7 +12,7 @@ ADD conf/nginx/nginx-site.conf /etc/nginx/sites-available/default.conf
 ADD app /app
 RUN mkdir /app/var
 RUN cd /app && php -d memory_limit=-1 /usr/bin/composer update --optimize-autoloader --no-interaction
-RUN mkdir -p /app/web/images/idp_logo /app/web/uploads/tmp && chown -Rf nginx /app/var /app/web/images/idp_logo /app/web/uploads/tmp
+RUN mkdir -p /app/web/images/idp_logo /app/web/uploads/tmp && chown -Rf nginx /app/var /app/web/images/idp_logo /app/web/uploads
 
 RUN mkdir /app/vendor/simplesamlphp/simplesamlphp/cert && chown nginx /app/vendor/simplesamlphp/simplesamlphp/cert
 ADD conf/credentials/attributes* /app/vendor/simplesamlphp/simplesamlphp/cert/

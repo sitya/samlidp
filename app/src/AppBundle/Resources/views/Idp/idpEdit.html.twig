@@ -33,8 +33,7 @@
             <div class="form-group"><label class="col-sm-4 control-label required" for="id_p_edit_instituteName"></label>
                 <div class="col-sm-8">https://{{ idp.hostname }}.{{ samlidp_hostname }} {% block IdpDomainCheck %}{% endblock IdpDomainCheck %}</div>
             </div>
-            {{ form_row(form.instituteName) }}
-            {{ form_row(form.instituteUrl) }}
+            {{ form_widget(form) }}
             {{ form_end(form) }}
 
             <div class="row">
@@ -180,7 +179,46 @@
 
                 <div class="clearfix"></div>
 
+            <div id="apiTokens">
                 <div class="form-group">
+                    <div class="col-md-4"><h2 class="pull-right">{{ "edit.apitokens"|trans|raw }}</h2></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8 col-md-offset-4">
+                        {% if idp.apiTokens|length == 0 %}
+                            <p>{{ "edit.apitokens_text"|trans|raw }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8 col-md-offset-4">
+                        <div class="apitokenCollection">
+                            {% for apitokenform in apitokenforms %}
+                                {{ form(apitokenform) }}
+                                <a href="{{ path('idp_apitoken_delete', {id: apitokenform.vars.value.id}) }}" class="btn btn-danger btn-xs pull-right m-b">{{ 'edit.apitoken_delete_label'|trans|raw }}</a>
+                                <div class="clearfix"></div>
+                            {% endfor %}
+                        </div>
+                        <div id="newApiToken" class="collapse">
+                            {{ form(newapitokenform) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="form-group" style="margin-top: 0.5em;">
+                    <div class="col-sm-8 col-sm-offset-4">
+                        <a class="btn btn-success btn-xs pull-right button-add-apitoken" data-toggle="collapse" data-target="#newApiToken"><i class="fa fa-plus"></i> {{ "edit.apitoken_add"|trans|raw }}</a>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-8 col-md-offset-4 pull-right hr-line-dashed"></div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="form-group">
                     <div class="col-md-4"><h2 class="pull-right">{{ "edit.federation"|trans|raw }}</h2><div class="clearfix"></div><p class="pull-right"><a href="{{ path('app_default_docs')}}" target="_blank">{{ "edit.federation_more_docs"|trans|raw }}</a></p></div>
                 </div>
                 <div class="row">
@@ -630,6 +668,37 @@
             badge.html(scopedusers);
         }
 
+        /** apitokens **/
+        $(document).ready(function() {
+            let regenerate_random = $('.regenerate-random');
+            regenerate_random.each(function( index ) {
+                $(this).wrap('<div class="input-group"></div>');
+                $(this).after('<span class="input-group-addon"><i class="fa fa-refresh regenerate-random-button"></i></span>')
+            });
+            let toggle_password = $('.toggle-password');
+            toggle_password.each(function( index ) {
+                $(this).attr('type', 'password');
+                $(this).closest('.input-group').append('<span class="input-group-addon"><i class="fa fa-eye toggle-password-button"></i></span>')
+            });
+        });
+
+        $(document).on('click', '.toggle-password-button', function(event) {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            let input = $($(this).closest('.input-group').find('input'));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+
+        $(document).on('click', '.regenerate-random-button', function(event) {
+            let input = $($(this).closest('.input-group').find('input'));
+            let randomlength = input.data('random-length');
+            let random = generateRandom(randomlength);
+            input.val(random);
+        });
+
         new Clipboard('#verify-button, #metadata-button');
 
         $(document).on('click', '#spaddbutton', function(event) {
@@ -810,6 +879,104 @@
             }
             //$('#sp-settings').modal('toggle');
          });
+
+        function generateRandom(length = 32) {
+            let result           = '';
+            let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let charactersLength = characters.length;
+            for ( let i = 0; i < length; i++ ) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+
+        /** organizationNames and URLs**/
+        let $organizationNamesHolder;
+
+        // setup an "add a tag" link
+        let $organizationNamesHolderAddTagButton = $('<button type="button" class="btn btn-success btn-xs pull-right" style="margin-top: 0.5em;">{{ 'add.organizationName.button'|trans }}</button>');
+        let $organizationNamesHolderNewLinkDiv = $('<div></div>').append($organizationNamesHolderAddTagButton);
+
+        $(document).ready(function() {
+            // Get the ul that holds the collection of tags
+            $organizationNamesHolder = $('#id_p_edit_organizationNames');
+
+            // add the "add a tag" anchor and li to the tags ul
+            $organizationNamesHolder.append($organizationNamesHolderNewLinkDiv);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $organizationNamesHolder.data('index', $organizationNamesHolder.find(':input').length);
+
+            $organizationNamesHolderAddTagButton.on('click', function(e) {
+                addTagForm($organizationNamesHolder, $organizationNamesHolderNewLinkDiv);
+            });
+            $organizationNamesHolder.children('.form-group').each(function() {
+                addFormDeleteLink($(this));
+            });
+        });
+
+        let $organizationURLsHolder;
+
+        // setup an "add a tag" link
+        let $organizationURLsHolderAddTagButton = $('<button type="button" class="btn btn-success btn-xs pull-right" style="margin-top: 0.5em;">{{ 'add.organizationURL.button'|trans }}</button>');
+        let $organizationURLsHolderNewLinkDiv = $('<div></div>').append($organizationURLsHolderAddTagButton);
+
+        $(document).ready(function() {
+            // Get the ul that holds the collection of tags
+            $organizationURLsHolder = $('#id_p_edit_organizationInformationURLs');
+
+            // add the "add a tag" anchor and li to the tags ul
+            $organizationURLsHolder.append($organizationURLsHolderNewLinkDiv);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $organizationURLsHolder.data('index', $organizationURLsHolder.find(':input').length);
+
+            $organizationURLsHolderAddTagButton.on('click', function(e) {
+                addTagForm($organizationURLsHolder, $organizationURLsHolderNewLinkDiv);
+            });
+            $organizationURLsHolder.children('.form-group').each(function() {
+                addFormDeleteLink($(this));
+            });
+
+        });
+
+        function addTagForm($collectionHolder, $newLinkDiv) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            var newForm = prototype;
+            // You need this only if you didn't set 'label' => false in your tags field in TaskType
+            // Replace '__name__label__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            // newForm = newForm.replace(/__name__label__/g, index);
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            newForm = newForm.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            let $newFormDiv = $('<div></div>').append(newForm);
+            $newLinkDiv.before($newFormDiv);
+            addFormDeleteLink($newFormDiv);
+        }
+
+        function addFormDeleteLink($formDiv) {
+            let $removeFormButton = $('<button type="button" class="btn btn-danger btn-xs pull-right">{{ "delete.organizationElement.button"|trans }}</button><div class="clearfix"></div>');
+            $formDiv.append($removeFormButton);
+
+            $removeFormButton.on('click', function(e) {
+                // remove the div for the form
+                $formDiv.remove();
+            });
+        }
 
     </script>
 {% endblock %}

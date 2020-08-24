@@ -11,11 +11,6 @@ web_profiler:
     toolbar: true
     intercept_redirects: false
 
-doctrine:
-    dbal:
-        driver: pdo_sqlite
-        path: '%kernel.project_dir%/../app/sqlite.db'
-        charset: UTF8
 monolog:
     handlers:
         main:

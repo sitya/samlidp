@@ -1,25 +1,21 @@
 <?php
 namespace AppBundle\EventListener;
 
+use AppBundle\Entity\IdP;
+use AppBundle\Utils\IdPUserWriter;
+use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 use Doctrine\Common\Persistence\ObjectManager;
+use JMS\Serializer\Serializer;
 use Oneup\UploaderBundle\Event\PostPersistEvent;
 use Port\Csv\CsvReader;
-use Port\Steps\StepAggregator as Workflow;
-
 use Port\Steps\Step\ValidatorStep;
-use Symfony\Component\Translation\DataCollectorTranslator;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validator\RecursiveValidator as Validator;
-
-use AppBundle\Utils\IdPUserWriter;
-use JMS\Serializer\Serializer;
-
+use Port\Steps\StepAggregator as Workflow;
 use Swift_Mailer as Mailer;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Twig_Environment as Twig;
-
-use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 
 class UploadListener
 {
@@ -35,8 +31,20 @@ class UploadListener
     private $doctrine;
     private $samlidp_hostname;
     private $translator;
+    private $mailer_sender;
 
-    public function __construct(ObjectManager $om, Serializer $serializer, ValidatorInterface $validator, Router $router, Twig $twig, Mailer $mailer, Doctrine $doctrine, $samlidp_hostname, DataCollectorTranslator $translator)
+    public function __construct(
+        ObjectManager $om,
+        Serializer $serializer,
+        ValidatorInterface $validator,
+        Router $router,
+        Twig $twig,
+        Mailer $mailer,
+        Doctrine $doctrine,
+        $samlidp_hostname,
+        Translator $translator,
+        $mailer_sender
+    )
     {
         $this->om = $om;
         $this->serializer = $serializer;
@@ -47,22 +55,31 @@ class UploadListener
         $this->doctrine = $doctrine;
         $this->samlidp_hostname = $samlidp_hostname;
         $this->translator = $translator;
+        $this->mailer_sender = $mailer_sender;
     }
 
     public function onUpload(PostPersistEvent $event)
     {
+        $config = $event->getConfig();
+        if ($event->getRequest()->get('idpId')){
+            $idp_id = $event->getRequest()->get('idpId');
+        } elseif (array_key_exists("idpId", $config)) {
+            $idp_id = $config['idpId'];
+        } else {
+            throw new \InvalidArgumentException("IdP id not found in upload event");
+        }
+        /** @var IdP $idp */
+        $idp = $this->om->getRepository('AppBundle:IdP')->find($idp_id);
+
         switch ($event->getType()) {
             case 'idplogos':
                 //TODO owner validation
-                $idp = $this->om->getRepository('AppBundle:IdP')->find($event->getRequest()->get('idpId'));
                 $idp->setLogo($event->getFile()->getPath());
                 $this->om->persist($idp);
                 $this->om->flush();
                 break;
 
             case 'massimport':
-                $idp = $this->om->getRepository('AppBundle:IdP')->find($event->getRequest()->get('idpId'));
-                
                 //TODO owner validation
 
                 $fileObject = new \SplFileObject($event->getFile()->getRealPath());
@@ -118,7 +135,7 @@ class UploadListener
                 );
 
                 $workflow = new Workflow($reader);
-                $workflow->addWriter(new IdPUserWriter($idp, $this->om, $this->mailer, $this->router, $this->twig, $this->doctrine, $this->samlidp_hostname, $this->translator));
+                $workflow->addWriter(new IdPUserWriter($idp, $this->om, $this->mailer, $this->router, $this->twig, $this->doctrine, $this->samlidp_hostname, $this->translator, $this->mailer_sender));
                 $workflow->addStep($validatorStep);
 
                 $result = $workflow
@@ -138,6 +155,7 @@ class UploadListener
                 break;
             
             default:
+                throw new \UnexpectedValueException("Unexpected event type: ".$event->getType());
                 break;
         }
     }
