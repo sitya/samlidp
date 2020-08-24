@@ -30,7 +30,7 @@ ADD conf/simplesamlphp/enable /app/vendor/simplesamlphp/simplesamlphp/modules/co
 
 # rsyslog stuff
 ADD conf/rsyslog/rsyslog.conf /etc/
-ADD conf/rsyslog/logs-eduteams-org.crt /etc/ssl/certs/syslog-ca.crt
+ADD conf/rsyslog/10-simplesamlphp.conf /etc/rsyslog.d/
 ADD misc/rsyslog-start.sh /rsyslog-start.sh
 ADD misc/samlidp-start.sh /samlidp-start.sh
 
